@@ -1,0 +1,472 @@
+{
+    "characters": [
+        "Jill Valentine",
+        "Chris Redfield",
+        "Rebecca Chambers",
+        "Barry Burton",
+        "Brad Vickers",
+        "Enrico Marini",
+        "Albert Wesker",
+        "Richard Aiken",
+        "Edward Dewey",
+        "Joseph Frost",
+        "Kenneth J. Sullivan",
+        "Forest Speyer",
+        "Albert Wesker (Reserve Only)",
+        "Brad Vickers (Reserve Only)",
+        "Enrico Marini (Reserve Only)",
+        "Richard Aiken (Reserve Only)"
+    ],
+    "items": [
+        "003 Key",
+        "Acid Rounds",
+        "Aqua Ring Key",
+        "Armour Key",
+        "Assault Shotgun",
+        "Battery",
+        "Blue Gemstone",
+        "Blue Herb",
+        "Broken Shotgun",
+        "Charged Battery",
+        "Crank",
+        "Dagger",
+        "Death Mask",
+        "Dog Whistle",
+        "Eagle Medallion",
+        "Emblem Key",
+        "First Aid Spray",
+        "Flame Thrower",
+        "Fuel Capsule",
+        "Golden Emblem",
+        "Green Herb",
+        "Grenade",
+        "Grenade Launcher",
+        "Grenade Rounds",
+        "Handgun Bullets",
+        "Hangun",
+        "Helmet Key",
+        "Herbicide",
+        "Imitation Key",
+        "Incendiary Rounds",
+        "Insect Spray",
+        "Kerosene Container",
+        "Knife",
+        "Knife (Knife only)",
+        "Lighter",
+        "Magnum",
+        "Magnum Bullets",
+        "Master of Knifing",
+        "Metal Object",
+        "MO Disk",
+        "Moon File",
+        "Moon Tome",
+        "Music Notes",
+        "Old Key",
+        "Power Key",
+        "Red Herb",
+        "Rocket Launcher",
+        "Self Defence Gun",
+        "Shield Key",
+        "Shotgun",
+        "Shotgun Shells",
+        "Solution",
+        "Star File",
+        "Star Tome",
+        "Stone Ring",
+        "Stone & Metal Object",
+        "Stun Gun",
+        "Sun File",
+        "Sun Tome",
+        "Sword Key",
+        "Unprinted Book",
+        "V-Jolt",
+        "Wind Crest",
+        "Wolf Medallion",
+        "Wooden Emblem",
+        "Yellow Gemstone"
+    ],
+    "mission": [
+        "Above And Beyond",
+        "Blue Gem Into The Tiger Statue",
+        "Burning Bodies",
+        "Decoy",
+        "Defeat The Fountain Plant",
+        "Emergency",
+        "Finding Someplace Safe",
+        "Forced Retreat",
+        "Get The Serum!",
+        "Gunshot",
+        "Mission Of Mercy",
+        "Problem Solving",
+        "Proving Their Innocence",
+        "Radio Call",
+        "Rescue",
+        "Rooting Out The Traitor",
+        "Scouting Ahead",
+        "Screams",
+        "Searching For MO Disks",
+        "Searching For Survivors",
+        "Securing An Escape Route",
+        "Securing An Escape Route",
+        "Supply Run",
+        "Take Point",
+        "Teamwork",
+        "The Graveyard Puzzle",
+        "Travel To Item Box",
+        "Under Attack!",
+        "Yellow Gem Into The Tiger Statue",
+        "…You're Alive?!"
+    ],
+    "narrative": [
+        "Architect's Notebook",
+        "Animosity",
+        "Assassination",
+        "Bleeding Out",
+        "Blood! Hope This Is Not…",
+        "Captured",
+        "Clearing Your Name",
+        "Commotion",
+        "Crimson Tide",
+        "Crow's Nest",
+        "Damning Evidence",
+        "Dangerous Puzzle",
+        "Dangerous To Go Alone",
+        "Deadly Pursuit",
+        "Escaped Prototype",
+        "Extermination",
+        "Festering Wound",
+        "Handwritten Note",
+        "Harrowing End",
+        "How Convenient",
+        "Hunted",
+        "I Don't Know What Happened…",
+        "Impervious Hide",
+        "Isolated Area",
+        "It's Stuck",
+        "Jammed Cartridge",
+        "Kerosene Container",
+        "Lights Out",
+        "Medical Supply Room",
+        "Mellow And Yellow",
+        "Message In Blood",
+        "Narrow Escape",
+        "Ominous Shadows",
+        "Overcome",
+        "Overcoming The Odds",
+        "Poisoned Teammate",
+        "Radio Warning",
+        "Researcher's Diary",
+        "Save Room",
+        "Second Chance",
+        "Secret Passage Way",
+        "Seeds Of Mistrust",
+        "She's Here!",
+        "Soldier's Note",
+        "Something Valuable",
+        "Spider Lair",
+        "Test Of Character",
+        "Tiger Puzzle",
+        "Too Late",
+        "Traitor Among Us",
+        "Traitor In The Ranks",
+        "Trapped",
+        "Unending Nightmare",
+        "Wounded Teammate"
+    ],
+    "tensionCards": [
+        {
+            "name": "All Clear",
+            "value": "Green"
+        },
+        {
+            "name": "Cleared Out",
+            "value": "Green"
+        },
+        {
+            "name": "Respite",
+            "value": "Green"
+        },
+        {
+            "name": "Supply Cache",
+            "value": "Green"
+        },
+        {
+            "name": "Bee Swarm",
+            "value": "Amber"
+        },
+        {
+            "name": "Cornered",
+            "value": "Amber"
+        },
+        {
+            "name": "Diseased Claws",
+            "value": "Amber"
+        },
+        {
+            "name": "Fevered Assault",
+            "value": "Amber"
+        },
+        {
+            "name": "Flickering Lights",
+            "value": "Amber"
+        },
+        {
+            "name": "Foreboding Scene",
+            "value": "Amber"
+        },
+        {
+            "name": "Frayed Nerves",
+            "value": "Amber"
+        },
+        {
+            "name": "From The Depths",
+            "value": "Amber"
+        },
+        {
+            "name": "Gnawing Fear",
+            "value": "Amber"
+        },
+        {
+            "name": "Keep Quiet!",
+            "value": "Amber"
+        },
+        {
+            "name": "Mission Update",
+            "value": "Amber"
+        },
+        {
+            "name": "No Escape",
+            "value": "Amber"
+        },
+        {
+            "name": "Ominous Feeling",
+            "value": "Amber"
+        },
+        {
+            "name": "Reanimate",
+            "value": "Amber"
+        },
+        {
+            "name": "Sabotage",
+            "value": "Amber"
+        },
+        {
+            "name": "Sinister Echoes",
+            "value": "Amber"
+        },
+        {
+            "name": "Sinister Hiss",
+            "value": "Amber"
+        },
+        {
+            "name": "Tragic Echoes",
+            "value": "Amber"
+        },
+        {
+            "name": "Treacherous Footing",
+            "value": "Amber"
+        },
+        {
+            "name": "Unfolding Events",
+            "value": "Amber"
+        },
+        {
+            "name": "Virulent Blood",
+            "value": "Amber"
+        },
+        {
+            "name": "Waterlogged",
+            "value": "Amber"
+        },
+        { 
+            "name": "Claws From The Ceiling",
+            "value": "Red"
+        },
+        { 
+            "name": "Countdown To Explosion",
+            "value": "Red"
+        },
+        { 
+            "name": "Crimson Rage",
+            "value": "Red"
+        },
+        { 
+            "name": "Deathly Rasp",
+            "value": "Red"
+        },
+        { 
+            "name": "Dragged Shackles",
+            "value": "Red"
+        },
+        { 
+            "name": "Hunter's Prey",
+            "value": "Red"
+        },
+        { 
+            "name": "Infestation",
+            "value": "Red"
+        },
+        { 
+            "name": "Keeper's Diary",
+            "value": "Red"
+        },
+        { 
+            "name": "Murder of Crows",
+            "value": "Red"
+        },
+        { 
+            "name": "Out of the Shadows",
+            "value": "Red"
+        },
+        { 
+            "name": "Overrun",
+            "value": "Red"
+        },
+        { 
+            "name": "Shattering Glass",
+            "value": "Red"
+        },
+        { 
+            "name": "Smashed Asunder",
+            "value": "Red"
+        },
+        { 
+            "name": "Three Minutes Until Explosion",
+            "value": "Red"
+        },
+        { 
+            "name": "Vigour Mortis",
+            "value": "Red"
+        },
+        { 
+            "name": "Waterway Open",
+            "value": "Red"
+        }
+    ],
+    "scenarios": [
+        {
+            "name": "1st Floor West A",
+            "discovered": true
+        },
+        {
+            "name": "2nd Floor West A",
+            "discovered": true
+        },
+        {
+            "name": "1st Floor East A",
+            "discovered": true
+        },
+        {
+            "name": "2nd Floor East A",
+            "discovered": true
+        },
+        {
+            "name": "1st Floor West B",
+            "discovered": false
+        },
+        {
+            "name": "2nd Floor West B",
+            "discovered": false
+        },
+        {
+            "name": "1st Floor East B",
+            "discovered": false
+        },
+        {
+            "name": "2nd Floor East B",
+            "discovered": false
+        },
+        {
+            "name": "1st Floor West C",
+            "discovered": false
+        },
+        {
+            "name": "1st Floor East C",
+            "discovered": false
+        },
+        {
+            "name": "2nd Floor East C",
+            "discovered": false
+        },
+        {
+            "name": "3rd Floor A",
+            "discovered": false
+        },
+        {
+            "name": "3rd Floor B",
+            "discovered": false
+        },
+        {
+            "name": "Basement",
+            "discovered": false
+        },
+        {
+            "name": "Crypts A",
+            "discovered": true
+        },
+        {
+            "name": "Crypts B",
+            "discovered": true
+        },
+        {
+            "name": "Garden A",
+            "discovered": false
+        },
+        {
+            "name": "Garden B",
+            "discovered": false
+        },
+        {
+            "name": "Garden C",
+            "discovered": false
+        },
+        {
+            "name": "Caves A",
+            "discovered": false
+        },
+        {
+            "name": "Caves B",
+            "discovered": false
+        },
+        {
+            "name": "Caves C",
+            "discovered": false
+        },
+        {
+            "name": "Guard House A",
+            "discovered": false
+        },
+        {
+            "name": "Guard House B",
+            "discovered": false
+        },
+        {
+            "name": "Guard House C",
+            "discovered": false
+        },
+        {
+            "name": "Aqua Ring A",
+            "discovered": false
+        },
+        {
+            "name": "Aqua Ring B",
+            "discovered": false
+        },
+        {
+            "name": "Lab A",
+            "discovered": false
+        },
+        {
+            "name": "Lab B",
+            "discovered": false
+        },
+        {
+            "name": "Lab C",
+            "discovered": false
+        },
+        {
+            "name": "Helipad",
+            "discovered": false
+        }
+    ]
+}

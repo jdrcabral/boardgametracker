@@ -1,0 +1,1900 @@
+<html>
+    <head>
+        <title>Resident Evil - Board Game Tracker</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script> -->
+    </head>
+    <body>
+        <div class="container">
+            <h3>Characters</h3>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <select class="form-select" aria-label="Character Select 1" id="characterSelect1">
+                                    <option>Select Character</option>
+                                </select>
+                                <label for="customRange1" class="form-label">Health</label>
+                                <input type="number" min="1" max="5" class="form-control" id="characterHealth1">
+                                <h5>Inventory</h5>
+                                    <div class="container">
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <p>Handgun</p>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="Ammo" aria-label="Ammo" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <select class="form-select" aria-label="Character Select 2" id="characterSelect2">
+                                    <option>Select Character</option>
+                                </select>
+                                <label for="customRange1" class="form-label">Health</label>
+                                <input type="number" min="1" max="5" class="form-control" id="characterHealth2">
+                                <h5>Inventory</h5>
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <p>Handgun</p>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="Ammo" aria-label="Ammo" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    <hr/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <select class="form-select" aria-label="Character Select 3" id="characterSelect3">
+                                    <option>Select Character</option>
+                                </select>
+                                <label for="customRange1" class="form-label">Health</label>
+                                <input type="number" min="1" max="5" class="form-control" id="characterHealth3">
+                                <h5>Inventory</h5>
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <p>Handgun</p>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="Ammo" aria-label="Ammo" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    <hr/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <select class="form-select" aria-label="Character Select 4" id="characterSelect4">
+                                    <option>Select Character</option>
+                                </select>
+                                <label for="customRange1" class="form-label">Health</label>
+                                <input type="number" min="1" max="5" class="form-control" id="characterHealth4">
+                                <h5>Inventory</h5>
+                                    <div class="container">
+                                        <div class="row text-center">
+                                            <div class="col">
+                                                <p>Handgun</p>
+                                            </div>
+                                            <div class="col">
+                                                <input type="number" class="form-control" placeholder="Ammo" aria-label="Ammo" aria-describedby="basic-addon1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="popupMenu" style="display: none;">
+                <ul>
+                  <li><a href="#">Item 1</a></li>
+                  <li><a href="#">Item 2</a></li>
+                  <li><a href="#">Item 3</a></li>
+                </ul>
+              </div>
+            <h3>Reserve</h3>
+            <div class="container">
+                <table class="table" id="reserveCharacters">
+                    <thead>
+                        <tr>
+                            <th scope="col">Character</th>
+                            <th scope="col">Unlocked</th>
+                            <th scope="col">Dead</th>
+                            <th scope="col">Advanced</th>
+                            <th scope="col">Health Tracker</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <hr/>
+            <h3>Mansion Map</h3>
+            <svg
+                id="map"
+                width="100%"
+                height="100%"
+                viewBox="0 0 500 500"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                xmlns:svg="http://www.w3.org/2000/svg"
+            >
+            <g
+            id="layer9"
+            inkscape:label="Root">
+           <g
+              id="BleakOutpost"
+              inkscape:label="BleakOutpost"
+              transform="matrix(1.125641,0,0,1.125641,0.06282051,0)">
+             <g
+                id="Aqua_Ring_B"
+                inkscape:label="Aqua Ring B"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="492.5"
+                  y="313"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,510,343.5)"
+                  pointer-events="all"
+                  id="rect51"
+                  inkscape:label="Aqua Ring B" />
+               <text
+                  x="510"
+                  y="339.68146"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text52"
+                  inkscape:label="Aqua Ring B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan183"
+                    x="510"
+                    y="339.68146">Aqua</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan184"
+                    x="510"
+                    y="354.68146">Ring B</tspan></text>
+             </g>
+             <g
+                id="Aqua_Ring_A"
+                inkscape:label="Aqua Ring A"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="412.5"
+                  y="313"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,343.5)"
+                  pointer-events="all"
+                  id="rect49"
+                  inkscape:label="Aqua Ring A" />
+               <text
+                  x="430"
+                  y="339.68146"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text50"
+                  inkscape:label="Aqua Ring A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan181"
+                    x="430"
+                    y="339.68146">Aqua</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan182"
+                    x="430"
+                    y="354.68146">Ring A</tspan></text>
+             </g>
+             <g
+                id="Guard_House_C"
+                inkscape:label="Guard House C"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="572.5"
+                  y="258"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,590,288.5)"
+                  pointer-events="all"
+                  id="rect59"
+                  inkscape:label="Guard House C" />
+               <text
+                  x="591.6889"
+                  y="286.93332"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text60"
+                  inkscape:label="Guard House C Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan169"
+                    x="591.6889"
+                    y="286.93332">Guard</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan170"
+                    x="591.6889"
+                    y="301.93332">House C</tspan></text>
+             </g>
+             <g
+                id="Guard_House_B"
+                inkscape:label="Guard House B"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="492.5"
+                  y="258"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,510,288.5)"
+                  pointer-events="all"
+                  id="rect53"
+                  inkscape:label="Guard House B" />
+               <text
+                  x="510.84445"
+                  y="285.24442"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text54"
+                  inkscape:label="Guard House B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan167"
+                    x="510.84445"
+                    y="285.24442">Guard</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan168"
+                    x="510.84445"
+                    y="300.24442">House B</tspan></text>
+             </g>
+             <g
+                id="Guard_House_A"
+                inkscape:label="Guard House A"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="412.5"
+                  y="258"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,288.5)"
+                  pointer-events="all"
+                  id="rect47"
+                  inkscape:label="Guard House A" />
+               <text
+                  x="430"
+                  y="285.24442"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text48"
+                  inkscape:label="Guard House A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan165"
+                    x="430"
+                    y="285.24442">Guard</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan166"
+                    x="430"
+                    y="300.24442">House A</tspan></text>
+             </g>
+             <g
+                id="Garden_B"
+                inkscape:label="Garden B"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="412.5"
+                  y="203"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,233.5)"
+                  pointer-events="all"
+                  id="rect45"
+                  inkscape:label="Garden B" />
+               <text
+                  x="430"
+                  y="237"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text46"
+                  inkscape:label="Garden B Text">Garden B</text>
+             </g>
+             <g
+                id="Garden_A"
+                inkscape:label="Garden A"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="412.5"
+                  y="148"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,178.5)"
+                  pointer-events="all"
+                  id="rect43"
+                  inkscape:label="Garden A" />
+               <text
+                  x="430"
+                  y="182"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text44"
+                  inkscape:label="Garden A Text">Garden A</text>
+             </g>
+           </g>
+           <g
+              id="IntoTheDarkness"
+              inkscape:label="IntoTheDarkness"
+              transform="matrix(1.125641,0,0,1.125641,0.06282051,0)">
+             <g
+                transform="translate(0.24785902,-8.9762094)"
+                id="Garden_C"
+                inkscape:label="Garden C">
+               <rect
+                  x="492.5"
+                  y="148"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,505.38797,182.36418)"
+                  pointer-events="all"
+                  id="rect55"
+                  inkscape:label="Garden C" />
+               <text
+                  x="510"
+                  y="192"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text56"
+                  inkscape:label="Garden C Text">Garden C</text>
+             </g>
+             <g
+                id="Caves_C"
+                inkscape:label="Caves C"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="492.5"
+                  y="203"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,510,233.5)"
+                  pointer-events="all"
+                  id="rect57"
+                  inkscape:label="Caves C" />
+               <text
+                  x="510"
+                  y="237"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text58"
+                  inkscape:label="Caves C Text">Caves C</text>
+             </g>
+             <g
+                id="Caves_B"
+                inkscape:label="Caves B"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="572.5"
+                  y="203"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,590,233.5)"
+                  pointer-events="all"
+                  id="rect63"
+                  inkscape:label="Caves B" />
+               <text
+                  x="590"
+                  y="237"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text64"
+                  inkscape:label="Caves B Text">Caves B</text>
+             </g>
+             <g
+                id="Caves_A"
+                inkscape:label="Caves A"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="572.5"
+                  y="148"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,590,178.5)"
+                  pointer-events="all"
+                  id="rect61"
+                  inkscape:label="Caves A" />
+               <text
+                  x="590"
+                  y="182"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text62"
+                  inkscape:label="Caves A Text">Caves A</text>
+             </g>
+             <g
+                id="3rd_Floor_A"
+                inkscape:label="3rd Floor A"
+                transform="translate(-0.5,-0.5)">
+               <switch
+                  id="switch30">
+                 <foreignObject
+                    pointer-events="none"
+                    width="100%"
+                    height="100%"
+                    requiredFeatures="http://www.w3.org/TR/SVG11/feature#Extensibility"
+                    style="overflow: visible; text-align: left;">
+                   <xhtml:div
+                      style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 58px; height: 1px; padding-top: 18px; margin-left: 81px;">
+                     <xhtml:div
+                        data-drawio-colors="color: #000000; "
+                        style="box-sizing: border-box; font-size: 0px; text-align: center;">
+                       <xhtml:div
+                          style="display: inline-block; font-size: 12px; font-family: Helvetica; color: rgb(0, 0, 0); line-height: 1.2; pointer-events: all; white-space: normal; overflow-wrap: normal;">3rd Floor A</xhtml:div>
+                     </xhtml:div>
+                   </xhtml:div>
+                 </foreignObject>
+               </switch>
+               <rect
+                  x="92.5"
+                  y="-12"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,110,18.5)"
+                  pointer-events="all"
+                  id="rect29"
+                  style="display:inline"
+                  inkscape:label="3rd Floor A" />
+               <text
+                  x="110"
+                  y="22"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text30"
+                  inkscape:label="3rd Floor A Text">3rd Floor A</text>
+             </g>
+             <g
+                id="3rd_Floor_B"
+                inkscape:label="3rd Floor B"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="12.5"
+                  y="-12"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,30,18.5)"
+                  pointer-events="all"
+                  id="rect31"
+                  inkscape:label="3rd Floor B" />
+               <text
+                  x="30"
+                  y="22"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text32"
+                  inkscape:label="3rd Floor B Text">3rd Floor B</text>
+             </g>
+             <g
+                id="2nd_Floor_East_C"
+                inkscape:label="2nd Floor East C"
+                transform="translate(-0.5,-0.5)">
+               <rect
+                  x="492.5"
+                  y="48"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,510,78.5)"
+                  pointer-events="all"
+                  id="rect39"
+                  inkscape:label="2nd Floor East C" />
+               <text
+                  x="510"
+                  y="82"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text42"
+                  inkscape:label="2nd Floor East C Text"
+                  style="white-space:pre;inline-size:162.13;display:inline"
+                  transform="translate(0.56296578,-5.0666921)"
+                  xml:space="preserve"><tspan
+                    x="510"
+                    y="82"
+                    id="tspan1">2nd Floor</tspan><tspan
+                    x="510"
+                    y="97.000002"
+                    id="tspan2">East C</tspan></text>
+             </g>
+           </g>
+           <g
+              id="Core"
+              inkscape:label="Core"
+              transform="matrix(1.125641,0,0,1.125641,0.06282051,0)">
+             <g
+                id="MainHall"
+                transform="translate(-0.5,-0.5)"
+                inkscape:label="MainHall">
+               <rect
+                  x="229.38"
+                  y="68"
+                  width="81.25"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,270.01,98.5)"
+                  pointer-events="all"
+                  id="rect1"
+                  inkscape:label="MainHall" />
+               <text
+                  x="270"
+                  y="102"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text4"
+                  inkscape:label="MainHall Text">Main Hall</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Crypts_B"
+                inkscape:label="Crypts B">
+               <rect
+                  x="252.5"
+                  y="148"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(-90,270.5,178)"
+                  pointer-events="all"
+                  id="rect3"
+                  inkscape:label="Crypts B" />
+               <text
+                  x="270"
+                  y="182"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text7"
+                  inkscape:label="Crypts B Text">Crypts B</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Lab_A"
+                inkscape:label="Lab A">
+               <rect
+                  x="252.5"
+                  y="203"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(-90,270.5,233)"
+                  pointer-events="all"
+                  id="rect8"
+                  inkscape:label="Lab A" />
+               <text
+                  x="270"
+                  y="237"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text9"
+                  inkscape:label="Lab A Text">Lab A</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Lab_B"
+                inkscape:label="Lab B">
+               <rect
+                  x="252.5"
+                  y="258"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(-90,270.5,288)"
+                  pointer-events="all"
+                  id="rect10"
+                  inkscape:label="Lab B" />
+               <text
+                  x="270"
+                  y="292"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text11"
+                  inkscape:label="Lab B Text">Lab B</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Lab_C"
+                inkscape:label="Lab C">
+               <rect
+                  x="252.5"
+                  y="313"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(-90,270.5,343)"
+                  pointer-events="all"
+                  id="rect12"
+                  inkscape:label="Lab C" />
+               <text
+                  x="270"
+                  y="347"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text13"
+                  inkscape:label="Lab C Text">Lab C</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Helipad"
+                inkscape:label="Helipad">
+               <rect
+                  x="171.88"
+                  y="203"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(-90,189.88,233)"
+                  pointer-events="all"
+                  id="rect14"
+                  inkscape:label="Helipad" />
+               <text
+                  x="189"
+                  y="237"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text15"
+                  inkscape:label="Helipad Text">Helipad</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Crypts_A"
+                inkscape:label="Crypts A">
+               <rect
+                  x="252.5"
+                  y="-12"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,270,18.5)"
+                  pointer-events="all"
+                  id="rect6"
+                  inkscape:label="Crypts A" />
+               <text
+                  x="270"
+                  y="22"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text16"
+                  inkscape:label="Crypts A Text">Crypts A</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_West_A"
+                inkscape:label="1st Floor West A">
+               <rect
+                  x="171.88"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,189.38,118.5)"
+                  pointer-events="all"
+                  id="rect17"
+                  inkscape:label="1st Floow West A" />
+               <text
+                  x="189"
+                  y="115.24441"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text18"
+                  inkscape:label="1st Floow West A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan193"
+                    x="189"
+                    y="115.24441">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan194"
+                    x="189"
+                    y="130.24442">West A</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_West_B"
+                inkscape:label="1st Floor West B">
+               <rect
+                  x="92.5"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,110,118.5)"
+                  pointer-events="all"
+                  id="rect19"
+                  inkscape:label="1st Floow West B" />
+               <text
+                  x="109.43703"
+                  y="116.37034"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text20"
+                  inkscape:label="1st Floow West B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan191"
+                    x="109.43703"
+                    y="116.37034">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan192"
+                    x="109.43703"
+                    y="131.37033">West B</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_West_C"
+                inkscape:label="1st Floor West C">
+               <rect
+                  x="12.5"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,30,118.5)"
+                  pointer-events="all"
+                  id="rect21"
+                  inkscape:label="1st Floow West C" />
+               <text
+                  x="28.874069"
+                  y="116.37034"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text22"
+                  inkscape:label="1st Floow West C Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan189"
+                    x="28.874069"
+                    y="116.37034">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan190"
+                    x="28.874069"
+                    y="131.37033">West C</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="Basement"
+                inkscape:label="Basement">
+               <rect
+                  x="92.5"
+                  y="148"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,110,178.5)"
+                  pointer-events="all"
+                  id="rect23"
+                  inkscape:label="Basement" />
+               <text
+                  x="110"
+                  y="182"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text24"
+                  inkscape:label="Basement Text">Basement</text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="2nd_Floor_West_A"
+                inkscape:label="2nd Floor West A">
+               <rect
+                  x="171.88"
+                  y="48"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,189.38,78.5)"
+                  pointer-events="all"
+                  id="rect25"
+                  inkscape:label="2nd Floor West A" />
+               <text
+                  x="190.40741"
+                  y="76.933311"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text26"
+                  inkscape:label="2nd Floor West A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan187"
+                    x="190.40741"
+                    y="76.933311">2nd Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan188"
+                    x="190.40741"
+                    y="91.933311">West A</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="2nd_Floor_West_B"
+                inkscape:label="2nd Floor West B">
+               <rect
+                  x="92.5"
+                  y="48"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,110,78.5)"
+                  pointer-events="all"
+                  id="rect27"
+                  inkscape:label="2nd Floor West B" />
+               <text
+                  x="110.56297"
+                  y="76.370346"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text28"
+                  style="display:inline"
+                  inkscape:label="2nd Floor West B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan185"
+                    x="110.56297"
+                    y="76.370346">2nd Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan186"
+                    x="110.56297"
+                    y="91.370346">West B</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_East_A"
+                inkscape:label="1st Floor East A">
+               <rect
+                  x="332.5"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,350,118.5)"
+                  pointer-events="all"
+                  id="rect5"
+                  inkscape:label="1st Floor East A" />
+               <text
+                  x="350"
+                  y="115.24441"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text33"
+                  inkscape:label="1st Floor East A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan175"
+                    x="350"
+                    y="115.24441">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan176"
+                    x="350"
+                    y="130.24442">East A</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="2nd_Floor_East_A"
+                inkscape:label="2nd Floor East A">
+               <rect
+                  x="332.5"
+                  y="48"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,350,78.5)"
+                  pointer-events="all"
+                  id="rect2"
+                  inkscape:label="2nd Floor East A" />
+               <text
+                  x="349.43704"
+                  y="75.244408"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text34"
+                  inkscape:label="2nd Floor East A Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan173"
+                    x="349.43704"
+                    y="75.244408">2nd Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan174"
+                    x="349.43704"
+                    y="90.244408">East A</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_East_B"
+                inkscape:label="1st Floor East B">
+               <rect
+                  x="412.5"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,118.5)"
+                  pointer-events="all"
+                  id="rect36"
+                  inkscape:label="1st Floor East B" />
+               <text
+                  x="430.56296"
+                  y="115.80737"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text37"
+                  inkscape:label="1st Floor East B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan177"
+                    x="430.56296"
+                    y="115.80737">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan178"
+                    x="430.56296"
+                    y="130.80737">East B</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="2nd_Floor_East_B"
+                inkscape:label="2nd Floor East B">
+               <rect
+                  x="412.5"
+                  y="48"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,430,78.5)"
+                  pointer-events="all"
+                  id="rect35"
+                  inkscape:label="2nd Floor East B" />
+               <text
+                  x="430.56296"
+                  y="76.370338"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text38"
+                  inkscape:label="2nd Floor East B Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan171"
+                    x="430.56296"
+                    y="76.370338">2nd Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan172"
+                    x="430.56296"
+                    y="91.370338">East B</tspan></text>
+             </g>
+             <g
+                transform="translate(-0.5,-0.5)"
+                id="1st_Floor_East_C"
+                inkscape:label="1st Floor East C">
+               <rect
+                  x="492.5"
+                  y="88"
+                  width="35"
+                  height="60"
+                  fill="#ffffff"
+                  stroke="#000000"
+                  transform="rotate(90,510,118.5)"
+                  pointer-events="all"
+                  id="rect40"
+                  inkscape:label="1st Floor East C" />
+               <text
+                  x="510.56296"
+                  y="114.68144"
+                  fill="#000000"
+                  font-family="Helvetica"
+                  font-size="12px"
+                  text-anchor="middle"
+                  id="text41"
+                  inkscape:label="1st Floor East C Text"><tspan
+                    sodipodi:role="line"
+                    id="tspan179"
+                    x="510.56296"
+                    y="114.68144">1st Floor</tspan><tspan
+                    sodipodi:role="line"
+                    id="tspan180"
+                    x="510.56296"
+                    y="129.68144">East C</tspan></text>
+             </g>
+           </g>
+           <g
+              id="Paths"
+              inkscape:label="Paths"
+              transform="matrix(1.125641,0,0,1.125641,0.06282051,0)">
+             <g
+                id="Garden_C_-_Caves_A"
+                inkscape:label="Garden C - Caves A">
+               <path
+                  d="m 558.88,178 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path114" />
+               <path
+                  d="m 541.12,178 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path113" />
+               <path
+                  d="m 546.37,178 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path112" />
+             </g>
+             <g
+                id="Caves_B_-_Caves_C"
+                inkscape:label="Caves B - Caves C">
+               <path
+                  d="m 558.88,233 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path117" />
+               <path
+                  d="m 541.12,233 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path116" />
+               <path
+                  d="m 546.37,233 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path115" />
+             </g>
+             <g
+                id="Guard_House_B_-_Guard_House_C"
+                inkscape:label="Guard House B - Guard House C">
+               <path
+                  d="m 558.88,288 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path120" />
+               <path
+                  d="m 541.12,288 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path119" />
+               <path
+                  d="m 546.37,288 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path118" />
+             </g>
+             <g
+                id="Lab_A_-_Helipad"
+                inkscape:label="Lab A - Helipad">
+               <path
+                  d="m 238.89,233 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path123" />
+               <path
+                  d="m 220.5,233 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path122" />
+               <path
+                  d="m 225.75,233 h 7.89"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path121" />
+             </g>
+             <g
+                id="Caves_A_-_Caves_B"
+                inkscape:label="Caves A - Caves B"
+                style="display:inline">
+               <path
+                  d="m 590,214.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path126" />
+               <path
+                  d="m 590,196.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path125" />
+               <path
+                  d="m 590,201.87 v 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path124" />
+             </g>
+             <g
+                id="Garden_A_-_Garden_B"
+                inkscape:label="Garden A - Garden B">
+               <path
+                  d="m 430,214.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path129" />
+               <path
+                  d="m 430,196.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path128" />
+               <path
+                  d="m 430,201.87 v 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path127" />
+             </g>
+             <g
+                id="1st_Floor_East_B_-_Garden_A"
+                inkscape:label="1st Floor East B - Garden A">
+               <path
+                  d="m 430,159.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path132" />
+               <path
+                  d="m 430,136.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path131" />
+               <path
+                  d="m 430,141.87 v 12.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path130" />
+             </g>
+             <g
+                id="Garden_B_-_Guard_House_A"
+                inkscape:label="Garden B - Guard House A"
+                style="display:inline">
+               <path
+                  d="m 430,251.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path135" />
+               <path
+                  d="m 430,269.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path134" />
+               <path
+                  d="m 430,264.13 v -7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path133" />
+             </g>
+             <g
+                id="Guard_House_A_-_Aqua_Ring_A"
+                inkscape:label="Guard House A - Aqua Ring A">
+               <path
+                  d="m 430,324.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path138" />
+               <path
+                  d="m 430,306.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path137" />
+               <path
+                  d="m 430,311.87 v 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path136" />
+             </g>
+             <g
+                id="Aqua_Ring_B_-_Guard_House_B"
+                inkscape:label="Aqua Ring B - Guard House B">
+               <path
+                  d="m 510,324.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path141" />
+               <path
+                  d="m 510,306.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path140" />
+               <path
+                  d="m 510,311.87 v 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path139" />
+             </g>
+             <g
+                id="1st_Floor_East_C_-_Garden_C"
+                inkscape:label="1st Floor East C - Garden C">
+               <path
+                  d="m 510,159.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path144" />
+               <path
+                  d="m 510,136.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path143" />
+               <path
+                  d="m 510,141.87 v 12.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path142" />
+             </g>
+             <g
+                id="Lab_B_-_Lab_C"
+                inkscape:label="Lab B - Lab C">
+               <path
+                  d="m 270,324.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path147" />
+               <path
+                  d="m 270,306.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path146" />
+               <path
+                  d="m 270,311.87 v 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path145" />
+             </g>
+             <g
+                id="Lab_A_-_Lab_B"
+                inkscape:label="Lab A - Lab B">
+               <path
+                  d="m 270,251.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path150" />
+               <path
+                  d="m 270,269.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path149" />
+               <path
+                  d="m 270,264.13 v -7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path148" />
+             </g>
+             <g
+                id="Crypts_B_-_Lab_A"
+                inkscape:label="Crypts B - Lab A">
+               <path
+                  d="m 270,209.13 v -7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path151" />
+               <path
+                  d="m 270,214.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path152" />
+               <path
+                  d="m 270,196.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path153" />
+             </g>
+             <g
+                id="Main_Hall_-_Crypts_B"
+                inkscape:label="Main Hall - Crypts B">
+               <path
+                  d="m 270,154.13 v -9.14"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path154" />
+               <path
+                  d="m 270,159.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path155" />
+               <path
+                  d="m 270,139.74 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path156" />
+             </g>
+             <g
+                id="Main_Hall_-_2nd_Floor_East_A"
+                style="display:inline"
+                inkscape:label="Main Hall - 2nd Floor East A">
+               <path
+                  d="m 318.88,77.81 -7.02,3.45 1.77,-3.49 -1.73,-3.51 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path66" />
+               <path
+                  d="m 301.12,77.69 7.02,-3.45 -1.77,3.49 1.73,3.51 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path65" />
+               <path
+                  d="m 306.37,77.73 7.26,0.04"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path64" />
+             </g>
+             <g
+                id="Main_Hall_-_1st_Floor_East_A"
+                inkscape:label="Main Hall - 1st Floor East A">
+               <path
+                  d="m 318.88,118.02 -6.94,3.61 1.69,-3.53 -1.8,-3.47 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path69" />
+               <path
+                  d="m 301.12,118.3 6.95,-3.61 -1.7,3.52 1.81,3.48 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path68" />
+               <path
+                  d="m 306.37,118.21 7.26,-0.11"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path67" />
+             </g>
+             <g
+                id="Main_Hall_-_1st_Floor_West_A"
+                inkscape:label="Main Hall - 1st Floor West A">
+               <path
+                  d="m 238.89,118.3 -7.06,3.39 1.81,-3.47 -1.7,-3.53 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path72" />
+               <path
+                  d="m 220.5,118.02 7.05,-3.4 -1.8,3.48 1.69,3.52 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path71" />
+               <path
+                  d="m 225.75,118.1 7.89,0.12"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path70" />
+             </g>
+             <g
+                id="Main_Hall_-_2nd_Floor_West_A"
+                inkscape:label="Main Hall - 2nd Floor West A">
+               <path
+                  d="m 238.89,77.7 -6.95,3.61 1.7,-3.53 -1.81,-3.47 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path75" />
+               <path
+                  d="m 220.5,77.98 6.94,-3.6 -1.69,3.52 1.8,3.48 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path74" />
+               <path
+                  d="m 225.75,77.9 7.89,-0.12"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path73" />
+             </g>
+             <g
+                id="1st_Floor_West_A_-_1st_Floor_West_B"
+                inkscape:label="1st Floor West A - 1st Floor West B">
+               <path
+                  d="m 158.26,118 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path78" />
+               <path
+                  d="m 141.12,118 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path77" />
+               <path
+                  d="m 146.37,118 h 6.64"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path76" />
+             </g>
+             <g
+                id="2nd_Floor_West_A_-_2nd_Floor_West_B"
+                inkscape:label="2nd Floor West A - 2nd Floor West B">
+               <path
+                  d="m 141.12,78 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path80" />
+               <path
+                  d="m 158.26,78 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path81" />
+               <path
+                  d="m 146.37,78 h 6.64"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path79" />
+             </g>
+             <g
+                id="Main_Hall_-_Crypts_A"
+                inkscape:label="Main Hall - Crypts A">
+               <path
+                  d="m 270,41.87 v 9.14"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path82" />
+               <path
+                  d="m 270,36.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path83" />
+               <path
+                  d="m 270,56.26 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path84" />
+             </g>
+             <g
+                id="1st_Floor_West_B_-_1st_Floor_West_C"
+                inkscape:label="1st Floor West B - 1st Floor West C">
+               <path
+                  d="m 66.37,118 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path85" />
+               <path
+                  d="m 61.12,118 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path86" />
+               <path
+                  d="m 78.88,118 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path87" />
+             </g>
+             <g
+                id="2nd_Floor_West_B_-_3rd_Floor_A"
+                inkscape:label="2nd Floor West B - 3rd Floor A">
+               <path
+                  d="M 110,41.87 V 54.13"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path88" />
+               <path
+                  d="m 110,36.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path89" />
+               <path
+                  d="m 110,59.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path90" />
+             </g>
+             <g
+                id="3rd_Floor_A_-_3rd_Floor_B"
+                inkscape:label="3rd Floor A - 3rd Floor B">
+               <path
+                  d="m 66.37,18 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path91" />
+               <path
+                  d="m 61.12,18 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path92" />
+               <path
+                  d="m 78.88,18 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path93" />
+             </g>
+             <g
+                id="1st_Floor_West_B_-_Basement"
+                inkscape:label="1st Floor West B - Basement">
+               <path
+                  d="m 110,141.87 v 12.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path94" />
+               <path
+                  d="m 110,136.62 3.5,7 -3.5,-1.75 -3.5,1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path95" />
+               <path
+                  d="m 110,159.38 -3.5,-7 3.5,1.75 3.5,-1.75 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path96" />
+             </g>
+             <g
+                id="1st_Floor_East_A_-_1st_Floor_East_B"
+                inkscape:label="1st Floor East A - 1st Floor East B">
+               <path
+                  d="m 386.37,118 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path97" />
+               <path
+                  d="m 381.12,118 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path98" />
+               <path
+                  d="m 398.88,118 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path99" />
+             </g>
+             <g
+                id="2nd_Floor_East_A_-_2nd_Floor_East_B"
+                inkscape:label="2nd Floor East A - 2nd Floor East B">
+               <path
+                  d="m 386.37,78 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path100" />
+               <path
+                  d="m 381.12,78 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path101" />
+               <path
+                  d="m 398.88,78 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path102" />
+             </g>
+             <g
+                id="2nd_Floor_East_B_-_2nd_Floor_East_C"
+                inkscape:label="2nd Floor East B - 2nd Floor East C">
+               <path
+                  d="m 466.37,78 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path103" />
+               <path
+                  d="m 461.12,78 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path104" />
+               <path
+                  d="m 478.88,78 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path105" />
+             </g>
+             <g
+                id="1st_Floor_East_B_-_1st_Floor_East_C"
+                inkscape:label="1st Floor East B - 1st Floor East C">
+               <path
+                  d="m 478.88,118 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path108" />
+               <path
+                  d="m 461.12,118 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path107" />
+               <path
+                  d="m 466.37,118 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path106" />
+             </g>
+             <g
+                id="Aqua_Ring_A_-_Aqua_Ring_B"
+                inkscape:label="Aqua Ring A - Aqua Ring B">
+               <path
+                  d="m 478.88,343 -7,3.5 1.75,-3.5 -1.75,-3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path111" />
+               <path
+                  d="m 461.12,343 7,-3.5 -1.75,3.5 1.75,3.5 z"
+                  fill="#000000"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="all"
+                  id="path110" />
+               <path
+                  d="m 466.37,343 h 7.26"
+                  fill="none"
+                  stroke="#000000"
+                  stroke-miterlimit="10"
+                  pointer-events="stroke"
+                  id="path109" />
+             </g>
+           </g>
+         </g>
+            </svg>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+        <script src="../assets/js/utils.js"></script>
+        <script src="../assets/js/dom/componentCreator.js"></script>
+        <script src="../assets/js/boardgame/residentevil.js"></script>
+    </body>
+</html>

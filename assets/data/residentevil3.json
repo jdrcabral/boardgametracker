@@ -1,0 +1,250 @@
+{
+    "characters": [
+        "Jill Valentine",
+        "Mikhail Viktor",
+        "Nicholai Ginovaef",
+        "Carlos Oliveira",
+        "Marvin Branagh",
+        "Tyrell Patrick",
+        "Murphy Seeker",
+        "Dario Rosso",
+        "Barry Burton",
+        "Advanced Jill Valentine",
+        "Advanced Mikhail Viktor",
+        "Advanced Nicholai Ginovaef",
+        "Advanced Carlos Oliveira",
+        "Advanced Tyrell Patrick",
+        "Advanced Barry Burton"
+    ],
+    "items": [
+        "Acid Rounds",
+        "Assault Rifle Bullet",
+        "Assault Rifle",
+        "Backdoor Key",
+        "Battery",
+        "Bezel Key",
+        "Blue H",
+        "Bolt Cutters",
+        "Book Of Wisdom",
+        "Boutique Key",
+        "Card Key",
+        "Eagle 6.0 Parts",
+        "Eagle 6.0",
+        "Emerald",
+        "Enhanced Handgun Bullets",
+        "Enhanced Shotgun Shells",
+        "Facility Key",
+        "Fire Hook",
+        "Fire Hose",
+        "First-Aid Box",
+        "First-Aid Spray",
+        "Flame Rounds",
+        "Freeze Rounds",
+        "Fuse",
+        "Future Compass",
+        "Gold Gear",
+        "Green Herb",
+        "Grenade Launcher",
+        "Grenade Rounds",
+        "Gunpowder A",
+        "Gunpowder B",
+        "Gunpowder C",
+        "Handgun Bullets",
+        "Handgun",
+        "Ink Reel",
+        "Iron Pipe",
+        "Knife (Knife Only)",
+        "Knife",
+        "Lighter Fluid",
+        "Lighter",
+        "Lockpick",
+        "Machine Oil",
+        "Magnum Bullets",
+        "Magnum",
+        "Main Gate Key",
+        "Oil Additive",
+        "Old Key",
+        "Power Cable",
+        "Precinct Key",
+        "Rear Gate Key",
+        "Red Herb",
+        "Rocket Launcher",
+        "Rusted Hex Crank",
+        "S.T.A.R.S. ID Card",
+        "S.T.A.R.S. Key",
+        "Samurai Edge",
+        "Sapphire",
+        "Scrap Of Paper",
+        "Shotgun Shells",
+        "Shotgun",
+        "Sickroom Key",
+        "Silver Gear",
+        "Spare Keys",
+        "Square Crank",
+        "System Disc",
+        "Tape Recorder",
+        "Toolbox",
+        "Vaccine Base",
+        "Vaccine Medium",
+        "Water Sample",
+        "Western Custom M37 Parts",
+        "Western Custom M37",
+        "Winder Key"
+    ],
+    "narrative": [
+        "Out Of Sight",
+        "Virulent Mutation",
+        "Rocket Strike",
+        "\"S.T.A.R.S...\"",
+        "Ambushed",
+        "Shortcut",
+        "Rotting Flesh",
+        "Wounded Survivor",
+        "Screams Ahead",
+        "Forewarned",
+        "Explosion",
+        "Trapped Horde",
+        "Jammed Cartridge",
+        "Supply Cache",
+        "Let Me Take Care Of It!",
+        "Warehouse Rescue",
+        "Grave Digger Nest",
+        "Cornered!",
+        "Never Say Die",
+        "Injured Survivor",
+        "Too Late...",
+        "Call From Behind",
+        "Somehow, I'm Still Alive",
+        "The Traitor"
+    ],
+    "tensionCards": [
+        {
+            "name": "All Clear",
+            "value": "Green"
+        },
+        {
+            "name":"Bloody Trail",
+            "value":"Amber"
+        },
+        {
+            "name":"Cornered",
+            "value":"Amber"
+        },
+        {
+            "name":"Dead Rising",
+            "value":"Amber"
+        },
+        {
+            "name":"Deepening Paranoia",
+            "value":"Amber"
+        },
+        {
+            "name":"Destructive Rage",
+            "value":"Amber"
+        },
+        {
+            "name":"Hunters' Prey",
+            "value":"Amber"
+        },
+        {
+            "name":"Lost Footing",
+            "value":"Amber"
+        },
+        {
+            "name":"Lurching Gait",
+            "value":"Amber"
+        },
+        {
+            "name":"Ransacked",
+            "value":"Amber"
+        },
+        {
+            "name":"Something Beneath",
+            "value":"Amber"
+        },
+        {
+            "name":"Sounds Outside...",
+            "value":"Amber"
+        },
+        {
+            "name":"Tough Hide",
+            "value":"Amber"
+        },
+        {
+            "name":"Tremor",
+            "value":"Amber"
+        },
+        {
+            "name":"Unnatural Strength",
+            "value":"Amber"
+        },
+        {
+            "name":"Arachnid Horror",
+            "value":"Red"
+        },
+        {
+            "name":"Death Rattle",
+            "value":"Red"
+        },
+        {
+            "name":"Disturbed Nest",
+            "value":"Red"
+        },
+        {
+            "name":"Earthquake",
+            "value":"Red"
+        },
+        {
+            "name":"Feral Chase",
+            "value":"Red"
+        },
+        {
+            "name":"Ignition",
+            "value":"Red"
+        },
+        {
+            "name":"Missile Approaching",
+            "value":"Red"
+        },
+        {
+            "name":"Murder of Crows",
+            "value":"Red"
+        },
+        {
+            "name":"Murder of Crows",
+            "value":"Red"
+        },
+        {
+            "name":"Pallid Skin",
+            "value":"Red"
+        },
+        {
+            "name":"Rabid Growl",
+            "value":"Red"
+        },
+        {
+            "name":"Rising Fear",
+            "value":"Red"
+        },
+        {
+            "name":"Splintering Wood",
+            "value":"Red"
+        },
+        {
+            "name":"Time Running Out!",
+            "value":"Red"
+        },
+        {
+            "name":"Unfolding Machinations",
+            "value":"Red"
+        },
+        {
+            "name":"Vigour Mortis",
+            "value":"Red"
+        },
+        {
+            "name":"Zombie Horde",
+            "value":"Red"
+        }
+    ]
+}
