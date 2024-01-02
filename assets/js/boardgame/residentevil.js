@@ -6,7 +6,7 @@ let boardGameComponents;
 let gameStatus = {}
 let popUpTrigger = false;
 
-fetch('../assets/data/residentevil.json').then(response => response.json()).then(data => {
+fetch('../public/data/residentevil.json').then(response => response.json()).then(data => {
     boardGameComponents = data;
     builder();
 });
@@ -92,9 +92,9 @@ const popupMenu = document.getElementById('popupMenu');
 triggerElement.addEventListener('click', () => {
   if (popupMenu.style.display === 'none') {
     // Generate menu content dynamically
-    const menuItems = ['Item 1', 'Item 2', 'Item 3'];
-    const menuContent = menuItems.map(item => `<li><a href="#">${item}</a></li>`).join('');
-    popupMenu.innerHTML = menuContent;
+    // const menuItems = ['Item 1', 'Item 2', 'Item 3'];
+    // const menuContent = menuItems.map(item => `<li><a href="#">${item}</a></li>`).join('');
+    // popupMenu.innerHTML = menuContent;
 
     // Position the menu relative to the clicked element
     console.log('Position menu');
@@ -167,6 +167,7 @@ function scaleSVGImage(svgElement) {
 }
 
 function markUndiscovered() {
+    console.log('Marking undiscovered');
     boardGameComponents.scenarios.forEach(element => {
         const nameId = element.name.replaceAll(' ', '_');
         const svgGroup = svgElement.getElementById(nameId);

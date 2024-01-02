@@ -8,7 +8,7 @@ let gameStatus = {
 };
 let storageKey = 'CTRE3BG';
 
-fetch('../assets/data/residentevil3.json').then(response => response.json()).then(data => {
+fetch('../public/data/residentevil3.json').then(response => response.json()).then(data => {
     boardGameComponents = data;
     builder();
 });
