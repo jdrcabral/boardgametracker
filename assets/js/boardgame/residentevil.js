@@ -88,30 +88,32 @@ function handleCharacterChange(event) {
 const triggerElement = document.getElementById('2nd_Floor_East_A');
 const popupMenu = document.getElementById('popupMenu');
 
+function openPopupMenu(event) {
+    if (popupMenu.style.display === 'none') {
+        // Generate menu content dynamically
+        // const menuItems = ['Item 1', 'Item 2', 'Item 3'];
+        // const menuContent = menuItems.map(item => `<li><a href="#">${item}</a></li>`).join('');
+        // popupMenu.innerHTML = menuContent;
+    
+        // Position the menu relative to the clicked element
+        const targetElement = event.target.closest('g');
+        console.log('Position menu');
+        const position = targetElement.getBoundingClientRect();
+        console.log(position);
+        console.log(targetElement.height, targetElement.width);
+        popupMenu.style.left = position.left - 100;
+        popupMenu.style.top = position.top - 100;
+        popupMenu.style.position = "fixed";
+        popupMenu.style.zIndex = 1;
+        console.log(popupMenu.style.left, popupMenu.style.top);
+        popupMenu.style.display = 'block';
+        popUpTrigger = true;
+      } else {
+        popupMenu.style.display = 'none';
+      } 
+}
 
-triggerElement.addEventListener('click', () => {
-  if (popupMenu.style.display === 'none') {
-    // Generate menu content dynamically
-    // const menuItems = ['Item 1', 'Item 2', 'Item 3'];
-    // const menuContent = menuItems.map(item => `<li><a href="#">${item}</a></li>`).join('');
-    // popupMenu.innerHTML = menuContent;
-
-    // Position the menu relative to the clicked element
-    console.log('Position menu');
-    const position = triggerElement.getBoundingClientRect();
-    console.log(position);
-    console.log(triggerElement.height, triggerElement.width);
-    popupMenu.style.left = position.left// + triggerElement.width;
-    popupMenu.style.top = position.top - 100;
-    popupMenu.style.position = "fixed";
-    popupMenu.style.zIndex = 1;
-    console.log(popupMenu.style.left, popupMenu.style.top);
-    popupMenu.style.display = 'block';
-    popUpTrigger = true;
-  } else {
-    popupMenu.style.display = 'none';
-  }
-});
+triggerElement.addEventListener('click', openPopupMenu);
 
 function handleCheckboxChange(event) {
     const targetId = event.target.id;
