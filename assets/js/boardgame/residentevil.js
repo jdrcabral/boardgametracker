@@ -1,21 +1,52 @@
 const STORAGE_KEY = 'CTREBG';
 const svgElement = document.getElementById('map');
 const mapPaths = svgElement.getElementById('Paths');
+const popupMenu = document.getElementById('popupMenu');
+const modalTitle = document.getElementById('modalTitle');
+const modalExtraInfo = document.getElementById('modalExtraInfo');
+const unlockButton = document.getElementById('unlockButton');
+const threatLevel = document.getElementById('threatLevel');
+const LEVEL_COLORS = {
+    COMPLETED: '#2dcf43',
+    UNCOMPLETED: '#ffffff',
+}
 
 let boardGameComponents;
-let gameStatus = {}
+let gameStatus = null;
 let popUpTrigger = false;
+let lastMapElement = null;
 
 fetch('../public/data/residentevil.json').then(response => response.json()).then(data => {
     boardGameComponents = data;
+    gameStatus = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if (gameStatus === null) {
+        gameStatus = {
+            threatLevel: 0,
+            scenarios: [],
+            characters: [],
+        }
+    }
+    if (gameStatus.scenarios.length === 0) {
+        gameStatus.scenarios = [...boardGameComponents.scenarios];
+    }
+    if (gameStatus.characters.length === 0) {
+        gameStatus.characters = [];
+    }
     builder();
 });
 
 function builder() {
+    threatLevel.addEventListener('change', handleThreatLevelChange);
     buildReserveCharacter();
     fillCharacterSelect();
     markUndiscovered();
     scaleSVGImage(svgElement);
+    threatLevel.value = gameStatus.threatLevel;
+}
+
+function handleThreatLevelChange(event) {
+    gameStatus.threatLevel = event.target.value;
+    updateGameData();
 }
 
 function buildReserveCharacter() {
@@ -85,35 +116,21 @@ function handleCharacterChange(event) {
     updateGameData();
 }
 
-const triggerElement = document.getElementById('2nd_Floor_East_A');
-const popupMenu = document.getElementById('popupMenu');
-
-function openPopupMenu(event) {
-    if (popupMenu.style.display === 'none') {
-        // Generate menu content dynamically
-        // const menuItems = ['Item 1', 'Item 2', 'Item 3'];
-        // const menuContent = menuItems.map(item => `<li><a href="#">${item}</a></li>`).join('');
-        // popupMenu.innerHTML = menuContent;
-    
-        // Position the menu relative to the clicked element
-        const targetElement = event.target.closest('g');
-        console.log('Position menu');
-        const position = targetElement.getBoundingClientRect();
-        console.log(position);
-        console.log(targetElement.height, targetElement.width);
-        popupMenu.style.left = position.left - 100;
-        popupMenu.style.top = position.top - 100;
-        popupMenu.style.position = "fixed";
-        popupMenu.style.zIndex = 1;
-        console.log(popupMenu.style.left, popupMenu.style.top);
-        popupMenu.style.display = 'block';
-        popUpTrigger = true;
-      } else {
-        popupMenu.style.display = 'none';
-      } 
+function openModal(event) {
+    const targetElement = event.target.closest('g');
+    modalTitle.textContent = targetElement.id.replaceAll('_', ' ');
+    lastMapElement = targetElement;
+    const scenarioIndex = gameStatus.scenarios.findIndex(element => {
+        return element.name.replaceAll(' ', '_') === lastMapElement.id;    
+    });
+    if (gameStatus.scenarios[scenarioIndex].lockedBy) {
+        modalExtraInfo.textContent = 'Locked By: ' + gameStatus.scenarios[scenarioIndex].lockedBy;
+        unlockButton.removeAttribute('hidden')
+    } else {
+        modalExtraInfo.textContent = '';
+        unlockButton.setAttribute('hidden', true);
+    }
 }
-
-triggerElement.addEventListener('click', openPopupMenu);
 
 function handleCheckboxChange(event) {
     const targetId = event.target.id;
@@ -154,7 +171,7 @@ function handleCharacterLifeChange(event) {
 }
 
 function updateGameData() {
-    //localStorage.setItem(storageKey, JSON.stringify(gameStatus));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(gameStatus));
 }
 
 
@@ -169,18 +186,37 @@ function scaleSVGImage(svgElement) {
 }
 
 function markUndiscovered() {
-    console.log('Marking undiscovered');
-    boardGameComponents.scenarios.forEach(element => {
+    gameStatus.scenarios.forEach(element => {
         const nameId = element.name.replaceAll(' ', '_');
         const svgGroup = svgElement.getElementById(nameId);
+        lastMapElement = svgGroup;
+        svgGroup.addEventListener('click', openModal);
+        svgGroup.setAttribute('data-bs-toggle', 'modal');
+        svgGroup.setAttribute('data-bs-target', '#mapModal');
         if (!element.discovered) {
             svgGroup.setAttribute('hidden', true);
         }
+        if (element.completed) {
+            const rectElement = svgGroup.getElementsByTagName('rect');
+            rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
+        }
+        if (!element.locked && element.lockedBy) {
+            const rectElement = svgGroup.getElementsByTagName('path');
+            rectElement[0].setAttribute('hidden', true);
+        }
     });
-    console.log(mapPaths);
     for (const child of mapPaths.children) {
         if (!child.id.includes('Main_Hall')) {
-            child.setAttribute('hidden', true);
+            const scenarios = child.id.split('_-_');
+            const firstScenario = gameStatus.scenarios.findIndex(element => {
+                return element.name.replaceAll(' ', '_') === scenarios[0];    
+            });
+            const secondScenario = gameStatus.scenarios.findIndex(element => {
+                return element.name.replaceAll(' ', '_') === scenarios[1];    
+            });
+            if (!gameStatus.scenarios[firstScenario].discovered || !gameStatus.scenarios[secondScenario].discovered) {
+                child.setAttribute('hidden', true);
+            }
         }
     }
 }
@@ -204,8 +240,101 @@ function handleCharacterLifeChange(event) {
     updateGameData();
 }
 
+function completeLevel() {
+    const rectElement = lastMapElement.getElementsByTagName('rect');
+    const scenarioIndex = findScenarioIndexById(lastMapElement.id);
+    if (gameStatus.scenarios[scenarioIndex].completed) {
+        gameStatus.scenarios[scenarioIndex].completed = false;
+        rectElement[0].setAttribute('fill', LEVEL_COLORS.UNCOMPLETED);
+    } else {
+        gameStatus.scenarios[scenarioIndex].completed = true;
+        rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
+    }
+    updateGameData();
+    lastMapElement = null;
+}
 
-document.body.addEventListener('click', function(event) {
-    if (popupMenu.style.display == 'block' && !popUpTrigger) popupMenu.style.display = 'none';
-    popUpTrigger = false;
-});
+function unlockLevel() {
+    const scenarioIndex = findScenarioIndexById(lastMapElement.id);
+    const pathElement = lastMapElement.getElementsByTagName('path')[0];
+    if (pathElement.id.includes('Locked') && gameStatus.scenarios[scenarioIndex].locked) {
+        gameStatus.scenarios[scenarioIndex].locked = false;
+        pathElement.setAttribute('hidden', true)
+    } else {
+        gameStatus.scenarios[scenarioIndex].locked = true;
+        pathElement.removeAttribute('hidden');   
+    }
+    updateGameData();
+}
+
+function revealLevel() {
+    const clickedElement = findScenarioIndexById(lastMapElement.id);
+
+    if (isAlreadyRevealed(lastMapElement.id)) {
+        gameStatus.scenarios[clickedElement].unlocks.forEach(element => {
+            unrevealScenario(element);
+        });
+        updateGameData();
+        return;
+    } 
+    const revealedPaths = [];
+    for (const child of mapPaths.children) {
+        if (child.id.includes(lastMapElement.id)) {
+            child.removeAttribute('hidden');
+            revealedPaths.push(child.id);
+        }
+    }
+
+    revealedPaths.forEach(element => {
+        const mapId = element.replaceAll(lastMapElement.id, '').replaceAll('_-_', '');
+        const scenarioIndex = findScenarioIndexById(mapId);
+        if (scenarioIndex >= 0) {
+            gameStatus.scenarios[scenarioIndex].discovered = true;
+        }
+        const mapToReveal = svgElement.getElementById(mapId);
+        mapToReveal.removeAttribute('hidden');
+    });
+    lastMapElement = null;
+    updateGameData();
+}
+
+function unrevealScenario(unrevealElement) {
+    const unrevealIndex = findScenarioIndexByName(unrevealElement);
+    gameStatus.scenarios[unrevealIndex].discovered = false;
+    const unrevealId = unrevealElement.replaceAll(' ', '_')
+    const mapToUnreveal = svgElement.getElementById(unrevealId);
+    mapToUnreveal.setAttribute('hidden', true);
+
+    for (const child of mapPaths.children) {
+        if (child.id.includes(unrevealId)) {
+            child.setAttribute('hidden', 'true');
+        }
+    }
+    gameStatus.scenarios[unrevealIndex].unlocks.forEach(element => { unrevealScenario(element) });
+}
+
+function isAlreadyRevealed(nameId) {
+    const clickedElement = findScenarioIndexById(nameId);
+
+    const lookingScenario = gameStatus.scenarios[clickedElement];
+    let childRevealed = false;
+    lookingScenario.unlocks.forEach(element => {
+        const childIndex = findScenarioIndexByName(element);
+        if (gameStatus.scenarios[childIndex].discovered) {
+            childRevealed = true;
+        }
+    });
+    return childRevealed;
+}
+
+function findScenarioIndexByName(name) {
+    return gameStatus.scenarios.findIndex(element => {
+        return element.name === name;    
+    });
+}
+
+function findScenarioIndexById(name) {
+    return gameStatus.scenarios.findIndex(element => {
+        return element.name.replaceAll(' ', '_') === name;    
+    });
+}

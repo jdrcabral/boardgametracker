@@ -346,127 +346,232 @@
     "scenarios": [
         {
             "name": "1st Floor West A",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["1st Floor West B"]
         },
         {
             "name": "2nd Floor West A",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["2nd Floor West B"]
         },
         {
             "name": "1st Floor East A",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["1st Floor East B"]
         },
         {
             "name": "2nd Floor East A",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["2nd Floor East B"]
         },
         {
             "name": "1st Floor West B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Sheet Music"],
+            "unlocks": ["Basement", "1st Floor West C"]
         },
         {
             "name": "2nd Floor West B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Dog Whistle"],
+            "unlocks": ["3rd Floor A"]
         },
         {
             "name": "1st Floor East B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Amour Key"],
+            "unlocks": ["1st Floor East C", "Garden A"]
         },
         {
             "name": "2nd Floor East B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Shield Key"],
+            "unlocks": ["2nd Floor East C"]
         },
         {
             "name": "1st Floor West C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Helmet Key"],
+            "unlocks": []
         },
         {
             "name": "1st Floor East C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "2nd Floor East C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "3rd Floor A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Helmet Key"],
+            "unlocks": ["3rd Floor B"]
         },
         {
             "name": "3rd Floor B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "Basement",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Helmet Key"],
+            "unlocks": []
         },
         {
             "name": "Crypts A",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Death Mask x4"],
+            "unlocks": []
         },
         {
             "name": "Crypts B",
-            "discovered": true
+            "discovered": true,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Stone & Metal Object x2"],
+            "unlocks": ["Lab A"]
         },
         {
             "name": "Garden A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Garden B"]
         },
         {
             "name": "Garden B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Crank"],
+            "unlocks": ["Guard House A"]
         },
         {
             "name": "Garden C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Charged Battery"],
+            "unlocks": ["Caves A"]
         },
         {
             "name": "Caves A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Caves B"]
         },
         {
             "name": "Caves B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Caves C"]
         },
         {
             "name": "Caves C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "Guard House A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Aqua Ring A"]
         },
         {
             "name": "Guard House B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Guard House C"]
         },
         {
             "name": "Guard House C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "Aqua Ring A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Aqua Ring B"]
         },
         {
             "name": "Aqua Ring B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Guard House B"]
         },
         {
             "name": "Lab A",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "lockedBy": ["Wolf Medal & Eagle Medal"],
+            "unlocks": ["Helipad", "Lab B"]
         },
         {
             "name": "Lab B",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": ["Lab C"]
         },
         {
             "name": "Lab C",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         },
         {
             "name": "Helipad",
-            "discovered": false
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "unlocks": []
         }
     ]
 }
