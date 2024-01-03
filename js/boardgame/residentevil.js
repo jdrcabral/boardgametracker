@@ -31,8 +31,8 @@ function loadGameStatus() {
             characters: [{ kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }],
             reserve: [],
             items: [],
-            narratives: [],
-            missions: [],
+            narrative: [],
+            mission: [],
             tensionDeck: [],
         }
     }
@@ -69,7 +69,6 @@ function loadGameStatus() {
 
 function builder() {
     threatLevel.addEventListener('change', handleThreatLevelChange);
-    console.log(gameStatus);
     buildReserveCharacter();
     fillCharacterSelect();
     markUndiscovered();
@@ -172,7 +171,6 @@ function openModal(event) {
 }
 
 function handleCheckboxChange(event) {
-    console.log(event);
     const targetId = event.target.id;
     const grandParent = event.target.parentNode.parentNode;
     const grandParentId = grandParent.id;
@@ -197,7 +195,6 @@ function handleCheckboxChange(event) {
 function handleCharacterLifeChange(event) {
     const parent = event.target.parentNode;
     const parentTag = parent.tagName;
-    console.log(event, parentTag);
     if (parentTag === 'TD') {
         const tableRow = parent.parentNode;
         const tableRowId = tableRow.getAttribute('id');
@@ -396,7 +393,7 @@ function addTensionCardButton() {
     cardElement.style.backgroundColor = cardColors[foundTensionCard.value];
     colDiv.appendChild(cardElement);
     tensionContainer.appendChild(colDiv);
-    gameStatus.narrative.push(foundTensionCard);
+    gameStatus.tensionDeck.push(foundTensionCard);
     updateGameData();
 }
 
@@ -420,10 +417,22 @@ function buildCard(cardText) {
 }
 
 function removeCard(event) {
-    console.log(event.target);
-    console.log(gameStatus)
-    const cardElement =  event.target.closest('.card');
+    const cardElement = event.target.closest('.card');
     const removeElement = cardElement.parentNode;
-    console.log(removeElement);
-    // removeElement.remove();
+    const container = removeElement.parentNode;
+    const containerId = container.id;
+    var index = Array.prototype.indexOf.call(container.children, removeElement);
+    if (containerId.includes('narrative')) {
+        gameStatus.narrative.splice(index, 1);        
+    } else if (containerId.includes('tension')) {
+        gameStatus.tensionDeck.splice(index, 1);
+        
+    } else if (containerId.includes('mission')) {
+        gameStatus.mission.splice(index, 1);
+        
+    } else if (containerId.includes('item')) {
+        gameStatus.items.splice(index, 1);
+    }
+    updateGameData();
+    removeElement.remove();
 }
