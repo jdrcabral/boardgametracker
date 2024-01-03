@@ -15,10 +15,12 @@
             </div>
          </nav>
          <div class="container">
-            <!-- Hand(1-4), Teeth(5-13), Skull(14-21)-->
-            <input type="number" class="form-range" id="threatLevel" min="0" max="22">
-        </div>
-        <div class="container">
+            <div class="container mt-3 mb-3">
+              <!-- Hand(1-4), Teeth(5-13), Skull(14-21)-->
+              <h3>Threat Level</h3>
+              <input type="number" class="form-control" id="threatLevel" min="0" max="22">
+            </div>
+            <hr />
             <h3>Characters</h3>
             <div class="container">
                 <div class="row">
@@ -29,8 +31,10 @@
                                     <option>Select Character</option>
                                 </select>
                                 <label for="customRange1" class="form-label">Health</label>
-                                <input type="number" min="1" max="5" class="form-control" id="characterHealth1">
-                                <h5>Inventory</h5>
+                                <input type="number" min="1" max="5" class="form-control" onchange="handleCharacterLifeChange(event)" id="characterHealth1">
+                                <label for="customRange1" class="form-label">Kerosene</label>
+                                <input type="number" min="1" max="10" class="form-control" onchange="handleCharacterKeroseneChange(event)" id="characterKerosene1">
+                                <h5 class="mt-3">Inventory</h5>
                                     <div class="container">
                                         <div class="row text-center">
                                             <div class="col">
@@ -52,8 +56,10 @@
                                     <option>Select Character</option>
                                 </select>
                                 <label for="customRange1" class="form-label">Health</label>
-                                <input type="number" min="1" max="5" class="form-control" id="characterHealth2">
-                                <h5>Inventory</h5>
+                                <input type="number" min="1" max="5" class="form-control" onchange="handleCharacterLifeChange(event)"  id="characterHealth2">
+                                <label for="customRange1" class="form-label">Kerosene</label>
+                                <input type="number" min="1" max="10" class="form-control" onchange="handleCharacterKeroseneChange(event)" id="characterKerosene2">
+                                <h5 class="mt-3">Inventory</h5>
                                         <div class="row text-center">
                                             <div class="col">
                                                 <p>Handgun</p>
@@ -73,8 +79,10 @@
                                     <option>Select Character</option>
                                 </select>
                                 <label for="customRange1" class="form-label">Health</label>
-                                <input type="number" min="1" max="5" class="form-control" id="characterHealth3">
-                                <h5>Inventory</h5>
+                                <input type="number" min="1" max="5" onchange="handleCharacterLifeChange(event)"  class="form-control" id="characterHealth3">
+                                <label for="customRange1" class="form-label">Kerosene</label>
+                                <input type="number" min="1" max="10" class="form-control" onchange="handleCharacterKeroseneChange(event)" id="characterKerosene3">
+                                <h5 class="mt-3">Inventory</h5>
                                         <div class="row text-center">
                                             <div class="col">
                                                 <p>Handgun</p>
@@ -94,8 +102,10 @@
                                     <option>Select Character</option>
                                 </select>
                                 <label for="customRange1" class="form-label">Health</label>
-                                <input type="number" min="1" max="5" class="form-control" id="characterHealth4">
-                                <h5>Inventory</h5>
+                                <input type="number" min="1" max="5" onchange="handleCharacterLifeChange(event)" class="form-control" id="characterHealth4">
+                                <label for="customRange1" class="form-label">Kerosene</label>
+                                <input type="number" min="1" max="10" class="form-control" onchange="handleCharacterKeroseneChange(event)" id="characterKerosene4">
+                                <h5 class="mt-3">Inventory</h5>
                                     <div class="container">
                                         <div class="row text-center">
                                             <div class="col">
@@ -150,6 +160,68 @@
                 </table>
             </div>
             <hr/>
+            <h3>Item Box</h3>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                    <select class="form-select" aria-label="Item Select" id="itemSelect">
+                        <option>Select Item</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-primary" onclick="addItemCardButton()">Add Item</button>
+                </div>
+              </div>
+              <div class="row" id="itemBox"></div>
+            </div>
+            <hr />
+            <h3>Tension Deck</h3>
+            <div class="container">
+              <div class="row">
+                <div class="col">
+                    <select class="form-select" aria-label="Item Select" id="tensionCardSelect">
+                        <option>Select Tension Card</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-primary" onclick="addTensionCardButton()">Add Tension Card</button>
+                </div>
+              </div>
+              <div class="row" id="tensionDeck"></div>
+            </div>
+            <hr />
+            <h3>Played Narratives</h3>
+            <div class="container">
+              <p>Add the played narratives that are removed from the game</p>
+              <div class="row">
+                <div class="col">
+                    <select class="form-select" aria-label="Item Select" id="narrativeCardSelect">
+                        <option>Select Narrative Card</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-primary" onclick="addNarrativeCardButton()">Add Narrative Card</button>
+                </div>
+              </div>
+              <div class="row" id="narrativeDeck"></div>
+            </div>
+            <hr />
+            <h3>Played Missions</h3>
+            <div class="container">
+              <p>Add the played missions that are removed from the game</p>
+              <div class="row">
+                <div class="col">
+                    <select class="form-select" aria-label="Item Select" id="missionCardSelect">
+                        <option>Select Mission Card</option>
+                    </select>
+                </div>
+                <div class="col mb-3">
+                    <button type="button" class="btn btn-primary" onclick="addMissionCardButton()">Add Mission Card</button>
+                </div>
+              </div>
+              <div class="row" id="missionDeck"></div>
+            </div>
+            <hr />
             <h3>Mansion Map</h3>
             <svg
                 id="map"
