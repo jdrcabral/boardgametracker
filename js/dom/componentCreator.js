@@ -4,6 +4,7 @@ class ComponentCreator {
         inputTag.setAttribute("class", "form-check-input");
         inputTag.setAttribute("type", "checkbox");
         inputTag.setAttribute("value", value);
+        inputTag.checked = value ? true : false;
         inputTag.setAttribute("id", id);
         return inputTag;
     }
@@ -37,6 +38,14 @@ class ComponentCreator {
         const div = document.createElement('div');
         div.setAttribute('class', className);
         return div;
+    }
+
+    static createTableDataCheckbox(value= "", id = null, callback = null) {
+        const tableData = document.createElement('td');
+        const checkboxInput = ComponentCreator.createCheckbox(value, id);
+        checkboxInput.addEventListener('change', callback);
+        tableData.appendChild(checkboxInput);
+        return tableData;
     }
 }
 

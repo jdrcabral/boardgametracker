@@ -8,7 +8,7 @@ let gameStatus = {
 };
 let storageKey = 'CTRE3BG';
 
-fetch('../public/data/residentevil3.json').then(response => response.json()).then(data => {
+fetch('../../public/data/residentevil3.json').then(response => response.json()).then(data => {
     boardGameComponents = data;
     builder();
 });
@@ -46,8 +46,8 @@ function builder() {
     fillTensionCards();
     fillNarrativeEvent();
     fillItems();
-    const retrivedGame = JSON.parse(localStorage.getItem(storageKey));
-    if (retrivedGame == null) {
+    const retrievedGame = JSON.parse(localStorage.getItem(storageKey));
+    if (retrievedGame == null) {
         boardGameComponents.characters.forEach(element => {
             gameStatus.reserve.push({
                 name: element,
@@ -58,7 +58,7 @@ function builder() {
         });
         return;
     } 
-    gameStatus = retrivedGame;
+    gameStatus = retrievedGame;
     loadGameStatus();
 }
 
