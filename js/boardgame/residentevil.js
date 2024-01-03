@@ -31,8 +31,8 @@ function loadGameStatus() {
             characters: [{ kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }],
             reserve: [],
             items: [],
-            narratives: [],
-            missions: [],
+            narrative: [],
+            mission: [],
             tensionDeck: [],
         }
     }
@@ -53,11 +53,22 @@ function loadGameStatus() {
             }
         });
     }
+    if (!gameStatus.narrative) {
+        gameStatus.narrative = [];
+    }
+    if (!gameStatus.mission) {
+        gameStatus.mission = [];
+    }
+    if (!gameStatus.items) {
+        gameStatus.items = [];
+    }
+    if (!gameStatus.tensionDeck) {
+        gameStatus.tensionDeck = [];
+    }
 }
 
 function builder() {
     threatLevel.addEventListener('change', handleThreatLevelChange);
-    console.log(gameStatus);
     buildReserveCharacter();
     fillCharacterSelect();
     markUndiscovered();
@@ -67,6 +78,7 @@ function builder() {
     fillTensionCards();
     scaleSVGImage(svgElement);
     loadCharacters();
+    loadCards();
     threatLevel.value = gameStatus.threatLevel;
 }
 
@@ -82,6 +94,43 @@ function loadCharacters() {
             const characterKerosene = document.getElementById(`characterKerosene${index+1}`);
             characterKerosene.value = element.kerosene ? element.kerosene : 0;
         }
+    });
+}
+
+function loadCards() {
+    gameStatus.narrative.forEach(element => {
+        const narrativeContainer = document.getElementById('narrativeDeck');
+        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+        const cardElement = buildCard(element);
+        colDiv.appendChild(cardElement);
+        narrativeContainer.appendChild(colDiv);
+    });
+    gameStatus.mission.forEach(element => {
+        const missionContainer = document.getElementById('missionDeck');
+        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+        const cardElement = buildCard(element);
+        colDiv.appendChild(cardElement);
+        missionContainer.appendChild(colDiv);
+    });
+    gameStatus.items.forEach(element => {
+        const narrativeContainer = document.getElementById('itemBox');
+        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+        const cardElement = buildCard(element);
+        colDiv.appendChild(cardElement);
+        narrativeContainer.appendChild(colDiv);
+    });
+    gameStatus.tensionDeck.forEach(element => {
+        const cardColors = {
+            Green: '#a1fa9d',
+            Amber: '#ffe28c',
+            Red: '#fc8888',
+        }
+        const tensionContainer = document.getElementById('tensionDeck');
+        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+        const cardElement = buildCard(element.name);
+        cardElement.style.backgroundColor = cardColors[element.value];
+        colDiv.appendChild(cardElement);
+        tensionContainer.appendChild(colDiv);
     });
 }
 
@@ -122,7 +171,6 @@ function openModal(event) {
 }
 
 function handleCheckboxChange(event) {
-    console.log(event);
     const targetId = event.target.id;
     const grandParent = event.target.parentNode.parentNode;
     const grandParentId = grandParent.id;
@@ -147,7 +195,6 @@ function handleCheckboxChange(event) {
 function handleCharacterLifeChange(event) {
     const parent = event.target.parentNode;
     const parentTag = parent.tagName;
-    console.log(event, parentTag);
     if (parentTag === 'TD') {
         const tableRow = parent.parentNode;
         const tableRowId = tableRow.getAttribute('id');
@@ -195,8 +242,7 @@ function scaleSVGImage(svgElement) {
     const viewportHeight = window.innerHeight;
     const svgWidth = svgElement.getBoundingClientRect().width;
     const svgHeight = svgElement.getBoundingClientRect().height;
-
-    const scaleFactor = Math.min(viewportWidth / svgWidth, viewportHeight / svgHeight);
+    const scaleFactor = Math.min(svgWidth / viewportWidth, viewportHeight / svgHeight);
     svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`;
 }
 
@@ -254,10 +300,12 @@ function addItemCardButton() {
         return toSnakeCase(element) === option.value;
     });
 
-    const colDiv = ComponentCreator.createDivWithClass('col-3 mb-3') 
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
     const cardElement = buildCard(foundNarrativeCard);
     colDiv.appendChild(cardElement);
     narrativeContainer.appendChild(colDiv);
+    gameStatus.items.push(foundNarrativeCard);
+    updateGameData();
 }
 
 function fillNarrative() {
@@ -278,10 +326,12 @@ function addNarrativeCardButton() {
         return toSnakeCase(element) === option.value;
     });
 
-    const colDiv = ComponentCreator.createDivWithClass('col-3 mb-3') 
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
     const cardElement = buildCard(foundNarrativeCard);
     colDiv.appendChild(cardElement);
     narrativeContainer.appendChild(colDiv);
+    gameStatus.narrative.push(foundNarrativeCard);
+    updateGameData();
 }
 
 function fillMissions() {
@@ -302,10 +352,12 @@ function addMissionCardButton() {
         return toSnakeCase(element) === option.value;
     });
 
-    const colDiv = ComponentCreator.createDivWithClass('col-3 mb-3') 
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
     const cardElement = buildCard(foundMissionCard);
     colDiv.appendChild(cardElement);
     missionContainer.appendChild(colDiv);
+    gameStatus.mission.push(foundMissionCard);
+    updateGameData();
 }
 
 function fillTensionCards() {
@@ -336,11 +388,13 @@ function addTensionCardButton() {
         return toSnakeCase(element.name) === option.value;
     });
 
-    const colDiv = ComponentCreator.createDivWithClass('col-3 mb-3') 
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
     const cardElement = buildCard(foundTensionCard.name);
     cardElement.style.backgroundColor = cardColors[foundTensionCard.value];
     colDiv.appendChild(cardElement);
     tensionContainer.appendChild(colDiv);
+    gameStatus.tensionDeck.push(foundTensionCard);
+    updateGameData();
 }
 
 function buildCard(cardText) {
@@ -363,6 +417,22 @@ function buildCard(cardText) {
 }
 
 function removeCard(event) {
-    const removeElement =  event.target.closest('.col-3');
+    const cardElement = event.target.closest('.card');
+    const removeElement = cardElement.parentNode;
+    const container = removeElement.parentNode;
+    const containerId = container.id;
+    var index = Array.prototype.indexOf.call(container.children, removeElement);
+    if (containerId.includes('narrative')) {
+        gameStatus.narrative.splice(index, 1);        
+    } else if (containerId.includes('tension')) {
+        gameStatus.tensionDeck.splice(index, 1);
+        
+    } else if (containerId.includes('mission')) {
+        gameStatus.mission.splice(index, 1);
+        
+    } else if (containerId.includes('item')) {
+        gameStatus.items.splice(index, 1);
+    }
+    updateGameData();
     removeElement.remove();
 }
