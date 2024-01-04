@@ -198,11 +198,9 @@ function handleCheckboxChange(event) {
 function addTensionCardButton() {
     const tensionSelect = document.getElementById('tensionSelect');
     const option = tensionSelect.querySelector(`option[value="${tensionSelect.value}"]`);
-    console.log(option.value);
     const foundNarratvie = boardGameComponents.tensionCards.find((element) => {
         return toSnakeCase(element.name) === option.value;
     });
-    console.log(foundNarratvie);
 }
 
 function addNarrativeButton() {

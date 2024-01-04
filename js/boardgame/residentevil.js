@@ -1,4 +1,3 @@
-const STORAGE_KEY = 'CTREBG';
 const svgElement = document.getElementById('map');
 const mapPaths = svgElement.getElementById('Paths');
 const popupMenu = document.getElementById('popupMenu');
@@ -12,69 +11,25 @@ const LEVEL_COLORS = {
 }
 
 let boardGameComponents;
-let gameStatus = null;
+let gameStatus = new GameStatus();
 let popUpTrigger = false;
 let lastMapElement = null;
 
 fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
     boardGameComponents = data;
-    loadGameStatus();
+    gameStatus.load();
     builder();
 });
 
-function loadGameStatus() {
-    gameStatus = JSON.parse(localStorage.getItem(STORAGE_KEY));
-    if (gameStatus === null) {
-        gameStatus = {
-            threatLevel: 0,
-            scenarios: [],
-            characters: [{ kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }],
-            reserve: [],
-            items: [],
-            narrative: [],
-            mission: [],
-            tensionDeck: [],
-        }
-    }
-    if (gameStatus.scenarios.length === 0) {
-        gameStatus.scenarios = [...boardGameComponents.scenarios];
-    }
-    if (gameStatus.characters.length === 0) {
-        gameStatus.characters = [{ kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }, { kerosene: 0 }];
-    } 
-    if (!gameStatus.reserve || gameStatus.reserve.length === 0) {
-        gameStatus.reserve = boardGameComponents.characters.map(element => {
-            return {
-                name: element,
-                unlocked: false,
-                dead: false,
-                advanced: false,
-                health: 5,
-            }
-        });
-    }
-    if (!gameStatus.narrative) {
-        gameStatus.narrative = [];
-    }
-    if (!gameStatus.mission) {
-        gameStatus.mission = [];
-    }
-    if (!gameStatus.items) {
-        gameStatus.items = [];
-    }
-    if (!gameStatus.tensionDeck) {
-        gameStatus.tensionDeck = [];
-    }
-}
 
 function builder() {
     threatLevel.addEventListener('change', handleThreatLevelChange);
     buildReserveCharacter();
     fillCharacterSelect();
-    markUndiscovered();
-    fillItems();
-    fillMissions();
-    fillNarrative();
+    buildStartingMap();
+    fillSelectOptions('itemSelect', boardGameComponents.items); // Fill options for item deck cards
+    fillSelectOptions('missionCardSelect', boardGameComponents.mission); // Fill options for missions
+    fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative); // Fill options for narrative cards
     fillTensionCards();
     scaleSVGImage(svgElement);
     loadCharacters();
@@ -98,27 +53,9 @@ function loadCharacters() {
 }
 
 function loadCards() {
-    gameStatus.narrative.forEach(element => {
-        const narrativeContainer = document.getElementById('narrativeDeck');
-        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-        const cardElement = buildCard(element);
-        colDiv.appendChild(cardElement);
-        narrativeContainer.appendChild(colDiv);
-    });
-    gameStatus.mission.forEach(element => {
-        const missionContainer = document.getElementById('missionDeck');
-        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-        const cardElement = buildCard(element);
-        colDiv.appendChild(cardElement);
-        missionContainer.appendChild(colDiv);
-    });
-    gameStatus.items.forEach(element => {
-        const narrativeContainer = document.getElementById('itemBox');
-        const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-        const cardElement = buildCard(element);
-        colDiv.appendChild(cardElement);
-        narrativeContainer.appendChild(colDiv);
-    });
+    gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element));
+    gameStatus.mission.forEach(element => loadCard('missionDeck', element));
+    gameStatus.items.forEach(element => loadCard('itemBox', element));
     gameStatus.tensionDeck.forEach(element => {
         const cardColors = {
             Green: '#a1fa9d',
@@ -134,14 +71,30 @@ function loadCards() {
     });
 }
 
+function loadCard(containerId, element) {
+    const container = document.getElementById(containerId);
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+    const cardElement = buildCard(element);
+    colDiv.appendChild(cardElement);
+    container.appendChild(colDiv);
+}
+
 function handleThreatLevelChange(event) {
     gameStatus.threatLevel = event.target.value;
-    updateGameData();
+    gameStatus.save();
 }
 
 function handleCharacterChange(event) {
     const targetId = event.target.id
     const characterIndex = parseInt(targetId[targetId.length - 1]) - 1;
+    if (event.target.value === 'Select Character') {
+        gameStatus.characters[characterIndex] = {
+            ...gameStatus.characters[characterIndex],
+            name: 'Select Character',
+        };
+        gameStatus.save();
+        return;
+    }
     const healthInputCharacter = document.getElementById(`characterHealth${characterIndex + 1}`)
     const characterId = toSnakeCase(event.target.value);
     const reserveHealth = document.getElementById(`character_${characterId}_health`);
@@ -151,7 +104,7 @@ function handleCharacterChange(event) {
         name: event.target.value,
         health: reserveHealth.value,
     };
-    updateGameData();
+    gameStatus.save();
 }
 
 function openModal(event) {
@@ -188,7 +141,7 @@ function handleCheckboxChange(event) {
             gameStatus.reserve[changedCharIndex].advanced = event.target.checked;
         }
     }
-    updateGameData();
+    gameStatus.save();
 }
 
 
@@ -220,7 +173,7 @@ function handleCharacterLifeChange(event) {
         const reserveIndex = gameStatus.reserve.findIndex((element) => toSnakeCase(element.name) === character.name);
         gameStatus.reserve[reserveIndex].health = event.target.value;
     }
-    updateGameData();
+    gameStatus.save();
 }
 
 function handleCharacterKeroseneChange(event) {
@@ -230,11 +183,7 @@ function handleCharacterKeroseneChange(event) {
     const characterIndex = parseInt(match[0]);
     const character = gameStatus.characters[characterIndex - 1];
     character.kerosene = event.target.value;
-    updateGameData();
-}
-
-function updateGameData() {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(gameStatus));
+    gameStatus.save();
 }
 
 function scaleSVGImage(svgElement) {
@@ -246,118 +195,48 @@ function scaleSVGImage(svgElement) {
     svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`;
 }
 
-function markUndiscovered() {
-    gameStatus.scenarios.forEach(element => {
-        const nameId = element.name.replaceAll(' ', '_');
-        const svgGroup = svgElement.getElementById(nameId);
-        lastMapElement = svgGroup;
-        svgGroup.addEventListener('click', openModal);
-        svgGroup.setAttribute('data-bs-toggle', 'modal');
-        svgGroup.setAttribute('data-bs-target', '#mapModal');
-        if (!element.discovered) {
-            svgGroup.setAttribute('hidden', true);
-        }
-        if (element.completed) {
-            const rectElement = svgGroup.getElementsByTagName('rect');
-            rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
-        }
-        if (!element.locked && element.lockedBy) {
-            const rectElement = svgGroup.getElementsByTagName('path');
-            rectElement[0].setAttribute('hidden', true);
-        }
-    });
-    for (const child of mapPaths.children) {
-        if (!child.id.includes('Main_Hall')) {
-            const scenarios = child.id.split('_-_');
-            const firstScenario = gameStatus.scenarios.findIndex(element => {
-                return element.name.replaceAll(' ', '_') === scenarios[0];
-            });
-            const secondScenario = gameStatus.scenarios.findIndex(element => {
-                return element.name.replaceAll(' ', '_') === scenarios[1];
-            });
-            if (!gameStatus.scenarios[firstScenario].discovered || !gameStatus.scenarios[secondScenario].discovered) {
-                child.setAttribute('hidden', true);
-            }
-        }
-    }
-}
-
-function fillItems() {
-    const selectElement = document.getElementById(`itemSelect`);
-    boardGameComponents.items.forEach(element => {
+function fillSelectOptions(elementId, list) {
+    const selectElement = document.getElementById(elementId);
+    list.forEach(element => {
         const optionElement = document.createElement('option');
         optionElement.setAttribute('value', toSnakeCase(element));
         optionElement.textContent = element;
         selectElement.appendChild(optionElement);
-    });
+    }); 
 }
 
 function addItemCardButton() {
-    const narrativeContainer = document.getElementById('itemBox');
-    const narrativeSelect = document.getElementById('itemSelect');
-    const option = narrativeSelect.querySelector(`option[value="${narrativeSelect.value}"]`);
-    const foundNarrativeCard = boardGameComponents.items.find((element) => {
-        return toSnakeCase(element) === option.value;
-    });
-
-    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-    const cardElement = buildCard(foundNarrativeCard);
-    colDiv.appendChild(cardElement);
-    narrativeContainer.appendChild(colDiv);
-    gameStatus.items.push(foundNarrativeCard);
-    updateGameData();
-}
-
-function fillNarrative() {
-    const selectElement = document.getElementById(`narrativeCardSelect`);
-    boardGameComponents.narrative.forEach(element => {
-        const optionElement = document.createElement('option');
-        optionElement.setAttribute('value', toSnakeCase(element));
-        optionElement.textContent = element;
-        selectElement.appendChild(optionElement);
-    });
+    const addedNarrativeCard = addCard('itemBox', 'itemSelect', boardGameComponents.items);
+    // gameStatus.items.push(addedNarrativeCard);
+    // gameStatus.save();
 }
 
 function addNarrativeCardButton() {
-    const narrativeContainer = document.getElementById('narrativeDeck');
-    const narrativeSelect = document.getElementById('narrativeCardSelect');
-    const option = narrativeSelect.querySelector(`option[value="${narrativeSelect.value}"]`);
-    const foundNarrativeCard = boardGameComponents.narrative.find((element) => {
-        return toSnakeCase(element) === option.value;
-    });
-
-    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-    const cardElement = buildCard(foundNarrativeCard);
-    colDiv.appendChild(cardElement);
-    narrativeContainer.appendChild(colDiv);
-    gameStatus.narrative.push(foundNarrativeCard);
-    updateGameData();
-}
-
-function fillMissions() {
-    const selectElement = document.getElementById(`missionCardSelect`);
-    boardGameComponents.mission.forEach(element => {
-        const optionElement = document.createElement('option');
-        optionElement.setAttribute('value', toSnakeCase(element));
-        optionElement.textContent = element;
-        selectElement.appendChild(optionElement);
-    });
+    const addedNarrativeCard = addCard('narrativeDeck', 'narrativeCardSelect', boardGameComponents.narrative);
+    // gameStatus.narrative.push(addedNarrativeCard);
+    // gameStatus.save();
 }
 
 function addMissionCardButton() {
-    const missionContainer = document.getElementById('missionDeck');
-    const missionSelect = document.getElementById('missionCardSelect');
-    const option = missionSelect.querySelector(`option[value="${missionSelect.value}"]`);
-    const foundMissionCard = boardGameComponents.mission.find((element) => {
+    const addedMissionCard = addCard('missionDeck', 'missionCardSelect', boardGameComponents.mission);
+    // gameStatus.mission.push(addedMissionCard);
+    // gameStatus.save();
+}
+
+function addCard(containerId, selectId, list) {
+    const container = document.getElementById(containerId);
+    const select = document.getElementById(selectId);
+    const option = select.querySelector(`option[value="${select.value}"]`);
+    const foundElement = list.find((element) => {
         return toSnakeCase(element) === option.value;
     });
-
     const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
-    const cardElement = buildCard(foundMissionCard);
+    const cardElement = buildCard(foundElement);
     colDiv.appendChild(cardElement);
-    missionContainer.appendChild(colDiv);
-    gameStatus.mission.push(foundMissionCard);
-    updateGameData();
+    container.appendChild(colDiv);
+    list.push(foundElement);
+    gameStatus.save();
+    return foundElement;
 }
 
 function fillTensionCards() {
@@ -394,7 +273,7 @@ function addTensionCardButton() {
     colDiv.appendChild(cardElement);
     tensionContainer.appendChild(colDiv);
     gameStatus.tensionDeck.push(foundTensionCard);
-    updateGameData();
+    gameStatus.save();
 }
 
 function buildCard(cardText) {
@@ -433,6 +312,6 @@ function removeCard(event) {
     } else if (containerId.includes('item')) {
         gameStatus.items.splice(index, 1);
     }
-    updateGameData();
+    gameStatus.save();
     removeElement.remove();
 }

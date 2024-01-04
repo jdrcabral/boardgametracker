@@ -22,7 +22,7 @@ function completeLevel() {
         gameStatus.scenarios[scenarioIndex].completed = true;
         rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
     }
-    updateGameData();
+    gameStatus.save();
     lastMapElement = null;
 }
 
@@ -36,7 +36,7 @@ function unlockLevel() {
         gameStatus.scenarios[scenarioIndex].locked = true;
         pathElement.removeAttribute('hidden');   
     }
-    updateGameData();
+    gameStatus.save();
 }
 
 function revealLevel() {
@@ -46,7 +46,7 @@ function revealLevel() {
         gameStatus.scenarios[clickedElement].unlocks.forEach(element => {
             hideScenario(element);
         });
-        updateGameData();
+        gameStatus.save();
         return;
     } 
     const revealedPaths = [];
@@ -67,7 +67,7 @@ function revealLevel() {
         mapToReveal.removeAttribute('hidden');
     });
     lastMapElement = null;
-    updateGameData();
+    gameStatus.save();
 }
 
 function hideScenario(hideElement) {
@@ -95,4 +95,44 @@ function findScenarioIndexById(name) {
     return gameStatus.scenarios.findIndex(element => {
         return element.name.replaceAll(' ', '_') === name;    
     });
+}
+
+function buildStartingMap() {
+    gameStatus.scenarios.forEach(element => {
+        const nameId = element.name.replaceAll(' ', '_');
+        const svgGroup = svgElement.getElementById(nameId);
+        lastMapElement = svgGroup;
+        svgGroup.addEventListener('click', openModal);
+        svgGroup.setAttribute('data-bs-toggle', 'modal');
+        svgGroup.setAttribute('data-bs-target', '#mapModal');
+        if (!element.discovered) {
+            svgGroup.setAttribute('hidden', true);
+        }
+        if (element.completed) {
+            const rectElement = svgGroup.getElementsByTagName('rect');
+            rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
+        }
+        if (!element.locked && element.lockedBy) {
+            const rectElement = svgGroup.getElementsByTagName('path');
+            rectElement[0].setAttribute('hidden', true);
+        }
+    });
+    initialMapPaths();
+}
+
+function initialMapPaths() {
+    for (const child of mapPaths.children) {
+        if (!child.id.includes('Main_Hall')) {
+            const scenarios = child.id.split('_-_');
+            const firstScenario = gameStatus.scenarios.findIndex(element => {
+                return element.name.replaceAll(' ', '_') === scenarios[0];
+            });
+            const secondScenario = gameStatus.scenarios.findIndex(element => {
+                return element.name.replaceAll(' ', '_') === scenarios[1];
+            });
+            if (!gameStatus.scenarios[firstScenario].discovered || !gameStatus.scenarios[secondScenario].discovered) {
+                child.setAttribute('hidden', true);
+            }
+        }
+    }
 }
