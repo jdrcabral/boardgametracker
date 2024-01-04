@@ -62,3 +62,89 @@ function fillCharacterSelect() {
         selectElement.addEventListener('change', handleCharacterChange);
     }
 }
+
+function handleCharacterChange(event) {
+    const targetId = event.target.id
+    const characterIndex = parseInt(targetId[targetId.length - 1]) - 1;
+    if (event.target.value === 'Select Character') {
+        gameStatus.characters[characterIndex] = {
+            ...gameStatus.characters[characterIndex],
+            name: 'Select Character',
+        };
+        gameStatus.save();
+        return;
+    }
+    const healthInputCharacter = document.getElementById(`characterHealth${characterIndex + 1}`)
+    const characterId = toSnakeCase(event.target.value);
+    const reserveHealth = document.getElementById(`character_${characterId}_health`);
+    healthInputCharacter.value = reserveHealth.value;
+    gameStatus.characters[characterIndex] = {
+        ...gameStatus.characters[characterIndex],
+        name: event.target.value,
+        health: reserveHealth.value,
+    };
+    gameStatus.save();
+}
+
+
+function handleCheckboxChange(event) {
+    const targetId = event.target.id;
+    const grandParent = event.target.parentNode.parentNode;
+    const grandParentId = grandParent.id;
+    if (targetId.includes('character')) {
+        const changedCharIndex = gameStatus.reserve.findIndex(element => {
+            return grandParentId === toSnakeCase(element.name);
+        });
+        if (targetId.includes('unlocked')) {
+            gameStatus.reserve[changedCharIndex].unlocked = event.target.checked;
+        }
+        if (targetId.includes('dead')) {
+            gameStatus.reserve[changedCharIndex].dead = event.target.checked;
+        }
+        if (targetId.includes('advanced')) {
+            gameStatus.reserve[changedCharIndex].advanced = event.target.checked;
+        }
+    }
+    gameStatus.save();
+}
+
+function handleCharacterLifeChange(event) {
+    const parent = event.target.parentNode;
+    const parentTag = parent.tagName;
+    if (parentTag === 'TD') {
+        const tableRow = parent.parentNode;
+        const tableRowId = tableRow.getAttribute('id');
+        const reserveIndex = gameStatus.reserve.findIndex((element) => toSnakeCase(element.name) === tableRowId);
+        gameStatus.reserve[reserveIndex].health = event.target.value;
+
+        const charactersIndex = gameStatus.characters.findIndex(element => toSnakeCase(element.name) === tableRowId);
+        if (charactersIndex >= 0) {
+            gameStatus.characters[charactersIndex].health = event.target.value;
+            const healthInputCharacter = document.getElementById(`characterHealth${charactersIndex + 1}`)
+            healthInputCharacter.value = event.target.value;
+        }
+    } else if (parentTag === 'DIV') {
+        const characterId = event.target.id;
+        const regex = /\d+/; // Matches one or more digits
+        const match = characterId.match(regex);
+        const characterIndex = parseInt(match[0]);
+        const character = gameStatus.characters[characterIndex - 1];
+        character.health = event.target.value;
+
+        const charTableHealth = document.getElementById(`character_${character.name}_health`);
+        charTableHealth.value = event.target.value;
+        const reserveIndex = gameStatus.reserve.findIndex((element) => toSnakeCase(element.name) === character.name);
+        gameStatus.reserve[reserveIndex].health = event.target.value;
+    }
+    gameStatus.save();
+}
+
+function handleCharacterKeroseneChange(event) {
+    const characterId = event.target.id;
+    const regex = /\d+/; // Matches one or more digits
+    const match = characterId.match(regex);
+    const characterIndex = parseInt(match[0]);
+    const character = gameStatus.characters[characterIndex - 1];
+    character.kerosene = event.target.value;
+    gameStatus.save();
+}
