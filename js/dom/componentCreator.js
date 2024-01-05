@@ -24,11 +24,9 @@ class ComponentCreator {
         const button = document.createElement('button');
         button.setAttribute('type', 'button');
         button.setAttribute('class', `btn ${level}`);
-        button.addEventListener('click', removeCard);
         const span = document.createElement('span');
         const trashIcon = document.createElement('i');
         trashIcon.setAttribute('class', icon);
-        
         span.appendChild(trashIcon);
         button.appendChild(span);
         return button
