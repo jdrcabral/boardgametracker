@@ -44,7 +44,7 @@ function builder () {
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
-  scaleSVGImage(svgElement)
+  scaleSVGImage()
   loadCharacters()
   loadCards()
   threatLevel.value = gameStatus.threatLevel
@@ -74,16 +74,16 @@ function loadInventory (character, index) {
 }
 
 function loadCards () {
-  gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element))
-  gameStatus.mission.forEach(element => loadCard('missionDeck', element))
-  gameStatus.items.forEach(element => loadCard('itemBox', element))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value]))
+  gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
+  gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
+  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity))
+  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity))
 }
 
-function loadCard (containerId, element, backgroundColor = null) {
+function loadCard (containerId, element, backgroundColor = null, includeQuantity = fals, quantity = 1) {
   const container = document.getElementById(containerId)
   const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
-  const cardElement = buildCard(element)
+  const cardElement = buildCard(element, includeQuantity, quantity)
   if (backgroundColor) {
     cardElement.style.backgroundColor = backgroundColor
   }
@@ -112,7 +112,7 @@ function openModal (event) {
   }
 }
 
-function scaleSVGImage (svgElement) {
+function scaleSVGImage () {
   const viewportWidth = window.innerWidth
   const viewportHeight = window.innerHeight
   const svgWidth = svgElement.getBoundingClientRect().width
@@ -133,7 +133,7 @@ function fillSelectOptions (elementId, list, usePrefix = false) {
 }
 
 function addItemCardButton () {
-  addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items)
+  addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true)
 }
 
 function addNarrativeCardButton () {
@@ -145,7 +145,7 @@ function addMissionCardButton () {
 }
 
 function addTensionCardButton () {
-  addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true)
+  addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true, true)
 }
 
 function addCharacterItem (characterIndex) {
@@ -158,7 +158,7 @@ function addCharacterItem (characterIndex) {
   buildInventoryItem(characterIndex + 1, itemFound)
 }
 
-function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null) {
+function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false) {
   const container = document.getElementById(containerId)
   const select = document.getElementById(selectId)
   const option = select.querySelector(`option[value="${select.value}"]`)
@@ -168,17 +168,30 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   })
   const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
-  const cardElement = buildCard(cardText)
+  const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
+  const cardElement = buildCard(cardText, includeQuantity, quantity)
   if (useBackgroundColor) {
     cardElement.style.backgroundColor = TENSION_CARD_COLORS[foundElement.value]
   }
   colDiv.appendChild(cardElement)
   container.appendChild(colDiv)
-  storeLocation.push(foundElement)
+  if (typeof foundElement === 'string' && includeQuantity) {
+    storeLocation.push({
+      name: foundElement,
+      quantity: 1,
+    })
+  } else if (typeof foundElement !== 'string' && includeQuantity) {
+    storeLocation.push({
+      ...foundElement,
+      quantity: 1,
+    })
+  } else {
+    storeLocation.push(foundElement)
+  }
   gameStatus.save()
 }
 
-function buildCard (cardText) {
+function buildCard (cardText, includeQuantity=false, quantityValue = 1) {
   const cardComponent = new CardComponent()
   const cardRow = ComponentCreator.createDivWithClass('row')
   const rowCol = ComponentCreator.createDivWithClass('col-8')
@@ -186,7 +199,16 @@ function buildCard (cardText) {
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
   rowCol.appendChild(cartTitle)
-
+  if (includeQuantity) {
+    const input = document.createElement('input')
+    input.setAttribute('class', 'form-control')
+    input.setAttribute('placeholder', 'Quantity')
+    input.setAttribute('min', '0')
+    input.setAttribute('type', 'number')
+    input.value = quantityValue;
+    input.addEventListener('change', handleCardValueChange);
+    rowCol.appendChild(input);
+  }
   const rowCol2 = ComponentCreator.createDivWithClass('col')
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger')
   removeButton.addEventListener('click', removeCard)
@@ -283,4 +305,17 @@ function handleItemValueChange (event) {
   const characterIndex = parseInt(match[0])
   gameStatus.characters[characterIndex - 1].inventory[index].value = event.target.value
   gameStatus.save()
+}
+
+function handleCardValueChange (event) {
+  const cardItem = event.target.closest('.card')
+  const cardContainer = cardItem.parentNode
+  const rowContainer = cardContainer.closest('.row');
+  const index = Array.prototype.indexOf.call(cardContainer.children, cardItem);
+  if (rowContainer.id === 'tensionDeck') {
+    gameStatus.tensionDeck[index].quantity = event.target.value;
+  } else if (rowContainer.id === 'itemBox') {
+    gameStatus.items[index].quantity = event.target.value;
+  }
+  gameStatus.save();
 }
