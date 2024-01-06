@@ -1,7 +1,9 @@
 const STORAGE_KEY = 'CTREBG';
+const CURRENT_VERSION = 'alpha';
 
 class GameStatus {
 
+    version = 'alpha';
     threatLevel = 0;
     scenarios = [];
     characters = [];
@@ -11,7 +13,6 @@ class GameStatus {
     mission = [];
     tensionDeck = [];
 
-
     load() {
         const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
         const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()];
@@ -20,6 +21,12 @@ class GameStatus {
             this.characters = baseCharacters;
             this.reserve = this.#buildReserve();
             return;
+        }
+        
+        const storedVersion = storedData.version;
+        if (storedVersion != CURRENT_VERSION) {
+            // TODO function to migrate version
+            this.version = CURRENT_VERSION;
         }
         this.scenarios = storedData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : storedData.scenarios;
         this.characters = storedData.characters.length === 0 ? baseCharacters : storedData.characters;
@@ -32,6 +39,7 @@ class GameStatus {
 
     save() {
         localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            version: this.version,
             threatLevel: this.threatLevel,
             scenarios: this.scenarios,
             characters: this.characters,

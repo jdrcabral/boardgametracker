@@ -37,6 +37,9 @@ function builder() {
     buildReserveCharacter();
     fillCharacterSelect();
     buildStartingMap();
+    for (let i = 1; i < 5; i++) {
+        fillSelectOptions(`character${i}ItemSelect`, boardGameComponents.items); // Fill options for item deck cards
+    }
     fillSelectOptions('itemSelect', boardGameComponents.items); // Fill options for item deck cards
     fillSelectOptions('missionCardSelect', boardGameComponents.mission); // Fill options for missions
     fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative); // Fill options for narrative cards
@@ -50,15 +53,23 @@ function builder() {
 function loadCharacters() {
     gameStatus.characters.forEach((element, index) => {
         if ('name' in element) {
-            const selectElement = document.getElementById(`characterSelect${index+1}`);
+            const selectElement = document.getElementById(`characterSelect${index + 1}`);
             selectElement.value = element.name;
 
-            const characterHealth = document.getElementById(`characterHealth${index+1}`);
+            const characterHealth = document.getElementById(`characterHealth${index + 1}`);
             characterHealth.value = element.health;
 
-            const characterKerosene = document.getElementById(`characterKerosene${index+1}`);
+            const characterKerosene = document.getElementById(`characterKerosene${index + 1}`);
             characterKerosene.value = element.kerosene ? element.kerosene : 0;
+
+            loadInventory(element, index);
         }
+    });
+}
+
+function loadInventory(character, index) {
+    character.inventory.forEach(item => {
+        createElement(index + 1, item);
     });
 }
 
@@ -71,7 +82,7 @@ function loadCards() {
 
 function loadCard(containerId, element, backgroundColor = null) {
     const container = document.getElementById(containerId);
-    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3') 
+    const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
     const cardElement = buildCard(element);
     if (backgroundColor) {
         cardElement.style.backgroundColor = backgroundColor
@@ -118,7 +129,7 @@ function fillSelectOptions(elementId, list, usePrefix = false) {
         optionElement.setAttribute('value', toSnakeCase(name));
         optionElement.textContent = usePrefix ? `${TENSION_CARD_SYMBOLS[element.value]} ${name}` : name;
         selectElement.appendChild(optionElement);
-    }); 
+    });
 }
 
 function addItemCardButton() {
@@ -135,6 +146,16 @@ function addMissionCardButton() {
 
 function addTensionCardButton() {
     addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true)
+}
+
+function addCharacterItem(characterIndex) {
+    const characterItemSelect = document.getElementById(`character${characterIndex + 1}ItemSelect`);
+    const option = characterItemSelect.querySelector(`option[value="${characterItemSelect.value}"]`);
+    const itemFound = boardGameComponents.items.find((element) => {
+        if (typeof element === 'string') return toSnakeCase(element) === option.value;
+        return toSnakeCase(element.name) === option.value;
+    });
+    buildInventoryItem(characterIndex + 1, itemFound);
 }
 
 function addCard(containerId, selectId, list, storeLocation, useBackgroundColor = null) {
@@ -157,18 +178,18 @@ function addCard(containerId, selectId, list, storeLocation, useBackgroundColor 
     gameStatus.save();
 }
 
-function buildCard(cardText, ) {
+function buildCard(cardText) {
     const cardComponent = new CardComponent();
     const cardRow = ComponentCreator.createDivWithClass('row');
     const rowCol = ComponentCreator.createDivWithClass('col-8');
     const cartTitle = document.createElement('p');
     cartTitle.setAttribute('class', 'card-text');
     cartTitle.textContent = cardText;
-    rowCol.appendChild(cartTitle)
+    rowCol.appendChild(cartTitle);
 
     const rowCol2 = ComponentCreator.createDivWithClass('col');
     const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger');
-    
+    removeButton.addEventListener('click', removeCard);
     rowCol2.appendChild(removeButton);
     cardRow.appendChild(rowCol);
     cardRow.appendChild(rowCol2);
@@ -183,16 +204,86 @@ function removeCard(event) {
     const containerId = container.id;
     var index = Array.prototype.indexOf.call(container.children, removeElement);
     if (containerId.includes('narrative')) {
-        gameStatus.narrative.splice(index, 1);        
+        gameStatus.narrative.splice(index, 1);
     } else if (containerId.includes('tension')) {
         gameStatus.tensionDeck.splice(index, 1);
-        
+
     } else if (containerId.includes('mission')) {
         gameStatus.mission.splice(index, 1);
-        
+
     } else if (containerId.includes('item')) {
         gameStatus.items.splice(index, 1);
     }
     gameStatus.save();
     removeElement.remove();
+}
+
+function buildInventoryItem(characterIndex, item) {
+    createElement(characterIndex, item);
+
+    gameStatus.characters[characterIndex - 1].inventory.push({
+        name: item,
+        value: 0,
+    });
+    gameStatus.save();
+}
+
+function createElement(characterIndex, item) {
+    console.log(item);
+    const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`);
+    const listItem = document.createElement('li');
+    listItem.setAttribute('class', 'list-group-item');
+
+    const row = document.createElement('div');
+    row.setAttribute('class', 'row');
+
+    const nameColumn = document.createElement('div');
+    nameColumn.setAttribute('class', 'col-9');
+    const itemName = document.createElement('p');
+    itemName.textContent = typeof item === 'string' ? item : item.name;
+    const input = document.createElement('input');
+    input.setAttribute('class', 'form-control');
+    input.setAttribute('placeholder', 'Ammo/Quantity');
+    input.setAttribute('min', '0');
+    input.setAttribute('type', 'number');
+    if (typeof item !== 'string') {
+        input.value = item.value;
+    }
+    input.addEventListener('change', handleItemValueChange);
+    const buttonColumn = document.createElement('div');
+    buttonColumn.setAttribute('class', 'col-2');
+    const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger');
+    removeButton.addEventListener('click', removeCharacterInventoryItem);
+    nameColumn.appendChild(itemName);
+    nameColumn.appendChild(input);
+    buttonColumn.appendChild(removeButton);
+    row.appendChild(nameColumn);
+    row.appendChild(buttonColumn);
+    listItem.appendChild(row);
+    inventoryContainer.appendChild(listItem);
+}
+
+function removeCharacterInventoryItem(event) {
+    const listItem = event.target.closest('li');
+    const listContainer = listItem.parentNode;
+    var index = Array.prototype.indexOf.call(listContainer.children, listItem);
+    const containerId = listContainer.id;
+    const regex = /\d+/; // Matches one or more digits
+    const match = containerId.match(regex);
+    const characterIndex = parseInt(match[0]);
+    gameStatus.characters[characterIndex - 1].inventory.splice(index, 1);
+    gameStatus.save();
+    listItem.remove();
+}
+
+function handleItemValueChange(event) {
+    const listItem = event.target.closest('li');
+    const listContainer = listItem.parentNode;
+    var index = Array.prototype.indexOf.call(listContainer.children, listItem);
+    const containerId = listContainer.id;
+    const regex = /\d+/; // Matches one or more digits
+    const match = containerId.match(regex);
+    const characterIndex = parseInt(match[0]);
+    gameStatus.characters[characterIndex - 1].inventory[index].value = event.target.value;
+    gameStatus.save();
 }
