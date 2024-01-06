@@ -178,12 +178,12 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   if (typeof foundElement === 'string' && includeQuantity) {
     storeLocation.push({
       name: foundElement,
-      quantity: 1,
+      quantity: 1
     })
   } else if (typeof foundElement !== 'string' && includeQuantity) {
     storeLocation.push({
       ...foundElement,
-      quantity: 1,
+      quantity: 1
     })
   } else {
     storeLocation.push(foundElement)
@@ -191,7 +191,7 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   gameStatus.save()
 }
 
-function buildCard (cardText, includeQuantity=false, quantityValue = 1) {
+function buildCard (cardText, includeQuantity = false, quantityValue = 1) {
   const cardComponent = new CardComponent()
   const cardRow = ComponentCreator.createDivWithClass('row')
   const rowCol = ComponentCreator.createDivWithClass('col-8')
@@ -205,9 +205,9 @@ function buildCard (cardText, includeQuantity=false, quantityValue = 1) {
     input.setAttribute('placeholder', 'Quantity')
     input.setAttribute('min', '0')
     input.setAttribute('type', 'number')
-    input.value = quantityValue;
-    input.addEventListener('change', handleCardValueChange);
-    rowCol.appendChild(input);
+    input.value = quantityValue
+    input.addEventListener('change', handleCardValueChange)
+    rowCol.appendChild(input)
   }
   const rowCol2 = ComponentCreator.createDivWithClass('col')
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger')
@@ -310,12 +310,12 @@ function handleItemValueChange (event) {
 function handleCardValueChange (event) {
   const cardItem = event.target.closest('.card')
   const cardContainer = cardItem.parentNode
-  const rowContainer = cardContainer.closest('.row');
-  const index = Array.prototype.indexOf.call(cardContainer.children, cardItem);
+  const rowContainer = cardContainer.closest('.row')
+  const index = Array.prototype.indexOf.call(cardContainer.children, cardItem)
   if (rowContainer.id === 'tensionDeck') {
-    gameStatus.tensionDeck[index].quantity = event.target.value;
+    gameStatus.tensionDeck[index].quantity = event.target.value
   } else if (rowContainer.id === 'itemBox') {
-    gameStatus.items[index].quantity = event.target.value;
+    gameStatus.items[index].quantity = event.target.value
   }
-  gameStatus.save();
+  gameStatus.save()
 }
