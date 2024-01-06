@@ -3,7 +3,6 @@ const CURRENT_VERSION = 'alpha';
 
 class GameStatus {
 
-    version = 'alpha';
     threatLevel = 0;
     scenarios = [];
     characters = [];
@@ -15,31 +14,32 @@ class GameStatus {
 
     load() {
         const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
-        const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()];
-        if (storedData === null) {
-            this.scenarios = [...boardGameComponents.scenarios];
-            this.characters = baseCharacters;
-            this.reserve = this.#buildReserve();
-            return;
-        }
-        
-        const storedVersion = storedData.version;
-        if (storedVersion != CURRENT_VERSION) {
-            // TODO function to migrate version
-            this.version = CURRENT_VERSION;
-        }
-        this.scenarios = storedData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : storedData.scenarios;
-        this.characters = storedData.characters.length === 0 ? baseCharacters : storedData.characters;
-        this.reserve = storedData.reserve.length === 0 ? this.#buildReserve() : storedData.reserve; 
-        this.narrative = storedData.narrative.length === 0 ? [] : storedData.narrative;
-        this.mission = storedData.mission.length === 0 ? [] : storedData.mission;
-        this.items = storedData.items.length === 0 ? [] : storedData.items;
-        this.tensionDeck = storedData.tensionDeck.length === 0 ? [] : storedData.tensionDeck;
+        this.#loadAttributes(storedData);
     }
 
     save() {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify({
-            version: this.version,
+        localStorage.setItem(STORAGE_KEY, this.toJson());
+    }
+
+    clear() {
+        this.threatLevel = 0;
+        this.scenarios = [];
+        this.characters = [];
+        this.reserve = [];
+        this.items = [];
+        this.narrative = [];
+        this.mission = [];
+        this.tensionDeck = [];
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
+    fromJson(jsonString) {
+        const parsedJson = JSON.parse(jsonString);
+        this.#loadAttributes(parsedJson);
+    }
+
+    toJson() {
+        return JSON.stringify({
             threatLevel: this.threatLevel,
             scenarios: this.scenarios,
             characters: this.characters,
@@ -48,7 +48,25 @@ class GameStatus {
             narrative: this.narrative,
             mission: this.mission,
             tensionDeck: this.tensionDeck,
-        }));
+        })
+    }
+
+    #loadAttributes(sourceData) {
+        const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()];
+        if (sourceData === null) {
+            this.scenarios = [...boardGameComponents.scenarios];
+            this.characters = baseCharacters;
+            this.reserve = this.#buildReserve();
+            return;
+        }
+        
+        this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios;
+        this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters;
+        this.reserve = sourceData.reserve.length === 0 ? this.#buildReserve() : sourceData.reserve; 
+        this.narrative = sourceData.narrative.length === 0 ? [] : sourceData.narrative;
+        this.mission = sourceData.mission.length === 0 ? [] : sourceData.mission;
+        this.items = sourceData.items.length === 0 ? [] : sourceData.items;
+        this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck;
     }
 
     #buildReserve() {

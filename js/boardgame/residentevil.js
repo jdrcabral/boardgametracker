@@ -229,7 +229,6 @@ function buildInventoryItem(characterIndex, item) {
 }
 
 function createElement(characterIndex, item) {
-    console.log(item);
     const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`);
     const listItem = document.createElement('li');
     listItem.setAttribute('class', 'list-group-item');

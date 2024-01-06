@@ -573,5 +573,110 @@
             "locked": false,
             "unlocks": []
         }
+    ],
+    "expansions": [
+        {
+            "name": "Bleak Outpost",
+            "narrative": [
+                "Bleeding Out",
+                "Extermination",
+                "Festering Wound",
+                "Harrowing End",
+                "Impervious Hide",
+                "Mellow And Yellow",
+                "Narrow Escape",
+                "Overcome",
+                "Researcher's Diary",
+                "Save Room",
+                "Seeds Of Mistrust",
+                "Soldier's Note",
+                "Something Valuable",
+                "Tiger Puzzle",
+                "Traitor Among Us",
+                "Trapped"
+            ],
+            "mission": [
+                "Blue Gem Into The Tiger Statue",
+                "Problem Solving",
+                "Securing An Escape Route",
+                "Teamwork",
+                "Yellow Gem Into The Tiger Statue"
+            ],
+            "tensionCards": [
+                "Respite",
+                "Supply Cache",
+                "Bee Swarm",
+                "Diseased Claws",
+                "Flickering Lights",
+                "From The Depths",
+                "Sinister Echoes",
+                "Sinister Hiss",
+                "Treacherous Footing",
+                "Virulent Blood",
+                "Waterlogged",
+                "Infestation",
+                "Overrun",
+                "Waterway Open"
+            ],
+            "scenarios": [
+                "Aqua Ring A",
+                "Aqua Ring B",
+                "Garden B",
+                "Guard House A",
+                "Guard House B",
+                "Guard House C"
+            ]
+        },
+        {
+            "name": "Into The Darkness",
+            "tensionCards": [
+                "Cleared Out",
+                "Hunter's Prey"
+            ],
+            "scenarios": [
+                "2nd Floor East C",
+                "3rd Floor A",
+                "3rd Floor B",
+                "Caves A",
+                "Caves B",
+                "Caves C",
+                "Garden C"
+            ]
+        },
+        {
+            "name": "Director's Cut",
+            "narrative": [
+                "Animosity",
+                "Assassination",
+                "Clearing Your Name",
+                "Crow's Nest",
+                "Damning Evidence",
+                "Dangerous To Go Alone",
+                "Deadly Pursuit",
+                "How Convenient",
+                "Isolated Area",
+                "Overcoming The Odds",
+                "Spider Lair",
+                "Traitor In The Ranks",
+                "Unending Nightmare"
+            ],
+            "tensionCards": ["Sabotage"],
+            "mission": [
+                "Above And Beyond",
+                "Proving Their Innocence",
+                "Rooting Out The Traitor",
+                "Travel To Item Box"
+            ],
+            "characters": [
+                "Albert Wesker",
+                "Brad Vickers",
+                "Edward Dewey",
+                "Enrico Marini",
+                "Forest Speyer",
+                "Joseph Frost",
+                "Kenneth J. Sullivan",
+                "Richard Aiken"
+            ]
+        }
     ]
 }
