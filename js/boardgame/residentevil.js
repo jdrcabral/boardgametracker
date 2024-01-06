@@ -127,7 +127,7 @@ function fillSelectOptions (elementId, list, usePrefix = false) {
     const optionElement = document.createElement('option')
     const name = typeof element === 'string' ? element : element.name
     optionElement.setAttribute('value', toSnakeCase(name))
-    optionElement.textContent = usePrefix ? `${TENSION_CARD_SYMBOLS[element.value]} ${name}` : name
+    optionElement.textContent = usePrefix ? `${TENSION_CARD_SYMBOLS[element.value]}(${element.value}) ${name}` : name
     selectElement.appendChild(optionElement)
   })
 }
