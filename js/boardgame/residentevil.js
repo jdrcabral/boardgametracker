@@ -80,7 +80,7 @@ function loadCards () {
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity))
 }
 
-function loadCard (containerId, element, backgroundColor = null, includeQuantity = fals, quantity = 1) {
+function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1) {
   const container = document.getElementById(containerId)
   const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardElement = buildCard(element, includeQuantity, quantity)
