@@ -81,8 +81,7 @@ function buildReserveCharacter() {
         const deadInput = ComponentCreator.createCheckbox("", `character_${elementId}_dead`);
         charDeadCol.addEventListener('change', handleCheckboxChange);
         charDeadCol.appendChild(deadInput);
-        const rangeInput = ComponentCreator.createNumberInput(5, 1, 5, `character_${elementId}_health`);
-        rangeInput.addEventListener('change', handleCharacterLifeChange);
+        const rangeInput = ComponentCreator.createNumberInput(5, 1, 5, `character_${elementId}_health`, null, handleCharacterLifeChange);
         charHealthCol.appendChild(rangeInput);
         
         tableRow.appendChild(charNameCol);

@@ -31,8 +31,7 @@ class ReserveCharacterTable {
 
     static characterHealthColumn(elementId, value) {
         const charHealthCol = document.createElement('td');
-        const rangeInput = ComponentCreator.createNumberInput(5, 1, 5, `character_${elementId}_health`);
-        rangeInput.addEventListener('change', handleCharacterLifeChange);
+        const rangeInput = ComponentCreator.createNumberInput(5, 1, 5, `character_${elementId}_health`, null, handleCharacterLifeChange);
         rangeInput.value = value;
         charHealthCol.appendChild(rangeInput);
         return charHealthCol;
@@ -124,10 +123,8 @@ function handleCharacterLifeChange(event) {
             healthInputCharacter.value = event.target.value;
         }
     } else if (parentTag === 'DIV') {
-        const characterId = event.target.id;
-        const regex = /\d+/; // Matches one or more digits
-        const match = characterId.match(regex);
-        const characterIndex = parseInt(match[0]);
+        const characterIndex = extractIntFromString(event.target.id);
+        
         const character = gameStatus.characters[characterIndex - 1];
         character.health = event.target.value;
 
@@ -140,10 +137,7 @@ function handleCharacterLifeChange(event) {
 }
 
 function handleCharacterKeroseneChange(event) {
-    const characterId = event.target.id;
-    const regex = /\d+/; // Matches one or more digits
-    const match = characterId.match(regex);
-    const characterIndex = parseInt(match[0]);
+    const characterIndex = extractIntFromString(event.target.id);
     const character = gameStatus.characters[characterIndex - 1];
     character.kerosene = event.target.value;
     gameStatus.save();

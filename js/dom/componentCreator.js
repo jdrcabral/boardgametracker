@@ -9,18 +9,22 @@ class ComponentCreator {
         return inputTag;
     }
 
-    static createNumberInput(value=0, min=0, max=100, id=null) {
+    static createNumberInput(value=0, min=0, max=100, id=null, placeholder=null, changeEvent=null) {
         const inputTag = document.createElement("input");
         inputTag.value = value;
         inputTag.setAttribute("type", "number");
         inputTag.setAttribute("class", "form-control");
+        inputTag.setAttribute("placeholder", placeholder);
         inputTag.setAttribute("min", min);
         inputTag.setAttribute("max", max);
         inputTag.setAttribute("id", id);
+        if (changeEvent) {
+            inputTag.addEventListener('change', changeEvent)
+        }
         return inputTag;
     }
 
-    static createIconButton(icon, level='btn-info') {
+    static createIconButton(icon, level='btn-info', clickEvent=null) {
         const button = document.createElement('button');
         button.setAttribute('type', 'button');
         button.setAttribute('class', `btn ${level}`);
@@ -29,6 +33,9 @@ class ComponentCreator {
         trashIcon.setAttribute('class', icon);
         span.appendChild(trashIcon);
         button.appendChild(span);
+        if (clickEvent) {
+            button.addEventListener('click', clickEvent);
+        }
         return button
     }
 
