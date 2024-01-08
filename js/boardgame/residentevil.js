@@ -82,12 +82,11 @@ function loadCards () {
 
 function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1) {
   const container = document.getElementById(containerId)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardElement = buildCard(element, includeQuantity, quantity)
   if (backgroundColor) {
     cardElement.style.backgroundColor = backgroundColor
   }
-  colDiv.appendChild(cardElement)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)
 }
 
@@ -166,14 +165,13 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
   })
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
   const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
   const cardElement = buildCard(cardText, includeQuantity, quantity)
   if (useBackgroundColor) {
     cardElement.style.backgroundColor = TENSION_CARD_COLORS[foundElement.value]
   }
-  colDiv.appendChild(cardElement)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)
   if (typeof foundElement === 'string' && includeQuantity) {
     storeLocation.push({
@@ -193,21 +191,17 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
 
 function buildCard (cardText, includeQuantity = false, quantityValue = 1) {
   const cardComponent = new CardComponent()
-  const cardRow = ComponentCreator.createDivWithClass('row')
-  const rowCol = ComponentCreator.createDivWithClass('col-8')
   const cartTitle = document.createElement('p')
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
-  rowCol.appendChild(cartTitle)
+  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
   if (includeQuantity) {
     const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange);
     rowCol.appendChild(input)
   }
-  const rowCol2 = ComponentCreator.createDivWithClass('col')
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
-  rowCol2.appendChild(removeButton)
-  cardRow.appendChild(rowCol)
-  cardRow.appendChild(rowCol2)
+  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
+  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
   cardComponent.addElementContent(cardRow)
   return cardComponent.generate()
 }
@@ -245,21 +239,16 @@ function createElement (characterIndex, item) {
   const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`)
   const listItem = document.createElement('li')
   listItem.setAttribute('class', 'list-group-item')
-  const row = ComponentCreator.createDivWithClass()
-  const nameColumn = ComponentCreator.createDivWithClass('col-9')
   const itemName = document.createElement('p')
   itemName.textContent = typeof item === 'string' ? item : item.name
   const input = ComponentCreator.createNumberInput(null, 0, 100, null, 'Ammo/Quantity', handleItemValueChange);
   if (typeof item !== 'string') {
     input.value = item.value
   }
-  const buttonColumn = ComponentCreator.createDivWithClass('col-2')
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem);
-  nameColumn.appendChild(itemName)
-  nameColumn.appendChild(input)
-  buttonColumn.appendChild(removeButton)
-  row.appendChild(nameColumn)
-  row.appendChild(buttonColumn)
+  const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton]);
+  const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName, input])
+  const row = ComponentCreator.createDivWithClass(null, [nameColumn, buttonColumn])
   listItem.appendChild(row)
   inventoryContainer.appendChild(listItem)
 }

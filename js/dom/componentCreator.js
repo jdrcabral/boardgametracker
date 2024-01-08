@@ -39,9 +39,14 @@ class ComponentCreator {
         return button
     }
 
-    static createDivWithClass(className) {
+    static createDivWithClass(className, children=null) {
         const div = document.createElement('div');
         div.setAttribute('class', className);
+        if (Array.isArray(children)) {
+            children.forEach(element => {
+                div.appendChild(element);
+            });
+        }
         return div;
     }
 
