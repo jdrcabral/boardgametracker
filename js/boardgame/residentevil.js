@@ -76,13 +76,13 @@ function loadInventory (character, index) {
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
-  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity))
+  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType='text'))
+  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType='number'))
 }
 
-function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1) {
+function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType='number') {
   const container = document.getElementById(containerId)
-  const cardElement = buildCard(element, includeQuantity, quantity)
+  const cardElement = buildCard(element, includeQuantity, quantity, inputType)
   if (backgroundColor) {
     cardElement.style.backgroundColor = backgroundColor
   }
@@ -132,7 +132,7 @@ function fillSelectOptions (elementId, list, usePrefix = false) {
 }
 
 function addItemCardButton () {
-  addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true)
+  addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true, 'text')
 }
 
 function addNarrativeCardButton () {
@@ -157,7 +157,7 @@ function addCharacterItem (characterIndex) {
   buildInventoryItem(characterIndex + 1, itemFound)
 }
 
-function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false) {
+function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
   const container = document.getElementById(containerId)
   const select = document.getElementById(selectId)
   const option = select.querySelector(`option[value="${select.value}"]`)
@@ -167,7 +167,7 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   })
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
   const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
-  const cardElement = buildCard(cardText, includeQuantity, quantity)
+  const cardElement = buildCard(cardText, includeQuantity, quantity, inputType)
   if (useBackgroundColor) {
     cardElement.style.backgroundColor = TENSION_CARD_COLORS[foundElement.value]
   }
@@ -189,14 +189,19 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   gameStatus.save()
 }
 
-function buildCard (cardText, includeQuantity = false, quantityValue = 1) {
+function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
   const cardComponent = new CardComponent()
   const cartTitle = document.createElement('p')
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
   const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
   if (includeQuantity) {
-    const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
+    let input;
+    if (inputType === 'text') {
+      input = ComponentCreator.createTextInput(quantityValue, null, 'Quantity', handleCardValueChange)
+    } else {
+      input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
+    }
     rowCol.appendChild(input)
   }
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
@@ -241,15 +246,21 @@ function createElement (characterIndex, item) {
   listItem.setAttribute('class', 'list-group-item')
   const itemName = document.createElement('p')
   itemName.textContent = typeof item === 'string' ? item : item.name
-  const input = ComponentCreator.createNumberInput(null, 0, 100, null, 'Ammo/Quantity', handleItemValueChange)
+  const input = ComponentCreator.createTextInput(null, null, 'Ammo/Quantity', handleItemValueChange)
   if (typeof item !== 'string') {
     input.value = item.value
   }
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem)
   const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton])
-  const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName, input])
-  const row = ComponentCreator.createDivWithClass(null, [nameColumn, buttonColumn])
+  const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName])
+  const row = ComponentCreator.createDivWithClass('row', [nameColumn, buttonColumn])
+  const inputColumn = ComponentCreator.createDivWithClass('col', [input])
+  const row2 = ComponentCreator.createDivWithClass(
+    'row',
+    [inputColumn],
+  )
   listItem.appendChild(row)
+  listItem.appendChild(row2)
   inventoryContainer.appendChild(listItem)
 }
 
@@ -276,7 +287,7 @@ function handleCardValueChange (event) {
   const cardItem = event.target.closest('.card')
   const cardContainer = cardItem.parentNode
   const rowContainer = cardContainer.closest('.row')
-  const index = Array.prototype.indexOf.call(cardContainer.children, cardItem)
+  const index = Array.prototype.indexOf.call(rowContainer.children, cardContainer)
   if (rowContainer.id === 'tensionDeck') {
     gameStatus.tensionDeck[index].quantity = event.target.value
   } else if (rowContainer.id === 'itemBox') {
