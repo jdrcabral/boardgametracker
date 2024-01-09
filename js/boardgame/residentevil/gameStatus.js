@@ -59,6 +59,7 @@ class GameStatus {
       return
     }
 
+    this.threatLevel = sourceData.threatLevel ? sourceData.threatLevel : 0;
     this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios
     this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters
     this.reserve = sourceData.reserve.length === 0 ? this.#buildReserve() : sourceData.reserve
