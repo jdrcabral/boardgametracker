@@ -17,7 +17,24 @@ class ComponentCreator {
     inputTag.setAttribute('placeholder', placeholder)
     inputTag.setAttribute('min', min)
     inputTag.setAttribute('max', max)
-    inputTag.setAttribute('id', id)
+    if (id) {
+      inputTag.setAttribute('id', id)
+    }
+    if (changeEvent) {
+      inputTag.addEventListener('change', changeEvent)
+    }
+    return inputTag
+  }
+
+  static createTextInput (value = 0, id = null, placeholder = null, changeEvent = null) {
+    const inputTag = document.createElement('input')
+    inputTag.value = value
+    inputTag.setAttribute('type', 'text')
+    inputTag.setAttribute('class', 'form-control')
+    inputTag.setAttribute('placeholder', placeholder)
+    if (id) {
+      inputTag.setAttribute('id', id)
+    }
     if (changeEvent) {
       inputTag.addEventListener('change', changeEvent)
     }
