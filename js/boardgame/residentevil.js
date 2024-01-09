@@ -80,14 +80,13 @@ function loadCards () {
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity))
 }
 
-function loadCard (containerId, element, backgroundColor = null, includeQuantity = fals, quantity = 1) {
+function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1) {
   const container = document.getElementById(containerId)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardElement = buildCard(element, includeQuantity, quantity)
   if (backgroundColor) {
     cardElement.style.backgroundColor = backgroundColor
   }
-  colDiv.appendChild(cardElement)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)
 }
 
@@ -166,14 +165,13 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
   })
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3')
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
   const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
   const cardElement = buildCard(cardText, includeQuantity, quantity)
   if (useBackgroundColor) {
     cardElement.style.backgroundColor = TENSION_CARD_COLORS[foundElement.value]
   }
-  colDiv.appendChild(cardElement)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)
   if (typeof foundElement === 'string' && includeQuantity) {
     storeLocation.push({
@@ -193,28 +191,17 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
 
 function buildCard (cardText, includeQuantity = false, quantityValue = 1) {
   const cardComponent = new CardComponent()
-  const cardRow = ComponentCreator.createDivWithClass('row')
-  const rowCol = ComponentCreator.createDivWithClass('col-8')
   const cartTitle = document.createElement('p')
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
-  rowCol.appendChild(cartTitle)
+  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
   if (includeQuantity) {
-    const input = document.createElement('input')
-    input.setAttribute('class', 'form-control')
-    input.setAttribute('placeholder', 'Quantity')
-    input.setAttribute('min', '0')
-    input.setAttribute('type', 'number')
-    input.value = quantityValue
-    input.addEventListener('change', handleCardValueChange)
+    const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
     rowCol.appendChild(input)
   }
-  const rowCol2 = ComponentCreator.createDivWithClass('col')
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger')
-  removeButton.addEventListener('click', removeCard)
-  rowCol2.appendChild(removeButton)
-  cardRow.appendChild(rowCol)
-  cardRow.appendChild(rowCol2)
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
+  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
+  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
   cardComponent.addElementContent(cardRow)
   return cardComponent.generate()
 }
@@ -252,32 +239,16 @@ function createElement (characterIndex, item) {
   const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`)
   const listItem = document.createElement('li')
   listItem.setAttribute('class', 'list-group-item')
-
-  const row = document.createElement('div')
-  row.setAttribute('class', 'row')
-
-  const nameColumn = document.createElement('div')
-  nameColumn.setAttribute('class', 'col-9')
   const itemName = document.createElement('p')
   itemName.textContent = typeof item === 'string' ? item : item.name
-  const input = document.createElement('input')
-  input.setAttribute('class', 'form-control')
-  input.setAttribute('placeholder', 'Ammo/Quantity')
-  input.setAttribute('min', '0')
-  input.setAttribute('type', 'number')
+  const input = ComponentCreator.createNumberInput(null, 0, 100, null, 'Ammo/Quantity', handleItemValueChange)
   if (typeof item !== 'string') {
     input.value = item.value
   }
-  input.addEventListener('change', handleItemValueChange)
-  const buttonColumn = document.createElement('div')
-  buttonColumn.setAttribute('class', 'col-2')
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger')
-  removeButton.addEventListener('click', removeCharacterInventoryItem)
-  nameColumn.appendChild(itemName)
-  nameColumn.appendChild(input)
-  buttonColumn.appendChild(removeButton)
-  row.appendChild(nameColumn)
-  row.appendChild(buttonColumn)
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem)
+  const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton])
+  const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName, input])
+  const row = ComponentCreator.createDivWithClass(null, [nameColumn, buttonColumn])
   listItem.appendChild(row)
   inventoryContainer.appendChild(listItem)
 }
@@ -286,10 +257,7 @@ function removeCharacterInventoryItem (event) {
   const listItem = event.target.closest('li')
   const listContainer = listItem.parentNode
   const index = Array.prototype.indexOf.call(listContainer.children, listItem)
-  const containerId = listContainer.id
-  const regex = /\d+/ // Matches one or more digits
-  const match = containerId.match(regex)
-  const characterIndex = parseInt(match[0])
+  const characterIndex = extractIntFromString(listContainer.id)
   gameStatus.characters[characterIndex - 1].inventory.splice(index, 1)
   gameStatus.save()
   listItem.remove()
@@ -299,10 +267,7 @@ function handleItemValueChange (event) {
   const listItem = event.target.closest('li')
   const listContainer = listItem.parentNode
   const index = Array.prototype.indexOf.call(listContainer.children, listItem)
-  const containerId = listContainer.id
-  const regex = /\d+/ // Matches one or more digits
-  const match = containerId.match(regex)
-  const characterIndex = parseInt(match[0])
+  const characterIndex = extractIntFromString(listContainer.id)
   gameStatus.characters[characterIndex - 1].inventory[index].value = event.target.value
   gameStatus.save()
 }
