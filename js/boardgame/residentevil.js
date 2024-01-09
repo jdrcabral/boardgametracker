@@ -76,11 +76,11 @@ function loadInventory (character, index) {
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
-  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType='text'))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType='number'))
+  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
+  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
 }
 
-function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType='number') {
+function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
   const container = document.getElementById(containerId)
   const cardElement = buildCard(element, includeQuantity, quantity, inputType)
   if (backgroundColor) {
@@ -196,7 +196,7 @@ function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputT
   cartTitle.textContent = cardText
   const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
   if (includeQuantity) {
-    let input;
+    let input
     if (inputType === 'text') {
       input = ComponentCreator.createTextInput(quantityValue, null, 'Quantity', handleCardValueChange)
     } else {
@@ -257,7 +257,7 @@ function createElement (characterIndex, item) {
   const inputColumn = ComponentCreator.createDivWithClass('col', [input])
   const row2 = ComponentCreator.createDivWithClass(
     'row',
-    [inputColumn],
+    [inputColumn]
   )
   listItem.appendChild(row)
   listItem.appendChild(row2)

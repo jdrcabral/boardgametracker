@@ -41,7 +41,6 @@ class ComponentCreator {
     return inputTag
   }
 
-
   static createIconButton (icon, level = 'btn-info', clickEvent = null) {
     const button = document.createElement('button')
     button.setAttribute('type', 'button')
