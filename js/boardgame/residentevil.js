@@ -196,7 +196,7 @@ function buildCard (cardText, includeQuantity = false, quantityValue = 1) {
   cartTitle.textContent = cardText
   const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
   if (includeQuantity) {
-    const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange);
+    const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
     rowCol.appendChild(input)
   }
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
@@ -241,12 +241,12 @@ function createElement (characterIndex, item) {
   listItem.setAttribute('class', 'list-group-item')
   const itemName = document.createElement('p')
   itemName.textContent = typeof item === 'string' ? item : item.name
-  const input = ComponentCreator.createNumberInput(null, 0, 100, null, 'Ammo/Quantity', handleItemValueChange);
+  const input = ComponentCreator.createNumberInput(null, 0, 100, null, 'Ammo/Quantity', handleItemValueChange)
   if (typeof item !== 'string') {
     input.value = item.value
   }
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem);
-  const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton]);
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem)
+  const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton])
   const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName, input])
   const row = ComponentCreator.createDivWithClass(null, [nameColumn, buttonColumn])
   listItem.appendChild(row)
