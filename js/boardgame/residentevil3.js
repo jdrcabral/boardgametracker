@@ -20,7 +20,7 @@ fetch('../../public/data/residentevil3.json').then(response => response.json()).
   builder()
 })
 
-function builder() {
+function builder () {
   cityDanger.addEventListener('change', handleCityDangerChange)
   buildReserveCharacter()
   fillCharacterSelect()
@@ -37,7 +37,7 @@ function builder() {
   cityDanger.value = gameStatus.cityDanger
 }
 
-function handleCityDangerChange(event) {
+function handleCityDangerChange (event) {
   gameStatus.cityDanger = event.target.value
   gameStatus.save()
 }
@@ -63,7 +63,7 @@ function handleThreatLevelChange (event) {
   gameStatus.save()
 }
 
-function fillSelectOptions(elementId, list, usePrefix = false) {
+function fillSelectOptions (elementId, list, usePrefix = false) {
   const selectElement = document.getElementById(elementId)
   list.forEach(element => {
     const optionElement = document.createElement('option')
@@ -74,7 +74,7 @@ function fillSelectOptions(elementId, list, usePrefix = false) {
   })
 }
 
-function loadCharacters() {
+function loadCharacters () {
   gameStatus.characters.forEach((element, index) => {
     if ('name' in element) {
       const selectElement = document.getElementById(`characterSelect${index + 1}`)
@@ -88,13 +88,13 @@ function loadCharacters() {
   })
 }
 
-function loadInventory(character, index) {
+function loadInventory (character, index) {
   character.inventory.forEach(item => {
     createElement(index + 1, item)
   })
 }
 
-function buildInventoryItem(characterIndex, item) {
+function buildInventoryItem (characterIndex, item) {
   createElement(characterIndex, item)
 
   gameStatus.characters[characterIndex - 1].inventory.push({
@@ -104,15 +104,15 @@ function buildInventoryItem(characterIndex, item) {
   gameStatus.save()
 }
 
-function addItemCardButton() {
+function addItemCardButton () {
   addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true, 'text')
 }
 
-function addNarrativeCardButton() {
+function addNarrativeCardButton () {
   addCard('narrativeDeck', 'narrativeSelect', boardGameComponents.narrative, gameStatus.narrative)
 }
 
-function addTensionCardButton() {
+function addTensionCardButton () {
   addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true, true)
 }
 
@@ -126,7 +126,7 @@ function addCharacterItem (characterIndex) {
   buildInventoryItem(characterIndex + 1, itemFound)
 }
 
-function addCard(containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
+function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
   const container = document.getElementById(containerId)
   const select = document.getElementById(selectId)
   const option = select.querySelector(`option[value="${select.value}"]`)
@@ -158,7 +158,7 @@ function addCard(containerId, selectId, list, storeLocation, useBackgroundColor 
   gameStatus.save()
 }
 
-function buildCard(cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
+function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
   const cardComponent = new CardComponent()
   const cartTitle = document.createElement('p')
   cartTitle.setAttribute('class', 'card-text')
@@ -180,7 +180,7 @@ function buildCard(cardText, includeQuantity = false, quantityValue = 1, inputTy
   return cardComponent.generate()
 }
 
-function removeCard(event) {
+function removeCard (event) {
   const cardElement = event.target.closest('.card')
   const removeElement = cardElement.parentNode
   const container = removeElement.parentNode
@@ -197,7 +197,7 @@ function removeCard(event) {
   removeElement.remove()
 }
 
-function createElement(characterIndex, item) {
+function createElement (characterIndex, item) {
   const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`)
   const listItem = document.createElement('li')
   listItem.setAttribute('class', 'list-group-item')
@@ -221,7 +221,7 @@ function createElement(characterIndex, item) {
   inventoryContainer.appendChild(listItem)
 }
 
-function removeCharacterInventoryItem(event) {
+function removeCharacterInventoryItem (event) {
   const listItem = event.target.closest('li')
   const listContainer = listItem.parentNode
   const index = Array.prototype.indexOf.call(listContainer.children, listItem)
@@ -231,7 +231,7 @@ function removeCharacterInventoryItem(event) {
   listItem.remove()
 }
 
-function handleItemValueChange(event) {
+function handleItemValueChange (event) {
   const listItem = event.target.closest('li')
   const listContainer = listItem.parentNode
   const index = Array.prototype.indexOf.call(listContainer.children, listItem)
@@ -240,8 +240,8 @@ function handleItemValueChange(event) {
   gameStatus.save()
 }
 
-function handleCardValueChange(event) {
-  console.log('Card value change');
+function handleCardValueChange (event) {
+  console.log('Card value change')
   const cardItem = event.target.closest('.card')
   const cardContainer = cardItem.parentNode
   const rowContainer = cardContainer.closest('.row')
@@ -254,8 +254,7 @@ function handleCardValueChange(event) {
   gameStatus.save()
 }
 
-
-function buildScenarios() {
+function buildScenarios () {
   const reserveCharTable = document.getElementById('scenariosTable')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.scenarios.forEach(element => {

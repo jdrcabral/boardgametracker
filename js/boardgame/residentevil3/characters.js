@@ -1,5 +1,5 @@
 class ReserveCharacterTable {
-  static createRow(character) {
+  static createRow (character) {
     const elementId = toSnakeCase(character.name)
     const tableRow = document.createElement('tr')
     tableRow.setAttribute('id', elementId)
@@ -10,21 +10,21 @@ class ReserveCharacterTable {
     return tableRow
   }
 
-  static characterNameColumn(name) {
+  static characterNameColumn (name) {
     const charNameCol = document.createElement('td')
     charNameCol.textContent = name
     return charNameCol
   }
 
-  static characterUnlockedColumn(elementId, value) {
+  static characterUnlockedColumn (elementId, value) {
     return ComponentCreator.createTableDataCheckbox(value, `character_${elementId}_unlocked`, handleCheckboxChange)
   }
 
-  static characterDeadColumn(elementId, value) {
+  static characterDeadColumn (elementId, value) {
     return ComponentCreator.createTableDataCheckbox(value, `character_${elementId}_dead`, handleCheckboxChange)
   }
 
-  static characterHealthColumn(elementId, value) {
+  static characterHealthColumn (elementId, value) {
     const charHealthCol = document.createElement('td')
     const rangeInput = ComponentCreator.createNumberInput(5, 1, 5, `character_${elementId}_health`, null, handleCharacterLifeChange)
     rangeInput.value = value
@@ -33,7 +33,7 @@ class ReserveCharacterTable {
   }
 }
 
-function buildReserveCharacter() {
+function buildReserveCharacter () {
   const reserveCharTable = document.getElementById('reserveCharacters')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.reserve.forEach(element => {
@@ -41,7 +41,7 @@ function buildReserveCharacter() {
   })
 }
 
-function fillCharacterSelect() {
+function fillCharacterSelect () {
   for (let i = 1; i < 5; i++) {
     const selectElement = document.getElementById(`characterSelect${i}`)
     boardGameComponents.characters.forEach(element => {
@@ -54,7 +54,7 @@ function fillCharacterSelect() {
   }
 }
 
-function handleCharacterChange(event) {
+function handleCharacterChange (event) {
   const targetId = event.target.id
   const characterIndex = parseInt(targetId[targetId.length - 1]) - 1
   if (event.target.value === 'Select Character') {
@@ -77,7 +77,7 @@ function handleCharacterChange(event) {
   gameStatus.save()
 }
 
-function handleCheckboxChange(event) {
+function handleCheckboxChange (event) {
   const targetId = event.target.id
   const grandParent = event.target.parentNode.parentNode
   const grandParentId = grandParent.id
@@ -98,7 +98,7 @@ function handleCheckboxChange(event) {
   gameStatus.save()
 }
 
-function handleCharacterLifeChange(event) {
+function handleCharacterLifeChange (event) {
   const parent = event.target.parentNode
   const parentTag = parent.tagName
   if (parentTag === 'TD') {
