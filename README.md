@@ -6,5 +6,5 @@ An application to keep track of board game campains
 
 | Board Game                      | Status      |
 |---------------------------------|-------------|
-| Resident Evil: The Board Game   | In Progress |
-| Resident Evil 3: The Board Game | In Progress |
+| Resident Evil: The Board Game   | Done        |
+| Resident Evil 3: The Board Game | Done        |

@@ -4,6 +4,7 @@
         "Mikhail Viktor",
         "Nicholai Ginovaef",
         "Carlos Oliveira",
+        "Brad Vickers",
         "Marvin Branagh",
         "Tyrell Patrick",
         "Murphy Seeker",
@@ -245,6 +246,199 @@
         {
             "name":"Zombie Horde",
             "value":"Red"
+        }
+    ],
+    "scenarios": [
+        {
+            "name": "Downtown 1",
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Downtown 2"]
+        },
+        {
+            "name": "Downtown 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Downtown 3"]
+        },
+        {
+            "name": "Downtown 3",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Battery"],
+            "unlocks": []
+        },
+        {
+            "name": "Uptown 1",
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Uptown 2"]
+        },
+        {
+            "name": "Uptown 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Uptown 3"]
+        },
+        {
+            "name": "Uptown 3",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": []
+        },
+        {
+            "name": "Commercial 1",
+            "discovered": true,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Commercial 2"]
+        },
+        {
+            "name": "Commercial 2",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Lighter", "Lighter Fluid"],
+            "unlocks": ["Commercial 3"]
+        },
+        {
+            "name": "Commercial 3",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Square Crank"],
+            "unlocks": []
+        },
+        {
+            "name": "R.P.D 1",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Precinct Key"],
+            "unlocks": ["R.P.D 2"]
+        },
+        {
+            "name": "R.P.D 2",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["STARS ID Card"],
+            "unlocks": ["R.P.D 3"]
+        },
+        {
+            "name": "R.P.D 3",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Bolt Cutters"],
+            "unlocks": []
+        },
+        {
+            "name": "Clock Tower 1",
+            "discovered": false,
+            "completed": false,
+            "locked": true,
+            "itemC": false,
+            "lockedBy": ["Fuse", "Machine Oil", "Oil Additive", "Power Cable"],
+            "unlocks": ["Clock Tower 2"]
+        },
+        {
+            "name": "Clock Tower 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Hospital 1"]
+        },
+        {
+            "name": "Hospital 1",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Hospital 2"]
+        },
+        {
+            "name": "Hospital 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Hospital 3"]
+        },
+        {
+            "name": "Hospital 3",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["City Park 1"]
+        },
+        {
+            "name": "City Park 1",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["City Park 2"]
+        },
+        {
+            "name": "City Park 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["City Park 3"]
+        },
+        {
+            "name": "City Park 3",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Dead Factory 1"]
+        },
+        {
+            "name": "Dead Factory 1",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Dead Factory 2"]
+        },
+        {
+            "name": "Dead Factory 2",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": ["Dead Factory 3"]
+        },
+        {
+            "name": "Dead Factory 3",
+            "discovered": false,
+            "completed": false,
+            "locked": false,
+            "itemC": false,
+            "unlocks": []
         }
     ]
 }
