@@ -1,12 +1,14 @@
 class ReserveCharacterTable {
-  static createRow (character) {
+  static createRow (character, game = 'Resident Evil') {
     const elementId = toSnakeCase(character.name)
     const tableRow = document.createElement('tr')
     tableRow.setAttribute('id', elementId)
     tableRow.appendChild(ReserveCharacterTable.characterNameColumn(character.name))
     tableRow.appendChild(ReserveCharacterTable.characterUnlockedColumn(elementId, character.unlocked))
     tableRow.appendChild(ReserveCharacterTable.characterDeadColumn(elementId, character.dead))
-    tableRow.appendChild(ReserveCharacterTable.characterAdvancedColumn(elementId, character.advanced))
+    if (game === 'Resident Evil') {
+      tableRow.appendChild(ReserveCharacterTable.characterAdvancedColumn(elementId, character.advanced))
+    }
     tableRow.appendChild(ReserveCharacterTable.characterHealthColumn(elementId, character.health))
     return tableRow
   }
@@ -38,11 +40,11 @@ class ReserveCharacterTable {
   }
 }
 
-function buildReserveCharacter () {
+function buildReserveCharacter (game = 'Resident Evil') {
   const reserveCharTable = document.getElementById('reserveCharacters')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.reserve.forEach(element => {
-    tableBody.appendChild(ReserveCharacterTable.createRow(element))
+    tableBody.appendChild(ReserveCharacterTable.createRow(element, game))
   })
 }
 
@@ -138,4 +140,73 @@ function handleCharacterKeroseneChange (event) {
   const character = gameStatus.characters[characterIndex - 1]
   character.kerosene = event.target.value
   gameStatus.save()
+}
+
+function addCharacterItem (characterIndex) {
+  const characterItemSelect = document.getElementById(`character${characterIndex + 1}ItemSelect`)
+  const option = characterItemSelect.querySelector(`option[value="${characterItemSelect.value}"]`)
+  const itemFound = boardGameComponents.items.find((element) => {
+    if (typeof element === 'string') return toSnakeCase(element) === option.value
+    return toSnakeCase(element.name) === option.value
+  })
+  buildInventoryItem(characterIndex + 1, itemFound)
+}
+
+function createElement (characterIndex, item) {
+  const inventoryContainer = document.getElementById(`character${characterIndex}InventoryList`)
+  const listItem = document.createElement('li')
+  listItem.setAttribute('class', 'list-group-item')
+  const itemName = document.createElement('p')
+  itemName.textContent = typeof item === 'string' ? item : item.name
+  const input = ComponentCreator.createTextInput(null, null, 'Ammo/Quantity', handleItemValueChange)
+  if (typeof item !== 'string') {
+    input.value = item.value
+  }
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCharacterInventoryItem)
+  const buttonColumn = ComponentCreator.createDivWithClass('col-2', [removeButton])
+  const nameColumn = ComponentCreator.createDivWithClass('col-9', [itemName])
+  const row = ComponentCreator.createDivWithClass('row', [nameColumn, buttonColumn])
+  const inputColumn = ComponentCreator.createDivWithClass('col', [input])
+  const row2 = ComponentCreator.createDivWithClass(
+    'row',
+    [inputColumn]
+  )
+  listItem.appendChild(row)
+  listItem.appendChild(row2)
+  inventoryContainer.appendChild(listItem)
+}
+
+function removeCharacterInventoryItem (event) {
+  const listItem = event.target.closest('li')
+  const listContainer = listItem.parentNode
+  const index = Array.prototype.indexOf.call(listContainer.children, listItem)
+  const characterIndex = extractIntFromString(listContainer.id)
+  gameStatus.characters[characterIndex - 1].inventory.splice(index, 1)
+  gameStatus.save()
+  listItem.remove()
+}
+
+function handleItemValueChange (event) {
+  const listItem = event.target.closest('li')
+  const listContainer = listItem.parentNode
+  const index = Array.prototype.indexOf.call(listContainer.children, listItem)
+  const characterIndex = extractIntFromString(listContainer.id)
+  gameStatus.characters[characterIndex - 1].inventory[index].value = event.target.value
+  gameStatus.save()
+}
+
+function buildInventoryItem (characterIndex, item) {
+  createElement(characterIndex, item)
+
+  gameStatus.characters[characterIndex - 1].inventory.push({
+    name: item,
+    value: 0
+  })
+  gameStatus.save()
+}
+
+function loadInventory (character, index) {
+  character.inventory.forEach(item => {
+    createElement(index + 1, item)
+  })
 }
