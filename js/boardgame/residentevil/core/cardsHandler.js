@@ -1,4 +1,4 @@
-function addCard(containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
+function addCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
   const container = document.getElementById(containerId)
   const select = document.getElementById(selectId)
   const option = select.querySelector(`option[value="${select.value}"]`)
@@ -30,7 +30,7 @@ function addCard(containerId, selectId, list, storeLocation, useBackgroundColor 
   gameStatus.save()
 }
 
-function buildCard(cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
+function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
   const cardComponent = new CardComponent()
   const cartTitle = document.createElement('p')
   cartTitle.setAttribute('class', 'card-text')
@@ -52,7 +52,7 @@ function buildCard(cardText, includeQuantity = false, quantityValue = 1, inputTy
   return cardComponent.generate()
 }
 
-function removeCard(event) {
+function removeCard (event) {
   const cardElement = event.target.closest('.card')
   const removeElement = cardElement.parentNode
   const container = removeElement.parentNode

@@ -58,7 +58,7 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
   container.appendChild(colDiv)
 }
 
-function loadCharacters() {
+function loadCharacters () {
   gameStatus.characters.forEach((element, index) => {
     if ('name' in element) {
       const selectElement = document.getElementById(`characterSelect${index + 1}`)
@@ -88,7 +88,7 @@ function buildInventoryItem (characterIndex, item) {
   gameStatus.save()
 }
 
-function buildScenarios() {
+function buildScenarios () {
   const reserveCharTable = document.getElementById('scenariosTable')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.scenarios.forEach(element => {

@@ -1,5 +1,5 @@
 class ReserveCharacterTable {
-  static createRow (character, game='Resident Evil') {
+  static createRow (character, game = 'Resident Evil') {
     const elementId = toSnakeCase(character.name)
     const tableRow = document.createElement('tr')
     tableRow.setAttribute('id', elementId)
@@ -40,7 +40,7 @@ class ReserveCharacterTable {
   }
 }
 
-function buildReserveCharacter (game='Resident Evil') {
+function buildReserveCharacter (game = 'Resident Evil') {
   const reserveCharTable = document.getElementById('reserveCharacters')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.reserve.forEach(element => {
