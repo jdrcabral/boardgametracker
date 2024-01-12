@@ -97,7 +97,7 @@ function buildScenarios () {
     tableRow.setAttribute('id', elementId)
     tableRow.appendChild(ReserveCharacterTable.characterNameColumn(element.name))
     tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.discovered, `scenario_${elementId}_discovered`, handleCheckboxChange))
-    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.locked, `scenario_${elementId}_discovered`, handleCheckboxChange))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(!element.locked, `scenario_${elementId}_discovered`, handleCheckboxChange))
     tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.completed, `scenario_${elementId}_discovered`, handleCheckboxChange))
     tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.itemC, `scenario_${elementId}_discovered`, handleCheckboxChange))
     const lockedBy = element.lockedBy ? element.lockedBy.join(', ') : ''
