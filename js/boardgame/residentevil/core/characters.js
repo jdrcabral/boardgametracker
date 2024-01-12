@@ -1,4 +1,8 @@
+const reserveCharTable = document.getElementById('reserveCharacters')
+const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
+
 class ReserveCharacterTable {
+
   static createRow (character, game = 'Resident Evil') {
     const elementId = toSnakeCase(character.name)
     const tableRow = document.createElement('tr')
@@ -38,11 +42,24 @@ class ReserveCharacterTable {
     charHealthCol.appendChild(rangeInput)
     return charHealthCol
   }
+
+  static reloadRows (character, game = 'Resident Evil') {
+    const elementId = toSnakeCase(character.name)
+
+    const unlockedCol = document.getElementById(`character_${elementId}_unlocked`)
+    unlockedCol.checked = character.unlocked
+    const deadCol = document.getElementById(`character_${elementId}_dead`)
+    deadCol.checked = character.dead
+    if (game === 'Resident Evil') {
+      const advancedCol = document.getElementById(`character_${elementId}_advanced`)
+      advancedCol.checked = character.advanced
+    }
+    const healthCol = document.getElementById(`character_${elementId}_health`)
+    healthCol.value = character.health
+  }
 }
 
 function buildReserveCharacter (game = 'Resident Evil') {
-  const reserveCharTable = document.getElementById('reserveCharacters')
-  const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
   gameStatus.reserve.forEach(element => {
     tableBody.appendChild(ReserveCharacterTable.createRow(element, game))
   })

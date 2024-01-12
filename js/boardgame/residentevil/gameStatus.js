@@ -3,6 +3,8 @@ const CURRENT_VERSION = 'alpha'
 
 class GameStatus {
   threatLevel = 0
+  id = null
+  title = 'Game Campaign'
   scenarios = []
   characters = []
   reserve = []
@@ -12,15 +14,50 @@ class GameStatus {
   tensionDeck = []
 
   load () {
-    const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY))
+    const storageKeys = Object.keys(localStorage)
+    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY));
+    if (gameKeys.length === 0) {
+      return this.#loadAttributes(null)
+    }
+    if (hasOldSave(gameKeys)) {
+      const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY))
+      this.#loadAttributes(storedData)
+      this.save()
+      localStorage.removeItem(STORAGE_KEY)
+      return
+    }
+    const storedData = JSON.parse(localStorage.getItem(gameKeys[0]))
+    this.#loadAttributes(storedData)
+  }
+
+  loadById (gameId) {
+    const storedData = JSON.parse(localStorage.getItem(`${STORAGE_KEY}-${gameId}`))
     this.#loadAttributes(storedData)
   }
 
   save () {
-    localStorage.setItem(STORAGE_KEY, this.toJson())
+    if (this.id) {
+      localStorage.setItem(`${STORAGE_KEY}-${this.id}`, this.toJson())
+    } else {
+      localStorage.setItem(STORAGE_KEY, this.toJson())
+    }
+  }
+
+  retrieveSavedCampaigns() {
+    const storageKeys = Object.keys(localStorage)
+    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY));
+    return gameKeys.map(element => {
+      const loadedData = JSON.parse(localStorage.getItem(element));
+      return {
+        id: loadedData.id,
+        title: loadedData.title,
+      }
+    })
   }
 
   clear () {
+    this.id = null
+    this.title = 'Game Campaign'
     this.threatLevel = 0
     this.scenarios = []
     this.characters = []
@@ -29,7 +66,10 @@ class GameStatus {
     this.narrative = []
     this.mission = []
     this.tensionDeck = []
-    localStorage.removeItem(STORAGE_KEY)
+  }
+  
+  deleteData() {
+    localStorage.removeItem(`${STORAGE_KEY}-${this.id}`)
   }
 
   fromJson (jsonString) {
@@ -39,6 +79,8 @@ class GameStatus {
 
   toJson () {
     return JSON.stringify({
+      id: this.id,
+      title: this.title,
       threatLevel: this.threatLevel,
       scenarios: this.scenarios,
       characters: this.characters,
@@ -50,15 +92,32 @@ class GameStatus {
     })
   }
 
+  reset() {
+    const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
+    this.id = generateUniqueID()
+    this.title = 'New Campaign'
+    this.scenarios = [...boardGameComponents.scenarios]
+    this.characters = baseCharacters
+    this.reserve = this.#buildReserve()
+    this.narrative = []
+    this.mission = []
+    this.items = []
+    this.tensionDeck = []
+    this.threatLevel = 0
+  }
+
   #loadAttributes (sourceData) {
     const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
     if (sourceData === null) {
+      this.title = 'Game Campaign'
       this.scenarios = [...boardGameComponents.scenarios]
       this.characters = baseCharacters
       this.reserve = this.#buildReserve()
+      this.id = generateUniqueID()
       return
     }
-
+    this.id = sourceData.id ? sourceData.id : generateUniqueID()
+    this.title = sourceData.title ? sourceData.title : 'Game Campaign'
     this.threatLevel = sourceData.threatLevel ? sourceData.threatLevel : 0
     this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios
     this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters
@@ -89,4 +148,8 @@ class GameStatus {
       inventory: []
     }
   }
+}
+
+function hasOldSave(gameKeys) {
+  return gameKeys.filter(element => element === STORAGE_KEY).length > 0
 }

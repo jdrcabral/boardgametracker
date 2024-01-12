@@ -111,6 +111,9 @@ function buildStartingMap() {
         if (element.completed) {
             const rectElement = svgGroup.getElementsByTagName('rect');
             rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED);
+        } else {
+            const rectElement = svgGroup.getElementsByTagName('rect');
+            rectElement[0].setAttribute('fill', LEVEL_COLORS.UNCOMPLETED);
         }
         if (!element.locked && element.lockedBy) {
             const rectElement = svgGroup.getElementsByTagName('path');

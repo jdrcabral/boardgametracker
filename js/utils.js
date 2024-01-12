@@ -8,5 +8,19 @@ const toSnakeCase = (string) => {
 const extractIntFromString = (string) => {
   const regex = /\d+/ // Matches one or more digits
   const match = string.match(regex)
+  if (!match) return null
   return parseInt(match[0])
+}
+
+function generateUniqueID() {
+  return `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+}
+
+class ChildRemover {
+  static clearAll(parentId) {
+      const parentElement = document.getElementById(parentId);
+      while (parentElement.firstChild) {
+          parentElement.removeChild(parentElement.lastChild);
+      }
+  }
 }
