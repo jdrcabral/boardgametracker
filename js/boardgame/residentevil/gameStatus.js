@@ -15,7 +15,7 @@ class GameStatus {
 
   load () {
     const storageKeys = Object.keys(localStorage)
-    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY));
+    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY))
     if (gameKeys.length === 0) {
       return this.#loadAttributes(null)
     }
@@ -43,14 +43,14 @@ class GameStatus {
     }
   }
 
-  retrieveSavedCampaigns() {
+  retrieveSavedCampaigns () {
     const storageKeys = Object.keys(localStorage)
-    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY));
+    const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY))
     return gameKeys.map(element => {
-      const loadedData = JSON.parse(localStorage.getItem(element));
+      const loadedData = JSON.parse(localStorage.getItem(element))
       return {
         id: loadedData.id,
-        title: loadedData.title,
+        title: loadedData.title
       }
     })
   }
@@ -67,8 +67,8 @@ class GameStatus {
     this.mission = []
     this.tensionDeck = []
   }
-  
-  deleteData() {
+
+  deleteData () {
     localStorage.removeItem(`${STORAGE_KEY}-${this.id}`)
   }
 
@@ -92,7 +92,7 @@ class GameStatus {
     })
   }
 
-  reset() {
+  reset () {
     const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
     this.id = generateUniqueID()
     this.title = 'New Campaign'
@@ -150,6 +150,6 @@ class GameStatus {
   }
 }
 
-function hasOldSave(gameKeys) {
+function hasOldSave (gameKeys) {
   return gameKeys.filter(element => element === STORAGE_KEY).length > 0
 }

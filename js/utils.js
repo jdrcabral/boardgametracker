@@ -12,15 +12,15 @@ const extractIntFromString = (string) => {
   return parseInt(match[0])
 }
 
-function generateUniqueID() {
-  return `${Date.now()}-${Math.floor(Math.random() * 100000)}`;
+function generateUniqueID () {
+  return `${Date.now()}-${Math.floor(Math.random() * 100000)}`
 }
 
 class ChildRemover {
-  static clearAll(parentId) {
-      const parentElement = document.getElementById(parentId);
-      while (parentElement.firstChild) {
-          parentElement.removeChild(parentElement.lastChild);
-      }
+  static clearAll (parentId) {
+    const parentElement = document.getElementById(parentId)
+    while (parentElement.firstChild) {
+      parentElement.removeChild(parentElement.lastChild)
+    }
   }
 }

@@ -2,7 +2,6 @@ const reserveCharTable = document.getElementById('reserveCharacters')
 const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
 
 class ReserveCharacterTable {
-
   static createRow (character, game = 'Resident Evil') {
     const elementId = toSnakeCase(character.name)
     const tableRow = document.createElement('tr')

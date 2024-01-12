@@ -46,7 +46,7 @@ fetch('../../public/data/residentevil.json').then(response => response.json()).t
   builder()
 })
 
-function fillSelects() {
+function fillSelects () {
   fillCharacterSelect()
   for (let i = 1; i < 5; i++) {
     fillSelectOptions(`character${i}ItemSelect`, boardGameComponents.items) // Fill options for item deck cards
@@ -55,7 +55,6 @@ function fillSelects() {
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
-  
 }
 
 function builder () {
@@ -67,7 +66,7 @@ function builder () {
   threatLevel.value = gameStatus.threatLevel
 }
 
-function updateReserve() {
+function updateReserve () {
   gameStatus.reserve.forEach(element => ReserveCharacterTable.reloadRows(element, 'Resident Evil'))
 }
 
@@ -135,15 +134,15 @@ function scaleSVGImage () {
   svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
 }
 
-function handleChangeTitle(event) {
-  const inputText = event.target.value;
+function handleChangeTitle (event) {
+  const inputText = event.target.value
   gameStatus.title = inputText
   const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
   option.textContent = inputText
   gameStatus.save()
 }
 
-function createNewCampaign() {
+function createNewCampaign () {
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -158,7 +157,7 @@ function createNewCampaign() {
   gameStatus.save()
 }
 
-function clearAll() {
+function clearAll () {
   ChildRemover.clearAll('missionDeck')
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
@@ -170,7 +169,7 @@ function clearAll() {
   }
 }
 
-function handleCampaignChange(event) {
+function handleCampaignChange (event) {
   const gameId = event.target.value
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
@@ -180,7 +179,7 @@ function handleCampaignChange(event) {
   threatLevel.value = gameStatus.threatLevel
 }
 
-function deleteCampaign() {
+function deleteCampaign () {
   const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
 
   if (!operation) return
@@ -188,6 +187,6 @@ function deleteCampaign() {
   window.location.reload()
 }
 
-function exportGameData() {
+function exportGameData () {
   return exportData(`resident_evil_${gameStatus.id}`)
 }
