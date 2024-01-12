@@ -20,6 +20,8 @@ const modalTitle = document.getElementById('modalTitle')
 const modalExtraInfo = document.getElementById('modalExtraInfo')
 const unlockButton = document.getElementById('unlockButton')
 const threatLevel = document.getElementById('threatLevel')
+const campaignSelect = document.getElementById('campaignSelect')
+const campaignTitle = document.getElementById('campaignTitle')
 
 let boardGameComponents
 const gameStatus = new GameStatus()
@@ -28,14 +30,24 @@ let lastMapElement = null
 fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   gameStatus.load()
+  gameStatus.save()
+  const savedCampaigns = gameStatus.retrieveSavedCampaigns()
+  savedCampaigns.forEach(element => {
+    const optionElement = document.createElement('option')
+    optionElement.setAttribute('value', element.id)
+    optionElement.textContent = element.title
+    campaignSelect.appendChild(optionElement)
+  })
+  campaignSelect.value = savedCampaigns[0].id
+  campaignTitle.value = savedCampaigns[0].title
+  threatLevel.addEventListener('change', handleThreatLevelChange)
+  fillSelects()
+  buildReserveCharacter('Resident Evil')
   builder()
 })
 
-function builder () {
-  threatLevel.addEventListener('change', handleThreatLevelChange)
-  buildReserveCharacter('Resident Evil')
+function fillSelects () {
   fillCharacterSelect()
-  buildStartingMap()
   for (let i = 1; i < 5; i++) {
     fillSelectOptions(`character${i}ItemSelect`, boardGameComponents.items) // Fill options for item deck cards
   }
@@ -43,10 +55,19 @@ function builder () {
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
+}
+
+function builder () {
+  buildStartingMap()
   scaleSVGImage()
   loadCharacters()
+  updateReserve()
   loadCards()
   threatLevel.value = gameStatus.threatLevel
+}
+
+function updateReserve () {
+  gameStatus.reserve.forEach(element => ReserveCharacterTable.reloadRows(element, 'Resident Evil'))
 }
 
 function loadCharacters () {
@@ -111,4 +132,61 @@ function scaleSVGImage () {
   const svgHeight = svgElement.getBoundingClientRect().height
   const scaleFactor = Math.min(svgWidth / viewportWidth, viewportHeight / svgHeight)
   svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
+}
+
+function handleChangeTitle (event) {
+  const inputText = event.target.value
+  gameStatus.title = inputText
+  const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
+  option.textContent = inputText
+  gameStatus.save()
+}
+
+function createNewCampaign () {
+  gameStatus.reset()
+  const optionElement = document.createElement('option')
+  optionElement.setAttribute('value', gameStatus.id)
+  optionElement.textContent = gameStatus.title
+  campaignSelect.appendChild(optionElement)
+  campaignSelect.value = gameStatus.id
+  campaignTitle.value = gameStatus.title
+  clearAll()
+  updateReserve()
+  builder()
+  threatLevel.value = gameStatus.threatLevel
+  gameStatus.save()
+}
+
+function clearAll () {
+  ChildRemover.clearAll('missionDeck')
+  ChildRemover.clearAll('narrativeDeck')
+  ChildRemover.clearAll('tensionDeck')
+  ChildRemover.clearAll('itemBox')
+  for (let i = 1; i < 5; i++) {
+    const characterSelect = document.getElementById(`characterSelect${i}`)
+    characterSelect.value = 'Select Character'
+    ChildRemover.clearAll(`character${i}InventoryList`)
+  }
+}
+
+function handleCampaignChange (event) {
+  const gameId = event.target.value
+  gameStatus.loadById(gameId)
+  campaignTitle.value = gameStatus.title
+  clearAll()
+  builder()
+  updateReserve()
+  threatLevel.value = gameStatus.threatLevel
+}
+
+function deleteCampaign () {
+  const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
+
+  if (!operation) return
+  gameStatus.deleteData()
+  window.location.reload()
+}
+
+function exportGameData () {
+  return exportData(`resident_evil_${gameStatus.id}`)
 }
