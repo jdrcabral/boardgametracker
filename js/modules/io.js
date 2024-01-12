@@ -32,6 +32,10 @@ function importData () {
     const reader = new FileReader()
     reader.onload = (event) => {
       const fileContent = event.target.result
+      const parsed = JSON.parse(fileContent)
+      if (parsed.id) {
+        gameStatus.loadById(parsed.id)
+      }
       gameStatus.clear()
       gameStatus.fromJson(fileContent)
       gameStatus.save()
