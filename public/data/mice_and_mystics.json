@@ -2,43 +2,43 @@
     "characters": [
         {
             "name": "Colin",
-            "class": ["Leader", "Warrior"]
+            "classes": ["Leader", "Warrior"]
         },
         {
             "name": "Filch",
-            "class": ["Scamp"]
+            "classes": ["Scamp"]
         },
         {
             "name": "Lily",
-            "class": ["Archer"]
+            "classes": ["Archer"]
         },
         {
             "name": "Maginos",
-            "class": ["Mystic"]
+            "classes": ["Mystic"]
         },
         {
             "name": "Nez",
-            "class": ["Tinkerer", "Warrior"]
+            "classes": ["Tinkerer", "Warrior"]
         },
         {
             "name": "Tilda",
-            "class": ["Healer"]
+            "classes": ["Healer"]
         },
         {
             "name": "Neré",
-            "class": ["Mystic", "Wild"]
+            "classes": ["Mystic", "Wild"]
         },
         {
             "name": "Jakobe",
-            "class": ["Archer", "Gecko", "Wild"]
+            "classes": ["Archer", "Gecko", "Wild"]
         },
         {
             "name": "Ditty",
-            "class": ["Scamp", "Shrew"]
+            "classes": ["Scamp", "Shrew"]
         },
         {
             "name": "Ansel",
-            "class": ["Warden", "Warrior"]
+            "classes": ["Warden", "Warrior"]
         }
     ],
     "abilities": [
@@ -160,107 +160,133 @@
     ],
     "scenarios": [
         {
+            "chapter": "1",
             "game": "Core",
             "title": "Flight to Barksburg"
 
         },
         {
+            "chapter": "2",
             "game": "Core",
             "title": "Lily's Tail"
         },
         {
+            "chapter": "3",
             "game": "Core",
             "title": "Grapes of Rats"
         },
         {
+            "chapter": "4",
             "game": "Core",
             "title": "The Forging of the Beast"
         },
         {
+            "chapter": "5",
             "game": "Core",
             "title": "Cat-n-Mouse"
         },
         {
+            "chapter": "6",
             "game": "Core",
             "title": "Barksburg Field"
         },
         {
+            "chapter": "7",
             "game": "Core",
             "title": "The Missing Tome"
         },
         {
+            "chapter": "8",
             "game": "Core",
             "title": "Seek Sorrow"
         },
         {
+            "chapter": "9",
             "game": "Core",
             "title": "Vurst's Redemption"
         },
         {
+            "chapter": "10",
             "game": "Core",
             "title": "Back in the Belly of the Beast"
         },
         {
+            "chapter": "11",
             "game": "Core",
             "title": "The Final Conflagration"
         },
         {
+            "chapter": "1",
             "game": "Lost Chapter",
             "title": "Cat's Cradle"
         },
         {
+            "chapter": "2",
             "game": "Lost Chapter",
             "title": "The Ghost of Castle Andan"
         },
         {
+            "chapter": "3",
             "game": "Lost Chapter",
             "title": "Partents of Importance"
         },
         {
+            "chapter": "1",
             "game": "Heart of Glorm",
             "title": "Dance of Dread"
         },
         {
+            "chapter": "2",
             "game": "Heart of Glorm",
             "title": "Darkness Follies"
         },
         {
+            "chapter": "3",
             "game": "Heart of Glorm",
             "title": "Chock Full of Nuts"
         },
         {
+            "chapter": "4",
             "game": "Heart of Glorm",
             "title": "The Silencing"
         },
         {
+            "chapter": "5",
             "game": "Heart of Glorm",
             "title": "Chemical Attraction"
         },
         {
+            "chapter": "6",
             "game": "Heart of Glorm",
             "title": "Glorm's Glow"
         },
         {
+            "chapter": "1",
             "game": "Downwood Tales",
             "title": "High Road to Headfall"
         },
         {
+            "chapter": "2",
             "game": "Downwood Tales",
             "title": "Up the Creek"
         },
         {
+            "chapter": "3",
             "game": "Downwood Tales",
             "title": "The Taking of the Shrews"
         },
         {
+            "chapter": "4",
             "game": "Downwood Tales",
             "title": "The Seers of Downwood"
         },
         {
+            "chapter": "5",
             "game": "Downwood Tales",
             "title": "We be Scamps"
         },
         {
+            "chapter": "6",
             "game": "Downwood Tales",
             "title": "The Shores of Tricklemoore"
         }

@@ -6,7 +6,8 @@ class GameStatus {
   title = 'Game Campaign'
   scenarios = []
   characters = []
-  items = []
+  storyAchievements = []
+  partyItems = []
 
   load () {
     const storageKeys = Object.keys(localStorage)
@@ -55,7 +56,8 @@ class GameStatus {
     this.title = 'Game Campaign'
     this.scenarios = []
     this.characters = []
-    this.items = []
+    this.partyItems = []
+    this.storyAchievements = []
   }
 
   deleteData () {
@@ -73,55 +75,68 @@ class GameStatus {
       title: this.title,
       scenarios: this.scenarios,
       characters: this.characters,
-      items: this.items,
+      partyItems: this.partyItems,
+      storyAchievements: this.storyAchievements,
     })
   }
 
   reset () {
-    const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
+    const baseCharacters = boardGameComponents.characters.map((element => {
+      return {
+        ...element,
+        player: '',
+        inventory: [],
+        abilities: []
+      }
+    }))
     this.id = generateUniqueID()
     this.title = 'New Campaign'
-    this.scenarios = [...boardGameComponents.scenarios]
+    this.scenarios = [...boardGameComponents.scenarios.map(element => { 
+      return {...element, completed: false}
+    })]
     this.characters = baseCharacters
-    this.reserve = this.#buildReserve()
-    this.items = []
+    this.partyItems = boardGameComponents.partyItems.map(element => {
+      return { name: element, value: false}
+    })
+    this.storyAchievements = boardGameComponents.storyAchievements.map(element => {
+      return { name: element, value: false}
+    })
   }
 
   #loadAttributes (sourceData) {
-    const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
+    const baseCharacters = boardGameComponents.characters.map(element => {
+      return {
+        ...element,
+        player: '',
+        inventory: [],
+        abilities: []
+      }
+    })
+    const builtScenarios = [...boardGameComponents.scenarios.map(element => { 
+      return {...element, completed: false}
+    })]
+    const builtPartyItems = boardGameComponents.partyItems.map(element => {
+      return { name: element, value: false}
+    })
+    const builtAchievement = boardGameComponents.storyAchievements.map(element => {
+      return { name: element, value: false}
+    })
     if (sourceData === null) {
       this.title = 'Game Campaign'
-      this.scenarios = [...boardGameComponents.scenarios]
+      this.scenarios = builtScenarios
       this.characters = baseCharacters
+      this.partyItems = builtPartyItems
+      this.storyAchievements = builtAchievement
       this.id = generateUniqueID()
       return
     }
 
     this.id = sourceData.id ? sourceData.id : generateUniqueID()
     this.title = sourceData.title ? sourceData.title : 'Game Campaign'
-    this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios
+    this.scenarios = sourceData.scenarios.length === 0 ? builtScenarios : sourceData.scenarios
     this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters
-    this.items = sourceData.items.length === 0 ? [] : sourceData.items
-  }
-
-  #buildReserve () {
-    return boardGameComponents.characters.map(element => {
-      return {
-        name: element,
-        unlocked: false,
-        dead: false,
-        advanced: false,
-        health: 5
-      }
-    })
-  }
-
-  #buildBaseCharacter () {
-    return {
-      name: 'Select Character',
-      health: 0,
-      inventory: []
-    }
+    this.partyItems = sourceData.partyItems.length === 0 ? builtPartyItems : sourceData.partyItems
+    this.storyAchievements = sourceData.storyAchievements.length === 0 ? builtAchievement : sourceData.storyAchievements
   }
 }
 
