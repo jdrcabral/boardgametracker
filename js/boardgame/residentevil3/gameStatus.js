@@ -45,7 +45,6 @@ class GameStatus {
   retrieveSavedCampaigns () {
     const storageKeys = Object.keys(localStorage)
     const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY))
-    console.log(gameKeys)
     return gameKeys.map(element => {
       const loadedData = JSON.parse(localStorage.getItem(element))
       return {
@@ -148,7 +147,5 @@ class GameStatus {
 }
 
 function hasOldSave (gameKeys) {
-  console.log(gameKeys)
-  console.log(gameKeys.filter(element => element === STORAGE_KEY))
   return gameKeys.filter(element => element === STORAGE_KEY).length > 0
 }

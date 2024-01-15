@@ -32,3 +32,33 @@ class ChildRemover {
     }
   }
 }
+
+function loadCampaigns () {
+  gameStatus.load()
+  gameStatus.save()
+  const savedCampaigns = gameStatus.retrieveSavedCampaigns()
+  savedCampaigns.forEach(element => {
+    const optionElement = document.createElement('option')
+    optionElement.setAttribute('value', element.id)
+    optionElement.textContent = element.title
+    campaignSelect.appendChild(optionElement)
+  })
+  campaignSelect.value = savedCampaigns[0].id
+  campaignTitle.value = savedCampaigns[0].title
+}
+
+function handleCampaignTitleChange (event) {
+  const inputText = event.target.value
+  gameStatus.title = inputText
+  const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
+  option.textContent = inputText
+  gameStatus.save()
+}
+
+function deleteCampaign () {
+  const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
+
+  if (!operation) return
+  gameStatus.deleteData()
+  window.location.reload()
+}

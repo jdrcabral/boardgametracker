@@ -16,22 +16,13 @@ let boardGameComponents
 
 fetch('../../public/data/residentevil3.json').then(response => response.json()).then(data => {
   boardGameComponents = data
-  gameStatus.load()
-  gameStatus.save()
-  const savedCampaigns = gameStatus.retrieveSavedCampaigns()
-  savedCampaigns.forEach(element => {
-    const optionElement = document.createElement('option')
-    optionElement.setAttribute('value', element.id)
-    optionElement.textContent = element.title
-    campaignSelect.appendChild(optionElement)
-  })
-  campaignSelect.value = savedCampaigns[0].id
-  campaignTitle.value = savedCampaigns[0].title
+  loadCampaigns()
   cityDanger.addEventListener('change', handleCityDangerChange)
   fillSelects()
   buildReserveCharacter('Resident Evil 3')
   builder()
 })
+
 
 function fillSelects () {
   fillCharacterSelect()
@@ -123,13 +114,6 @@ function updateReserve () {
   gameStatus.reserve.forEach(element => ReserveCharacterTable.reloadRows(element, 'Resident Evil 3'))
 }
 
-function handleChangeTitle (event) {
-  const inputText = event.target.value
-  gameStatus.title = inputText
-  const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
-  option.textContent = inputText
-  gameStatus.save()
-}
 
 function createNewCampaign () {
   gameStatus.reset()
@@ -168,14 +152,6 @@ function handleCampaignChange (event) {
   cityDanger.value = gameStatus.cityDanger
 }
 
-function deleteCampaign () {
-  const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
-
-  if (!operation) return
-  gameStatus.deleteData()
-  window.location.reload()
-}
-
 function exportGameData () {
-  return exportData(`resident_evil_${gameStatus.id}`)
+  return exportData(`resident_evil3_${gameStatus.id}`)
 }

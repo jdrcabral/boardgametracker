@@ -122,7 +122,6 @@ function handleCheckboxChange (event) {
     const changedScenario = gameStatus.scenarios.findIndex(element => {
       return grandParentId === toSnakeCase(element.name)
     })
-    console.log(targetId)
     if (targetId.includes('discovered')) {
       gameStatus.scenarios[changedScenario].discovered = event.target.checked
     }
