@@ -1,0 +1,268 @@
+{
+    "characters": [
+        {
+            "name": "Colin",
+            "class": ["Leader", "Warrior"]
+        },
+        {
+            "name": "Filch",
+            "class": ["Scamp"]
+        },
+        {
+            "name": "Lily",
+            "class": ["Archer"]
+        },
+        {
+            "name": "Maginos",
+            "class": ["Mystic"]
+        },
+        {
+            "name": "Nez",
+            "class": ["Tinkerer", "Warrior"]
+        },
+        {
+            "name": "Tilda",
+            "class": ["Healer"]
+        },
+        {
+            "name": "Neré",
+            "class": ["Mystic", "Wild"]
+        },
+        {
+            "name": "Jakobe",
+            "class": ["Archer", "Gecko", "Wild"]
+        },
+        {
+            "name": "Ditty",
+            "class": ["Scamp", "Shrew"]
+        },
+        {
+            "name": "Ansel",
+            "class": ["Warden", "Warrior"]
+        }
+    ],
+    "abilities": [
+        "Accurate Shot",
+        "Aimed Shot",
+        "Backlash",
+        "Battle Leader",
+        "Battle Squeak",
+        "Chain Lightning",
+        "Cure",
+        "Dodge",
+        "Energy Rush",
+        "Feint",
+        "Find",
+        "First Aid",
+        "Fortify",
+        "Give Order",
+        "Inspire",
+        "Invisibility",
+        "Keen Eye",
+        "Knife Strike",
+        "Major Heal",
+        "Meeps",
+        "Mystic Blast",
+        "Mystic Bolt",
+        "Power Shot",
+        "Preemptive Shot",
+        "Protect",
+        "Resolve",
+        "Set Trap",
+        "Thundersqueak",
+        "Bark Fur (Heart of Glorm)",
+        "Craft Item (Heart of Glorm)",
+        "Encourage (Heart of Glorm)",
+        "Exploding Shot (Heart of Glorm)",
+        "Fly (Heart of Glorm)",
+        "Fortitude (Heart of Glorm)",
+        "Strangle Vines (Heart of Glorm)",
+        "Summon Pet Slug (Heart of Glorm)",
+        "Tail Sweep (Heart of Glorm)"
+    ],
+    "storyAchievements": [
+        "Miz Maggie",
+        "Vanestra's Brush",
+        "Cat's Horn Claw",
+        "King"
+    ],
+    "partyItems": [
+        "Catnip",
+        "Disguises",
+        "Fishhook & Thread",
+        "Dinner Fork",
+        "Grape"
+    ],
+    "searchCards": [
+        "Accurate Bow",
+        "Acorn Helmet",
+        "Button Shield",
+        "Clawbiter",
+        "Clockwork Grenade",
+        "Coin Shield",
+        "Collin's Sword",
+        "Dagger",
+        "Desperate Rescue",
+        "Determination",
+        "Enchanted Bow",
+        "Fickle Amulet",
+        "Fishhook & Thread",
+        "Fishscale Armor",
+        "Hammer of Nandon",
+        "Heal All",
+        "Heroic Sacrifice",
+        "Intense Cowering",
+        "Invoke Cheddar Golem",
+        "Leather Breastplate",
+        "Levitate",
+        "Lily's Bow",
+        "Long Bow",
+        "Lucky Skullcap",
+        "Lucky Staff",
+        "Maginos' Staff",
+        "Mystic Blade",
+        "Mystic Tome",
+        "Needle Rapier (promo)",
+        "Nez's Hammer",
+        "Ring of Cat Strength",
+        "Ring of Rememberance",
+        "Scorching Wand",
+        "Shifting Cloak",
+        "Slicing Dagger",
+        "Slow",
+        "Sorrow Blade",
+        "Spear",
+        "Summon Cat",
+        "Swinging Whip",
+        "Tail Link",
+        "Tattered Threads of Reason (promo)",
+        "Teleport",
+        "Thimble Helm",
+        "Throwing Daggers",
+        "Tilda's Mace",
+        "Tinkerer's Treasure",
+        "Toothpick",
+        "Walnut Shell Breastplate",
+        "Warding Staff",
+        "Whiskerfroth Elixir",
+        "Arrow of Truth (Heart of Glorm)",
+        "Badger Gloves (Heart of Glorm)",
+        "Bone Knife (Heart of Glorm)",
+        "Clockwork Rifle (Heart of Glorm)",
+        "Cricket Friends (Heart of Glorm)",
+        "Fungus Bits (Heart of Glorm)",
+        "Ginger Root Wand (Heart of Glorm)",
+        "Heartwarm Potion (Heart of Glorm)",
+        "Lore Rune (Heart of Glorm)",
+        "Pack Rat Peddler (Heart of Glorm)",
+        "Voodoo Doll (Heart of Glorm)",
+        "Oak Leaf Sigil (Lost Chapter 3)"
+    ],
+    "scenarios": [
+        {
+            "game": "Core",
+            "title": "Flight to Barksburg"
+
+        },
+        {
+            "game": "Core",
+            "title": "Lily's Tail"
+        },
+        {
+            "game": "Core",
+            "title": "Grapes of Rats"
+        },
+        {
+            "game": "Core",
+            "title": "The Forging of the Beast"
+        },
+        {
+            "game": "Core",
+            "title": "Cat-n-Mouse"
+        },
+        {
+            "game": "Core",
+            "title": "Barksburg Field"
+        },
+        {
+            "game": "Core",
+            "title": "The Missing Tome"
+        },
+        {
+            "game": "Core",
+            "title": "Seek Sorrow"
+        },
+        {
+            "game": "Core",
+            "title": "Vurst's Redemption"
+        },
+        {
+            "game": "Core",
+            "title": "Back in the Belly of the Beast"
+        },
+        {
+            "game": "Core",
+            "title": "The Final Conflagration"
+        },
+        {
+            "game": "Lost Chapter",
+            "title": "Cat's Cradle"
+        },
+        {
+            "game": "Lost Chapter",
+            "title": "The Ghost of Castle Andan"
+        },
+        {
+            "game": "Lost Chapter",
+            "title": "Partents of Importance"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "Dance of Dread"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "Darkness Follies"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "Chock Full of Nuts"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "The Silencing"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "Chemical Attraction"
+        },
+        {
+            "game": "Heart of Glorm",
+            "title": "Glorm's Glow"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "High Road to Headfall"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "Up the Creek"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "The Taking of the Shrews"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "The Seers of Downwood"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "We be Scamps"
+        },
+        {
+            "game": "Downwood Tales",
+            "title": "The Shores of Tricklemoore"
+        }
+    ]
+}
