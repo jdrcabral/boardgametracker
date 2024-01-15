@@ -23,7 +23,6 @@ fetch('../../public/data/residentevil3.json').then(response => response.json()).
   builder()
 })
 
-
 function fillSelects () {
   fillCharacterSelect()
   for (let i = 1; i < 5; i++) {
@@ -113,7 +112,6 @@ function buildScenarios () {
 function updateReserve () {
   gameStatus.reserve.forEach(element => ReserveCharacterTable.reloadRows(element, 'Resident Evil 3'))
 }
-
 
 function createNewCampaign () {
   gameStatus.reset()

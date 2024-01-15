@@ -23,8 +23,8 @@ class ChildRemover {
       parentElement.removeChild(parentElement.lastChild)
     }
   }
-  
-  static clearTableBody(parentId) {
+
+  static clearTableBody (parentId) {
     const table = document.getElementById(parentId)
     const body = table.getElementsByTagName('tbody')[0]
     while (body.firstChild) {
