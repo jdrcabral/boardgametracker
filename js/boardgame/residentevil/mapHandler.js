@@ -118,6 +118,11 @@ function buildStartingMap () {
     if (!element.locked && element.lockedBy) {
       const rectElement = svgGroup.getElementsByTagName('path')
       rectElement[0].setAttribute('hidden', true)
+    } else if (element.locked && element.lockedBy) {
+      const fixedName = element.name.replaceAll(' ', '_')
+      const rectElement = svgGroup.getElementsByTagName('path')
+      const elementById = document.getElementById(rectElement[0].id)
+      elementById.removeAttribute('hidden')
     }
   })
   initialMapPaths()

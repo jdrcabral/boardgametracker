@@ -29,17 +29,7 @@ let lastMapElement = null
 
 fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
   boardGameComponents = data
-  gameStatus.load()
-  gameStatus.save()
-  const savedCampaigns = gameStatus.retrieveSavedCampaigns()
-  savedCampaigns.forEach(element => {
-    const optionElement = document.createElement('option')
-    optionElement.setAttribute('value', element.id)
-    optionElement.textContent = element.title
-    campaignSelect.appendChild(optionElement)
-  })
-  campaignSelect.value = savedCampaigns[0].id
-  campaignTitle.value = savedCampaigns[0].title
+  loadCampaigns()
   threatLevel.addEventListener('change', handleThreatLevelChange)
   fillSelects()
   buildReserveCharacter('Resident Evil')
@@ -134,14 +124,6 @@ function scaleSVGImage () {
   svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
 }
 
-function handleChangeTitle (event) {
-  const inputText = event.target.value
-  gameStatus.title = inputText
-  const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
-  option.textContent = inputText
-  gameStatus.save()
-}
-
 function createNewCampaign () {
   gameStatus.reset()
   const optionElement = document.createElement('option')
@@ -177,14 +159,6 @@ function handleCampaignChange (event) {
   builder()
   updateReserve()
   threatLevel.value = gameStatus.threatLevel
-}
-
-function deleteCampaign () {
-  const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
-
-  if (!operation) return
-  gameStatus.deleteData()
-  window.location.reload()
 }
 
 function exportGameData () {
