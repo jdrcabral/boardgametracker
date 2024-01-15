@@ -19,6 +19,27 @@
             <div class="alert alert-warning" role="alert">
                 This page use the browser storage to keep it's data. In case of a clean up you can lose everything
             </div>
+            <div class="container mt-3">
+                <div class="row text-center">
+                  <div class="col-md-8 col-xs-12 mb-3">
+                    <select class="form-select" aria-label="Campaign Select" id="campaignSelect" onchange="handleCampaignChange(event)">
+                      <option> Select Campaign</option>
+                    </select>
+                  </div>
+                  <div class="col-md-2 col-xs-4 mb-3">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="createNewCampaign()">New Campaign</button>
+                  </div>
+                  <div class="col-md-2 col-xs-4">
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteCampaign()">Delete Campaign</button>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <label for="campaignTitle" class="col-md-2 col-xs-12 col-form-label">Campaign Title</label>
+                  <div class="col-md-8 col-xs-12">
+                    <input type="text" id="campaignTitle" onchange="handleChangeTitle(event)" placeholder="Campaign Title" class="form-control">
+                  </div>
+                </div>
+            </div>
             <h3>City Danger</h3>
             <div class="container">
                 <input type="number" class="form-control" id="cityDanger" min="0" max="20">

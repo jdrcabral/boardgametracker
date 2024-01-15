@@ -17,12 +17,23 @@ let boardGameComponents
 fetch('../../public/data/residentevil3.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   gameStatus.load()
+  gameStatus.save()
+  const savedCampaigns = gameStatus.retrieveSavedCampaigns()
+  savedCampaigns.forEach(element => {
+    const optionElement = document.createElement('option')
+    optionElement.setAttribute('value', element.id)
+    optionElement.textContent = element.title
+    campaignSelect.appendChild(optionElement)
+  })
+  campaignSelect.value = savedCampaigns[0].id
+  campaignTitle.value = savedCampaigns[0].title
+  cityDanger.addEventListener('change', handleCityDangerChange)
+  fillSelects()
+  buildReserveCharacter('Resident Evil 3')
   builder()
 })
 
-function builder () {
-  cityDanger.addEventListener('change', handleCityDangerChange)
-  buildReserveCharacter('Resident Evil 3')
+function fillSelects () {
   fillCharacterSelect()
   for (let i = 1; i < 5; i++) {
     fillSelectOptions(`character${i}ItemSelect`, boardGameComponents.items) // Fill options for item deck cards
@@ -30,7 +41,9 @@ function builder () {
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative)
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true)
   fillSelectOptions('itemSelect', boardGameComponents.items)
+}
 
+function builder () {
   loadCharacters()
   loadCards()
   buildScenarios()
@@ -97,11 +110,72 @@ function buildScenarios () {
     tableRow.setAttribute('id', elementId)
     tableRow.appendChild(ReserveCharacterTable.characterNameColumn(element.name))
     tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.discovered, `scenario_${elementId}_discovered`, handleCheckboxChange))
-    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(!element.locked, `scenario_${elementId}_discovered`, handleCheckboxChange))
-    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.completed, `scenario_${elementId}_discovered`, handleCheckboxChange))
-    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.itemC, `scenario_${elementId}_discovered`, handleCheckboxChange))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(!element.locked, `scenario_${elementId}_locked`, handleCheckboxChange))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.completed, `scenario_${elementId}_completed`, handleCheckboxChange))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.itemC, `scenario_${elementId}_itemC`, handleCheckboxChange))
     const lockedBy = element.lockedBy ? element.lockedBy.join(', ') : ''
     tableRow.appendChild(ReserveCharacterTable.characterNameColumn(lockedBy))
     tableBody.append(tableRow)
   })
+}
+
+function updateReserve () {
+  gameStatus.reserve.forEach(element => ReserveCharacterTable.reloadRows(element, 'Resident Evil 3'))
+}
+
+function handleChangeTitle (event) {
+  const inputText = event.target.value
+  gameStatus.title = inputText
+  const option = campaignSelect.querySelector(`option[value="${gameStatus.id}"]`)
+  option.textContent = inputText
+  gameStatus.save()
+}
+
+function createNewCampaign () {
+  gameStatus.reset()
+  const optionElement = document.createElement('option')
+  optionElement.setAttribute('value', gameStatus.id)
+  optionElement.textContent = gameStatus.title
+  campaignSelect.appendChild(optionElement)
+  campaignSelect.value = gameStatus.id
+  campaignTitle.value = gameStatus.title
+  clearAll()
+  updateReserve()
+  builder()
+  cityDanger.value = gameStatus.cityDanger
+  gameStatus.save()
+}
+
+function clearAll () {
+  ChildRemover.clearAll('narrativeDeck')
+  ChildRemover.clearAll('tensionDeck')
+  ChildRemover.clearAll('itemBox')
+  ChildRemover.clearTableBody('scenariosTable')
+  for (let i = 1; i < 5; i++) {
+    const characterSelect = document.getElementById(`characterSelect${i}`)
+    characterSelect.value = 'Select Character'
+    ChildRemover.clearAll(`character${i}InventoryList`)
+  }
+}
+
+function handleCampaignChange (event) {
+  const gameId = event.target.value
+  gameStatus.loadById(gameId)
+  campaignTitle.value = gameStatus.title
+  clearAll()
+  builder()
+  updateReserve()
+  cityDanger.value = gameStatus.cityDanger
+}
+
+function deleteCampaign () {
+  const operation = confirm('Are you sure you want to delete this campaign? The data will be lost')
+
+  if (!operation) return
+  gameStatus.deleteData()
+  window.location.reload()
+}
+
+function exportGameData () {
+  return exportData(`resident_evil_${gameStatus.id}`)
 }

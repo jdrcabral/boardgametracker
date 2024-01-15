@@ -118,6 +118,23 @@ function handleCheckboxChange (event) {
     if (targetId.includes('advanced')) {
       gameStatus.reserve[changedCharIndex].advanced = event.target.checked
     }
+  } else if (targetId.includes('scenario')) {
+    const changedScenario = gameStatus.scenarios.findIndex(element => {
+      return grandParentId === toSnakeCase(element.name)
+    })
+    console.log(targetId)
+    if (targetId.includes('discovered')) {
+      gameStatus.scenarios[changedScenario].discovered = event.target.checked
+    }
+    if (targetId.includes('unlocked')) {
+      gameStatus.scenarios[changedScenario].unlocked = event.target.checked
+    }
+    if (targetId.includes('advanced')) {
+      gameStatus.scenarios[changedScenario].completed = event.target.checked
+    }
+    if (targetId.includes('itemC')) {
+      gameStatus.scenarios[changedScenario].itemC = event.target.checked
+    }
   }
   gameStatus.save()
 }
