@@ -189,7 +189,6 @@ function addItemAbilities(character, destination) {
     const select = document.getElementById(`select_abilities_${toSnakeCase(character)}`)
     const selectedValue = select.value
     const option = select.querySelector(`option[value="${selectedValue}"]`)
-    console.log(selectedValue)
     gameStatus.characters[characterIndex].abilities.push(option.textContent)
     createElement(container, option.textContent)
   }
