@@ -57,7 +57,7 @@ function buildCharacters () {
     const column = ComponentCreator.createDivWithClass('col-md-3 col-xs-12 mb-3')
     const card = new CardComponent()
     card.addTextContent(element.name)
-    const playerNameInput = ComponentCreator.createTextInput(null, `${toSnakeCase(element.name)}_player`, 'Player Name', () => { })
+    const playerNameInput = ComponentCreator.createTextInput(null, `${toSnakeCase(element.name)}_player`, 'Player Name', handlePlayerNameChange)
     if (element.player !== '') {
       playerNameInput.value = element.player
     }
@@ -153,6 +153,15 @@ function handleCampaignChange (event) {
 
 function exportGameData () {
   return exportData(`mice_and_mystics_${gameStatus.id}`)
+}
+
+function handlePlayerNameChange (event) {
+  const targetId = event.target.id
+  const charIndex = gameStatus.characters.findIndex((element) => {
+    return `${toSnakeCase(element.name)}_player` === targetId
+  })
+  gameStatus.characters[charIndex].player = event.target.value
+  gameStatus.save()
 }
 
 function handleCheckBoxChange (event) {
