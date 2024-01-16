@@ -13,14 +13,14 @@ fetch('../../public/data/mice_and_mystics.json').then(response => response.json(
   builder()
 })
 
-function builder() {
+function builder () {
   buildPartyItems()
   buildPartyAchievements()
   buildCharacters()
   buildScenarios()
 }
 
-function buildPartyItems() {
+function buildPartyItems () {
   gameStatus.partyItems.forEach(element => {
     const card = new CardComponent()
     card.addTextContent(element.name)
@@ -30,7 +30,7 @@ function buildPartyItems() {
   })
 }
 
-function buildPartyAchievements() {
+function buildPartyAchievements () {
   gameStatus.storyAchievements.forEach(element => {
     const card = new CardComponent()
     card.addTextContent(element.name)
@@ -40,21 +40,21 @@ function buildPartyAchievements() {
   })
 }
 
-function buildCharacters() {
+function buildCharacters () {
   const searchItems = [{ text: 'Select Item', value: 'Select Item' }, ...boardGameComponents.searchCards.map(element => {
     return {
       text: element,
-      value: toSnakeCase(element),
+      value: toSnakeCase(element)
     }
   })]
   const abilitiesList = [{ text: 'Select Item', value: 'Select Item' }, ...boardGameComponents.abilities.map(element => {
     return {
       text: element,
-      value: toSnakeCase(element),
+      value: toSnakeCase(element)
     }
   })]
   gameStatus.characters.forEach(element => {
-    const column = ComponentCreator.createDivWithClass("col-md-3 col-xs-12 mb-3")
+    const column = ComponentCreator.createDivWithClass('col-md-3 col-xs-12 mb-3')
     const card = new CardComponent()
     card.addTextContent(element.name)
     const playerNameInput = ComponentCreator.createTextInput(null, `${toSnakeCase(element.name)}_player`, 'Player Name', () => { })
@@ -104,7 +104,7 @@ function buildCharacters() {
   })
 }
 
-function buildScenarios() {
+function buildScenarios () {
   const tableBody = scenariosTable.getElementsByTagName('tbody')[0]
   gameStatus.scenarios.forEach(element => {
     const tableRow = document.createElement('tr')
@@ -123,7 +123,7 @@ function buildScenarios() {
   })
 }
 
-function createNewCampaign() {
+function createNewCampaign () {
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -136,14 +136,14 @@ function createNewCampaign() {
   gameStatus.save()
 }
 
-function clearAll() {
+function clearAll () {
   ChildRemover.clearAll('storyAchievements')
   ChildRemover.clearAll('partyItem')
   ChildRemover.clearAll('characterContainer')
   ChildRemover.clearTableBody('scenariosTable')
 }
 
-function handleCampaignChange(event) {
+function handleCampaignChange (event) {
   const gameId = event.target.value
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
@@ -151,11 +151,11 @@ function handleCampaignChange(event) {
   builder()
 }
 
-function exportGameData() {
+function exportGameData () {
   return exportData(`mice_and_mystics_${gameStatus.id}`)
 }
 
-function handleCheckBoxChange(event) {
+function handleCheckBoxChange (event) {
   const targetId = event.target.id
   if (targetId.includes('party_item')) {
     const changedIndex = gameStatus.partyItems.findIndex(element => {
@@ -176,7 +176,7 @@ function handleCheckBoxChange(event) {
   gameStatus.save()
 }
 
-function addItemAbilities(character, destination) {
+function addItemAbilities (character, destination) {
   const characterIndex = gameStatus.characters.findIndex(element => element.name == character)
   const container = document.getElementById(destination)
   if (destination.includes('Inventory')) {

@@ -76,30 +76,30 @@ class GameStatus {
       scenarios: this.scenarios,
       characters: this.characters,
       partyItems: this.partyItems,
-      storyAchievements: this.storyAchievements,
+      storyAchievements: this.storyAchievements
     })
   }
 
   reset () {
-    const baseCharacters = boardGameComponents.characters.map((element => {
+    const baseCharacters = boardGameComponents.characters.map(element => {
       return {
         ...element,
         player: '',
         inventory: [],
         abilities: []
       }
-    }))
+    })
     this.id = generateUniqueID()
     this.title = 'New Campaign'
-    this.scenarios = [...boardGameComponents.scenarios.map(element => { 
-      return {...element, completed: false}
+    this.scenarios = [...boardGameComponents.scenarios.map(element => {
+      return { ...element, completed: false }
     })]
     this.characters = baseCharacters
     this.partyItems = boardGameComponents.partyItems.map(element => {
-      return { name: element, value: false}
+      return { name: element, value: false }
     })
     this.storyAchievements = boardGameComponents.storyAchievements.map(element => {
-      return { name: element, value: false}
+      return { name: element, value: false }
     })
   }
 
@@ -112,14 +112,14 @@ class GameStatus {
         abilities: []
       }
     })
-    const builtScenarios = [...boardGameComponents.scenarios.map(element => { 
-      return {...element, completed: false}
+    const builtScenarios = [...boardGameComponents.scenarios.map(element => {
+      return { ...element, completed: false }
     })]
     const builtPartyItems = boardGameComponents.partyItems.map(element => {
-      return { name: element, value: false}
+      return { name: element, value: false }
     })
     const builtAchievement = boardGameComponents.storyAchievements.map(element => {
-      return { name: element, value: false}
+      return { name: element, value: false }
     })
     if (sourceData === null) {
       this.title = 'Game Campaign'
