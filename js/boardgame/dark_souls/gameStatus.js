@@ -120,12 +120,6 @@ class GameStatus {
     this.title = sourceData.title ? sourceData.title : 'Game Campaign'
     this.threatLevel = sourceData.threatLevel ? sourceData.threatLevel : 0
     this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios
-    this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters
-    this.reserve = sourceData.reserve.length === 0 ? this.#buildReserve() : sourceData.reserve
-    this.narrative = sourceData.narrative.length === 0 ? [] : sourceData.narrative
-    this.mission = sourceData.mission.length === 0 ? [] : sourceData.mission
-    this.items = sourceData.items.length === 0 ? [] : sourceData.items
-    this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
   }
 
   #buildReserve () {
@@ -149,10 +143,22 @@ class GameStatus {
       heroicAction: false,
       luckReady: false,
       equipment: {
-        armour: '',
-        leftHand: '',
-        rightHand: '',
-        backupSlot: '',
+        armor: {
+          item: '',
+          upgrades: [],
+        },
+        leftHand: {
+          item: '',
+          upgrades: [],
+        },
+        rightHand: {
+          item: '',
+          upgrades: [],
+        },
+        backupSlot: {
+          item: '',
+          upgrades: [],
+        },
       }
     }
   }
