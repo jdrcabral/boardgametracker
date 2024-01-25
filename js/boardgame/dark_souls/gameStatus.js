@@ -96,7 +96,7 @@ class GameStatus {
     const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
     this.id = generateUniqueID()
     this.title = 'New Campaign'
-    this.scenarios = [...boardGameComponents.scenarios]
+    this.scenarios = []
     this.characters = baseCharacters
     this.reserve = this.#buildReserve()
     this.narrative = []
@@ -110,7 +110,7 @@ class GameStatus {
     const baseCharacters = [this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter(), this.#buildBaseCharacter()]
     if (sourceData === null) {
       this.title = 'Game Campaign'
-      this.scenarios = [...boardGameComponents.scenarios]
+      this.scenarios = []
       this.characters = baseCharacters
       this.reserve = this.#buildReserve()
       this.id = generateUniqueID()
@@ -119,7 +119,7 @@ class GameStatus {
     this.id = sourceData.id ? sourceData.id : generateUniqueID()
     this.title = sourceData.title ? sourceData.title : 'Game Campaign'
     this.threatLevel = sourceData.threatLevel ? sourceData.threatLevel : 0
-    this.scenarios = sourceData.scenarios.length === 0 ? [...boardGameComponents.scenarios] : sourceData.scenarios
+    this.scenarios = sourceData.scenarios.length === 0 ? [] : sourceData.scenarios
   }
 
   #buildReserve () {

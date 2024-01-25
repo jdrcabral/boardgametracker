@@ -49,6 +49,7 @@
                   </div>
                 </div>
             </div>
+            <hr>
             <h3>Characters</h3>
             <div class="container">
                 <div class="row">
@@ -82,22 +83,18 @@
             <hr>
             <h3>Campaign</h3>
             <div class="container">
-                <div class="table-responsive">
-                  <table class="table" id="campaignTable" style="overflow-x: auto;">
-                      <thead>
-                          <tr>
-                              <th scope="col">Campaign</th>
-                              <th scope="col">Section 1</th>
-                              <th scope="col">Section 2</th>
-                              <th scope="col">Section 3</th>
-                              <th scope="col">Section 4</th>
-                              <th scope="col">Section 5</th>
-                              <th scope="col">Section 6</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                      </tbody>
-                  </table>
+                <div class="row">
+                    <div class="col">
+                        <select class="form-select" aria-label="Campaign Select" id="scenarioSelect">
+                            <option>Campaign Item</option>
+                        </select>
+                    </div>
+                    <div class="col mb-3">
+                        <button type="button" class="btn btn-primary" onclick="addScenario()">Add Item</button>
+                    </div>
+                  </div>
+                <div class="row" id="scenariosContainer">
+
                 </div>
             </div>
             <div class="container text-center mb-3">
