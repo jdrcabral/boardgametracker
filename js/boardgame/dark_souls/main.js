@@ -2,6 +2,8 @@ const characterContainer = document.getElementById('characterContainer')
 const partyAchievements = document.getElementById('storyAchievements')
 const partyItems = document.getElementById('partyItem')
 const scenarioSelect = document.getElementById('scenarioSelect')
+const soulsInput = document.getElementById('souls')
+const sparksInput = document.getElementById('sparks')
 const gameStatus = new GameStatus()
 let boardGameComponents
 
@@ -12,8 +14,14 @@ fetch('../../public/data/dark_souls.json').then(response => response.json()).the
 })
 
 function builder () {
+  loadSoulsSparks()
   fillSelects()
   buildScenarios()
+}
+
+function loadSoulsSparks() {
+  soulsInput.value = gameStatus.souls
+  sparksInput.value = gameStatus.sparks
 }
 
 function fillSelects () {
@@ -170,7 +178,6 @@ function handlePlayerNameChange (event) {
   gameStatus.save()
 }
 
-
 function addItemAbilities (character, destination) {
   const characterIndex = gameStatus.characters.findIndex(element => element.name == character)
   const container = document.getElementById(destination)
@@ -221,4 +228,14 @@ function removeCharacterInventoryItem (event) {
   }
   gameStatus.save()
   listItem.remove()
+}
+
+function handleInputChange(event) {
+  const targetId = event.target.id
+  if (targetId === 'souls') {
+    gameStatus.souls = event.target.value
+  } else if (targetId === 'sparks') {
+    gameStatus.sparks = event.target.value
+  }
+  gameStatus.save()
 }

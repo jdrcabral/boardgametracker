@@ -8,8 +8,8 @@ class GameStatus {
   scenarios = []
   sections = []
   characters = []
-  sparks = []
-  souls = []
+  sparks = 0
+  souls = 0
   encounters = []
   inventory = []
 
@@ -58,14 +58,13 @@ class GameStatus {
   clear () {
     this.id = null
     this.title = 'Game Campaign'
-    this.threatLevel = 0
     this.scenarios = []
+    this.sections = []
     this.characters = []
-    this.reserve = []
-    this.items = []
-    this.narrative = []
-    this.mission = []
-    this.tensionDeck = []
+    this.sparks = 0
+    this.souls = 0
+    this.encounters = []
+    this.inventory = []
   }
 
   deleteData () {
@@ -81,14 +80,13 @@ class GameStatus {
     return JSON.stringify({
       id: this.id,
       title: this.title,
-      threatLevel: this.threatLevel,
       scenarios: this.scenarios,
+      sections: this.sections,
       characters: this.characters,
-      reserve: this.reserve,
-      items: this.items,
-      narrative: this.narrative,
-      mission: this.mission,
-      tensionDeck: this.tensionDeck
+      sparks: this.sparks,
+      souls: this.souls,
+      encounters: this.encounters,
+      inventory: this.inventory,
     })
   }
 
@@ -97,13 +95,12 @@ class GameStatus {
     this.id = generateUniqueID()
     this.title = 'New Campaign'
     this.scenarios = []
-    this.characters = baseCharacters
-    this.reserve = this.#buildReserve()
-    this.narrative = []
-    this.mission = []
-    this.items = []
-    this.tensionDeck = []
-    this.threatLevel = 0
+    this.sections = []
+    this.characters = [baseCharacters]
+    this.sparks = 0
+    this.souls = 0
+    this.encounters = []
+    this.inventory = []
   }
 
   #loadAttributes (sourceData) {
@@ -112,26 +109,18 @@ class GameStatus {
       this.title = 'Game Campaign'
       this.scenarios = []
       this.characters = baseCharacters
-      this.reserve = this.#buildReserve()
       this.id = generateUniqueID()
       return
     }
+    this.scenarios = sourceData.scenarios ? sourceData.scenarios : []
+    this.sections = sourceData.sections ? sourceData.sections : []
+    this.characters = sourceData.characters ? sourceData.characters : [baseCharacters]
+    this.sparks = sourceData.sparks ? sourceData.sparks : 0
+    this.souls = sourceData.souls ? sourceData.souls : 0
+    this.encounters = sourceData.encounters ? sourceData.encounters : []
+    this.inventory = sourceData.inventory ? sourceData.inventory : []
     this.id = sourceData.id ? sourceData.id : generateUniqueID()
     this.title = sourceData.title ? sourceData.title : 'Game Campaign'
-    this.threatLevel = sourceData.threatLevel ? sourceData.threatLevel : 0
-    this.scenarios = sourceData.scenarios.length === 0 ? [] : sourceData.scenarios
-  }
-
-  #buildReserve () {
-    return boardGameComponents.characters.map(element => {
-      return {
-        name: element,
-        unlocked: false,
-        dead: false,
-        advanced: false,
-        health: 5
-      }
-    })
   }
 
   #buildBaseCharacter () {
@@ -159,7 +148,25 @@ class GameStatus {
           item: '',
           upgrades: [],
         },
-      }
+      },
+      attributes: [
+        {
+          "name": "Strength",
+          "tier": 0,
+        },
+        {
+          "name": "Dexterity",
+          "tier": 0,
+        },
+        {
+          "name": "Intelligence",
+          "tier": 0,
+        },
+        {
+          "name": "Faith",
+          "tier": 0,
+        }
+      ]
     }
   }
 }
