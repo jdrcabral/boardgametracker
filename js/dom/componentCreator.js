@@ -139,12 +139,12 @@ class CardComponent {
 }
 
 class ListComponent {
-  constructor (tag='ul', className='list-group') {
+  constructor (tag = 'ul', className = 'list-group') {
     this.list = document.createElement(tag)
     this.list.setAttribute('class', className)
   }
 
-  addListItem(id = null, content = null, children = null) {
+  addListItem (id = null, content = null, children = null) {
     const listItem = document.createElement('li')
     listItem.setAttribute('class', 'list-group-item')
     if (children) {

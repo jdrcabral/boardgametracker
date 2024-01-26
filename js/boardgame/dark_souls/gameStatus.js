@@ -86,7 +86,7 @@ class GameStatus {
       sparks: this.sparks,
       souls: this.souls,
       encounters: this.encounters,
-      inventory: this.inventory,
+      inventory: this.inventory
     })
   }
 
@@ -134,26 +134,26 @@ class GameStatus {
       equipment: {
         armor: {
           item: '',
-          upgrades: [],
+          upgrades: []
         },
         leftHand: {
           item: '',
-          upgrades: [],
+          upgrades: []
         },
         rightHand: {
           item: '',
-          upgrades: [],
+          upgrades: []
         },
         backupSlot: {
           item: '',
-          upgrades: [],
-        },
+          upgrades: []
+        }
       },
       attributes: {
         strength: 0,
         dexterity: 0,
         intelligence: 0,
-        faith: 0,
+        faith: 0
       }
     }
   }
