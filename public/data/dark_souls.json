@@ -148,7 +148,7 @@
         {"name": "Worker Armour", "type": "Armor"},
         {"name": "Xanthous Robes", "type": "Armor"}
     ],
-    "armor_upgrades": [
+    "armor_upgrade": [
         {"name": "Bellowing Dragoncrest Ring", "type": "A-Up"},
         {"name": "Bellowing Dragoncrest Ring", "type": "A-Up"},
         {"name": "Bequeathed Lord Soul", "type": "A-Up"},

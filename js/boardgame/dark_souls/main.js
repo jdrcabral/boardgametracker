@@ -16,6 +16,7 @@ fetch('../../public/data/dark_souls.json').then(response => response.json()).the
 function builder () {
   loadSoulsSparks()
   fillSelects()
+  loadCharacters()
   buildScenarios()
 }
 
@@ -26,16 +27,42 @@ function loadSoulsSparks() {
 
 function fillSelects () {
   fillSelectOptions('scenarioSelect', boardGameComponents.scenarios)
+  fillSelectOptions('itemSelect', ItemsHandler.retrieveAllItems())
+  for (let i = 1; i < 2; i++) {
+    fillSelectOptions(`characterSelect${i}`, boardGameComponents.characters) // Fill options for item deck cards
+  }
 }
 
 function fillSelectOptions (elementId, list, usePrefix = false) {
   const selectElement = document.getElementById(elementId)
   list.forEach(element => {
     const optionElement = document.createElement('option')
-    const name = typeof element === 'string' ? element : element.name
+    let name = element
+    if (typeof element !== 'string') {
+      if ('class' in element) name = element.class
+      else name = element.name
+    }
     optionElement.setAttribute('value', toSnakeCase(name))
     optionElement.textContent = usePrefix ? `${TENSION_CARD_SYMBOLS[element.value]}(${element.value}) ${name}` : name
     selectElement.appendChild(optionElement)
+  })
+}
+
+function loadCharacters() {
+  const playerIndex = 0
+  const characterSelect = document.getElementById(`characterSelect${playerIndex+1}`)
+  characterSelect.value = gameStatus.characters[playerIndex].name
+  const characterClass = boardGameComponents.characters.find(element => {
+    return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
+  })
+
+  const attributes = ['Strength', 'Dexterity', 'Intelligence', 'Faith'];
+  attributes.forEach(attribute => {
+    const tierSelect = document.getElementById(`character${attribute}Select${playerIndex+1}`)
+    console.log(gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()])
+    tierSelect.value = gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()]
+    const input = document.getElementById(`character${attribute}${playerIndex+1}`)
+    input.value = characterClass[attribute][tierSelect.value]
   })
 }
 
@@ -237,5 +264,33 @@ function handleInputChange(event) {
   } else if (targetId === 'sparks') {
     gameStatus.sparks = event.target.value
   }
+  gameStatus.save()
+}
+
+function handleClassChange(event) {
+  const characterClass = boardGameComponents.characters.find(element => {
+    return toSnakeCase(element.class) === event.target.value
+  })
+  const targetId = event.target.id
+  const playerIndex = parseInt(targetId[targetId.length - 1]) - 1
+  
+  const strengthTierSelect = document.getElementById(`characterStrengthSelect${playerIndex+1}`)
+  const strengthInput = document.getElementById(`characterStrength${playerIndex+1}`)
+  strengthInput.value = characterClass.Strength[strengthTierSelect.value]
+  const dexterityTierSelect = document.getElementById(`characterDexteritySelect${playerIndex+1}`)
+  const dexterityInput = document.getElementById(`characterDexterity${playerIndex+1}`)
+  dexterityInput.value = characterClass.Dexterity[dexterityTierSelect.value]
+  const intelligenceTierSelect = document.getElementById(`characterIntelligenceSelect${playerIndex+1}`)
+  const intelligenceInput = document.getElementById(`characterIntelligence${playerIndex+1}`)
+  intelligenceInput.value = characterClass.Intelligence[intelligenceTierSelect.value]
+  const faithTierSelect = document.getElementById(`characterFaithSelect${playerIndex+1}`)
+  const faithInput = document.getElementById(`characterFaith${playerIndex+1}`)
+  faithInput.value = characterClass.Faith[faithTierSelect.value]
+
+  gameStatus.characters[playerIndex].name = event.target.value
+  gameStatus.characters[playerIndex].attributes.strength = strengthTierSelect.value
+  gameStatus.characters[playerIndex].attributes.dexterity = dexterityTierSelect.value
+  gameStatus.characters[playerIndex].attributes.intelligence = intelligenceTierSelect.value
+  gameStatus.characters[playerIndex].attributes.faith = faithTierSelect.value
   gameStatus.save()
 }

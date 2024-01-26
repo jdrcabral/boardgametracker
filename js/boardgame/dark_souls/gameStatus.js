@@ -149,24 +149,12 @@ class GameStatus {
           upgrades: [],
         },
       },
-      attributes: [
-        {
-          "name": "Strength",
-          "tier": 0,
-        },
-        {
-          "name": "Dexterity",
-          "tier": 0,
-        },
-        {
-          "name": "Intelligence",
-          "tier": 0,
-        },
-        {
-          "name": "Faith",
-          "tier": 0,
-        }
-      ]
+      attributes: {
+        strength: 0,
+        dexterity: 0,
+        intelligence: 0,
+        faith: 0,
+      }
     }
   }
 }
