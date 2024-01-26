@@ -137,3 +137,27 @@ class CardComponent {
     return this.card
   }
 }
+
+class ListComponent {
+  constructor (tag = 'ul', className = 'list-group') {
+    this.list = document.createElement(tag)
+    this.list.setAttribute('class', className)
+  }
+
+  addListItem (id = null, content = null, children = null) {
+    const listItem = document.createElement('li')
+    listItem.setAttribute('class', 'list-group-item')
+    if (children) {
+      children.forEach((element) => {
+        listItem.appendChild(element)
+      })
+    }
+    if (content) {
+      listItem.textContent = content
+    }
+    if (id) {
+      listItem.setAttribute('id', id)
+    }
+    this.list.appendChild(listItem)
+  }
+}
