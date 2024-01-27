@@ -134,19 +134,19 @@ class GameStatus {
       equipment: {
         armor: {
           item: '',
-          upgrades: []
+          notes: ''
         },
         leftHand: {
           item: '',
-          upgrades: []
+          notes: ''
         },
         rightHand: {
           item: '',
-          upgrades: []
+          notes: ''
         },
-        backupSlot: {
+        belt: {
           item: '',
-          upgrades: []
+          notes: ''
         }
       },
       attributes: {

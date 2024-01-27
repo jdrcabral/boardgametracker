@@ -29,7 +29,11 @@ function fillSelects () {
   fillSelectOptions('scenarioSelect', boardGameComponents.scenarios)
   fillSelectOptions('itemSelect', ItemsHandler.retrieveAllItems())
   for (let i = 1; i < 2; i++) {
-    fillSelectOptions(`characterSelect${i}`, boardGameComponents.characters) // Fill options for item deck cards
+    fillSelectOptions(`characterSelect${i}`, boardGameComponents.characters) // Fill options for character class
+    fillSelectOptions(`character${i}ArmorSelect`, boardGameComponents.armor) // Fill options for character class
+    fillSelectOptions(`character${i}LeftHandSelect`, boardGameComponents.weapon) // Fill options for character class
+    fillSelectOptions(`character${i}RightHandSelect`, boardGameComponents.weapon) // Fill options for character class
+    fillSelectOptions(`character${i}BeltSelect`, boardGameComponents.weapon) // Fill options for character class
   }
 }
 
@@ -56,10 +60,25 @@ function loadCharacters () {
     return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
   })
 
+  if (!characterClass) return
+
+  // Load tokens
+
+  // Load equipement
+  const equips = ['armor', 'leftHand', 'rightHand', 'belt']
+  equips.forEach(element => {
+    const capitalName = element[0].toUpperCase() + element.slice(1);
+    const equip = gameStatus.characters[playerIndex].equipment[element]
+    const select = document.getElementById(`character${playerIndex+1}${capitalName}Select`)
+    const notes = document.getElementById(`character${playerIndex+1}${capitalName}Notes`)
+    select.value = equip.item
+    notes.value = equip.notes
+  })
+
+  // Load attributes
   const attributes = ['Strength', 'Dexterity', 'Intelligence', 'Faith']
   attributes.forEach(attribute => {
     const tierSelect = document.getElementById(`character${attribute}Select${playerIndex + 1}`)
-    console.log(gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()])
     tierSelect.value = gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()]
     const input = document.getElementById(`character${attribute}${playerIndex + 1}`)
     input.value = characterClass[attribute][tierSelect.value]
@@ -73,7 +92,8 @@ function addScenario () {
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
   })
-  addScenarioCard(foundElement)
+  gameStatus.scenarios.push(foundElement)
+  gameStatus.save()
 }
 
 function addScenarioCard (foundElement) {
@@ -86,7 +106,7 @@ function addScenarioCard (foundElement) {
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
   const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger btn-sm', removeCard)
   const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
   const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
   cardComponent.addElementContent(cardRow)
@@ -94,9 +114,7 @@ function addScenarioCard (foundElement) {
   sectionHeader.textContent = 'Section'
   cardComponent.addElementContent(sectionHeader)
   const listComponent = new ListComponent('ul', 'list-group list-group-flush')
-  console.log(foundElement)
   foundElement.sections.forEach(element => {
-    console.log(element)
     const text = document.createElement('p')
     text.textContent = element.name
     const sectionId = `${toSnakeCase(foundElement.name)}_${toSnakeCase(element.name)}`
@@ -107,11 +125,10 @@ function addScenarioCard (foundElement) {
   })
   cardComponent.addElementContent(listComponent.list)
   const cardElement = cardComponent.generate()
-
+  cardElement.style = "height: 15rem;overflow-y: auto;"
   const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)
-  gameStatus.scenarios.push(foundElement)
-  gameStatus.save()
+  return foundElement
 }
 
 function removeCard (event) {
@@ -120,8 +137,8 @@ function removeCard (event) {
   const container = removeElement.parentNode
   const containerId = container.id
   const index = Array.prototype.indexOf.call(container.children, removeElement)
-  if (containerId.includes('narrative')) {
-    gameStatus.narrative.splice(index, 1)
+  if (containerId.includes('scenarios')) {
+    gameStatus.scenarios.splice(index, 1)
   } else if (containerId.includes('tension')) {
     gameStatus.tensionDeck.splice(index, 1)
   } else if (containerId.includes('mission')) {
@@ -158,7 +175,6 @@ function handleCheckBoxChange (event) {
     const sectionIndex = gameStatus.scenarios[scenarioIndex].sections.findIndex(element => {
       return targetId == `${toSnakeCase(gameStatus.scenarios[scenarioIndex].name)}_${toSnakeCase(element.name)}`
     })
-    console.log(event.target.checked, event.target.value)
     gameStatus.scenarios[scenarioIndex].sections[sectionIndex].completed = event.target.checked
   }
   gameStatus.save()
