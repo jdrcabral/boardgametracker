@@ -2,7 +2,6 @@ const STORAGE_KEY = 'CTDSBG'
 const CURRENT_VERSION = 'alpha'
 
 class GameStatus {
-  threatLevel = 0
   id = null
   title = 'Game Campaign'
   scenarios = []
@@ -134,19 +133,19 @@ class GameStatus {
       equipment: {
         armor: {
           item: '',
-          upgrades: []
+          notes: ''
         },
         leftHand: {
           item: '',
-          upgrades: []
+          notes: ''
         },
         rightHand: {
           item: '',
-          upgrades: []
+          notes: ''
         },
-        backupSlot: {
+        belt: {
           item: '',
-          upgrades: []
+          notes: ''
         }
       },
       attributes: {

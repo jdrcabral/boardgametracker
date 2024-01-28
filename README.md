@@ -8,6 +8,7 @@ This application is developed using only HTML, Bootstrap and JavaScript(Vanilla)
 
 | Board Game                      | Status      |
 |---------------------------------|-------------|
-| Mice and Mystics                | In Progress |
+| Dark Souls                      | In Progress |
+| Mice and Mystics                | Done        |
 | Resident Evil: The Board Game   | Done        |
 | Resident Evil 3: The Board Game | Done        |
