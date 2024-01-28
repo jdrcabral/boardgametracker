@@ -27,6 +27,13 @@ let boardGameComponents
 const gameStatus = new GameStatus()
 let lastMapElement = null
 
+const tabElement = document.getElementById('myTab')
+tabElement.addEventListener('shown.bs.tab', (event) => {
+  if (event.target.id === 'map-tab') {
+    scaleSVGImage()
+  }
+})
+
 fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
@@ -49,7 +56,6 @@ function fillSelects () {
 
 function builder () {
   buildStartingMap()
-  scaleSVGImage()
   loadCharacters()
   updateReserve()
   loadCards()
