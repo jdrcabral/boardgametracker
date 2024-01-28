@@ -1,6 +1,6 @@
 const characterContainer = document.getElementById('characterContainer')
-const partyAchievements = document.getElementById('storyAchievements')
-const partyItems = document.getElementById('partyItem')
+const itemContainer = document.getElementById('itemsContainer')
+const itemSelect = document.getElementById('itemSelect')
 const scenarioSelect = document.getElementById('scenarioSelect')
 const soulsInput = document.getElementById('souls')
 const sparksInput = document.getElementById('sparks')
@@ -18,6 +18,7 @@ function builder () {
   fillSelects()
   loadCharacters()
   buildScenarios()
+  loadInventory()
 }
 
 function loadSoulsSparks () {
@@ -28,7 +29,7 @@ function loadSoulsSparks () {
 function fillSelects () {
   fillSelectOptions('scenarioSelect', boardGameComponents.scenarios)
   fillSelectOptions('itemSelect', ItemsHandler.retrieveAllItems())
-  for (let i = 1; i < 2; i++) {
+  for (let i = 1; i < 5; i++) {
     fillSelectOptions(`characterSelect${i}`, boardGameComponents.characters) // Fill options for character class
     fillSelectOptions(`character${i}ArmorSelect`, boardGameComponents.armor) // Fill options for character class
     fillSelectOptions(`character${i}LeftHandSelect`, boardGameComponents.weapon) // Fill options for character class
@@ -53,35 +54,50 @@ function fillSelectOptions (elementId, list, usePrefix = false) {
 }
 
 function loadCharacters () {
-  const playerIndex = 0
-  const characterSelect = document.getElementById(`characterSelect${playerIndex + 1}`)
-  characterSelect.value = gameStatus.characters[playerIndex].name
-  const characterClass = boardGameComponents.characters.find(element => {
-    return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
-  })
+  for (let playerIndex = 0; playerIndex < 4; playerIndex++) {
+    const characterSelect = document.getElementById(`characterSelect${playerIndex + 1}`)
+    characterSelect.value = gameStatus.characters[playerIndex].name
+    const characterClass = boardGameComponents.characters.find(element => {
+      return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
+    })
+  
+    if (!characterClass) return
+  
+    // Load tokens
+    const estus = document.getElementById(`estusCharacter${playerIndex+1}`)
+    estus.checked = gameStatus.characters[playerIndex].estusReady
+    const ember = document.getElementById(`emberCharacter${playerIndex+1}`)
+    ember.checked = gameStatus.characters[playerIndex].emberToken
+    const luck = document.getElementById(`luckCharacter${playerIndex+1}`)
+    luck.checked = gameStatus.characters[playerIndex].luckReady
+    const heroicAction = document.getElementById(`heroicActionCharacter${playerIndex+1}`)
+    heroicAction.checked = gameStatus.characters[playerIndex].heroicAction
+  
+    // Load equipement
+    const equips = ['armor', 'leftHand', 'rightHand', 'belt']
+    equips.forEach(element => {
+      const capitalName = element[0].toUpperCase() + element.slice(1);
+      const equip = gameStatus.characters[playerIndex].equipment[element]
+      const select = document.getElementById(`character${playerIndex+1}${capitalName}Select`)
+      const notes = document.getElementById(`character${playerIndex+1}${capitalName}Notes`)
+      select.value = equip.item
+      notes.value = equip.notes
+    })
+  
+    // Load attributes
+    const attributes = ['Strength', 'Dexterity', 'Intelligence', 'Faith']
+    attributes.forEach(attribute => {
+      const tierSelect = document.getElementById(`character${attribute}Select${playerIndex + 1}`)
+      tierSelect.value = gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()]
+      const input = document.getElementById(`character${attribute}${playerIndex + 1}`)
+      input.value = characterClass[attribute][tierSelect.value]
+    })
+  }
+}
 
-  if (!characterClass) return
-
-  // Load tokens
-
-  // Load equipement
-  const equips = ['armor', 'leftHand', 'rightHand', 'belt']
-  equips.forEach(element => {
-    const capitalName = element[0].toUpperCase() + element.slice(1);
-    const equip = gameStatus.characters[playerIndex].equipment[element]
-    const select = document.getElementById(`character${playerIndex+1}${capitalName}Select`)
-    const notes = document.getElementById(`character${playerIndex+1}${capitalName}Notes`)
-    select.value = equip.item
-    notes.value = equip.notes
-  })
-
-  // Load attributes
-  const attributes = ['Strength', 'Dexterity', 'Intelligence', 'Faith']
-  attributes.forEach(attribute => {
-    const tierSelect = document.getElementById(`character${attribute}Select${playerIndex + 1}`)
-    tierSelect.value = gameStatus.characters[playerIndex].attributes[attribute.toLowerCase()]
-    const input = document.getElementById(`character${attribute}${playerIndex + 1}`)
-    input.value = characterClass[attribute][tierSelect.value]
+function loadInventory () {
+  gameStatus.inventory.forEach(element => {
+    addItemCard(element, element.notes)
   })
 }
 
@@ -92,6 +108,7 @@ function addScenario () {
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
   })
+  addScenarioCard(foundElement)
   gameStatus.scenarios.push(foundElement)
   gameStatus.save()
 }
@@ -118,7 +135,7 @@ function addScenarioCard (foundElement) {
     const text = document.createElement('p')
     text.textContent = element.name
     const sectionId = `${toSnakeCase(foundElement.name)}_${toSnakeCase(element.name)}`
-    const checkbox = ComponentCreator.createCheckbox(element.completed, `${sectionId}_completed`)
+    const checkbox = ComponentCreator.createCheckbox(element.completed, `${sectionId}_completed`, handleCheckboxCampaignSectionChange)
     const textCol = ComponentCreator.createDivWithClass('col', [text])
     const checkboxCol = ComponentCreator.createDivWithClass('col', [checkbox])
     listComponent.addListItem(sectionId, null, [ComponentCreator.createDivWithClass('row', [textCol, checkboxCol])])
@@ -139,12 +156,8 @@ function removeCard (event) {
   const index = Array.prototype.indexOf.call(container.children, removeElement)
   if (containerId.includes('scenarios')) {
     gameStatus.scenarios.splice(index, 1)
-  } else if (containerId.includes('tension')) {
-    gameStatus.tensionDeck.splice(index, 1)
-  } else if (containerId.includes('mission')) {
-    gameStatus.mission.splice(index, 1)
   } else if (containerId.includes('item')) {
-    gameStatus.items.splice(index, 1)
+    gameStatus.inventory.splice(index, 1)
   }
   gameStatus.save()
   removeElement.remove()
@@ -308,5 +321,118 @@ function handleClassChange (event) {
   gameStatus.characters[playerIndex].attributes.dexterity = dexterityTierSelect.value
   gameStatus.characters[playerIndex].attributes.intelligence = intelligenceTierSelect.value
   gameStatus.characters[playerIndex].attributes.faith = faithTierSelect.value
+  gameStatus.save()
+}
+
+function handleCharacterTierChange(event) {
+  const targetId = event.target.id
+  const playerIndex = extractIntFromString(targetId) - 1
+  const charClass = boardGameComponents.characters.find(element => {
+    return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
+  })
+  if (targetId.includes('Strength')) {
+    gameStatus.characters[playerIndex].attributes.strength = event.target.value
+    const input = document.getElementById(`characterStrength${playerIndex+1}`)
+    input.value = charClass.Strength[event.target.value]
+  } else if (targetId.includes('Dexterity')) {
+    gameStatus.characters[playerIndex].attributes.dexterity = event.target.value
+    const input = document.getElementById(`characterDexterity${playerIndex+1}`)
+    input.value = charClass.Dexterity[event.target.value]
+  } else if (targetId.includes('Faith')) {
+    gameStatus.characters[playerIndex].attributes.faith = event.target.value
+    const input = document.getElementById(`characterFaith${playerIndex+1}`)
+    input.value = charClass.Faith[event.target.value]
+  } else if (targetId.includes('Intelligence')) {
+    gameStatus.characters[playerIndex].attributes.intelligence = event.target.value
+    const input = document.getElementById(`characterIntelligence${playerIndex+1}`)
+    input.value = charClass.Intelligence[event.target.value]
+  }
+  gameStatus.save()
+}
+
+function addItem() {
+  const foundItem = ItemsHandler.retrieveAllItems().find(element => {
+    return toSnakeCase(element.name) === itemSelect.value
+  })
+  addItemCard(foundItem)
+  gameStatus.inventory.push({
+    name: foundItem.name,
+    notes: '',
+  })
+  gameStatus.save()
+}
+
+function addItemCard(item, notes = null) {
+  const cardText = item.name
+  const cardComponent = new CardComponent()
+  const cartTitle = document.createElement('p')
+  cartTitle.setAttribute('class', 'card-text')
+  cartTitle.textContent = cardText
+  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger btn-sm', removeCard)
+  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
+  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
+  cardComponent.addElementContent(cardRow)
+  const input = document.createElement('input')
+  input.setAttribute('class', 'form-control mt-3')
+  input.setAttribute('placeholder', 'Notes')
+  if (notes) {
+    input.value = notes
+  }
+  input.addEventListener('change', handleInventoryEventChange)
+  cardComponent.addElementContent(input)
+  const listComponent = new ListComponent('ul', 'list-group list-group-flush')
+  cardComponent.addElementContent(listComponent.list)
+  const cardElement = cardComponent.generate()
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  itemContainer.appendChild(colDiv)
+}
+
+function handleInventoryEventChange(event) {
+  const cardElement = event.target.closest('.card')
+  const removeElement = cardElement.parentNode
+  const container = removeElement.parentNode
+  const index = Array.prototype.indexOf.call(container.children, removeElement)
+  gameStatus.inventory[index].notes = event.target.value
+  gameStatus.save()
+}
+
+function handleCheckboxCampaignSectionChange(event) {
+  const cardElement = event.target.closest('.card')
+  const removeElement = cardElement.parentNode
+  const container = removeElement.parentNode
+  const index = Array.prototype.indexOf.call(container.children, removeElement)
+  const ulElement = event.target.closest('ul')
+  const sectionIndex = Array.prototype.indexOf.call(ulElement.children, event.target.parentNode.parentNode.parentNode)
+  gameStatus.scenarios[index].sections[sectionIndex].completed = event.target.checked
+  gameStatus.save()
+}
+
+function handleSoulsSparkChange(event) {
+  if (event.target.id === 'souls') {
+    gameStatus.souls = event.target.value;
+  }
+  if (event.target.id === 'sparks') {
+    gameStatus.sparks = event.target.value;
+  }
+  gameStatus.save()
+}
+
+function handleTokenChange(event) {
+  const targetId = event.target.id
+  const playerIndex = extractIntFromString(targetId)
+
+  if (targetId.includes('ember')) {
+    gameStatus.characters[playerIndex-1].emberToken = event.target.checked
+  }
+  if (targetId.includes('estus')) {
+    gameStatus.characters[playerIndex-1].estusReady = event.target.checked
+  }
+  if (targetId.includes('heroicAction')) {
+    gameStatus.characters[playerIndex-1].heroicAction = event.target.checked
+  }
+  if (targetId.includes('luck')) {
+    gameStatus.characters[playerIndex-1].luckReady = event.target.checked
+  }
   gameStatus.save()
 }

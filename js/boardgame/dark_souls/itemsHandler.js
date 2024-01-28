@@ -19,10 +19,7 @@ function itemMapper (item) {
 
 function handleCharacterItemChange(event) {
   const targetId = event.target.id
-  const pattern = /\d+/;
-  const match = pattern.exec(targetId);
-  if (!match) return
-  const playerIndex = match[0] - 1
+  const playerIndex = extractIntFromString(targetId) - 1
   if (targetId.includes("Armor")) {
     handleItemUpdate(playerIndex, event.target.value, 'armor', `character${playerIndex+1}ArmorNotes`)
   }
@@ -32,7 +29,7 @@ function handleCharacterItemChange(event) {
   if (targetId.includes("LeftHand")) {
     handleItemUpdate(playerIndex, event.target.value, 'leftHand', `character${playerIndex+1}LeftHandNotes`)
   }
-  if (targetId.includes("BeltHand")) {
+  if (targetId.includes("Belt")) {
     handleItemUpdate(playerIndex, event.target.value, 'belt', `character${playerIndex+1}BeltNotes`)
   }
   gameStatus.save()
@@ -49,10 +46,7 @@ function handleItemUpdate(playerIndex, value, itemType, notesId) {
 
 function handleCharacterItemNotesChange(event) {
   const targetId = event.target.id
-  const pattern = /\d+/;
-  const match = pattern.exec(targetId);
-  if (!match) return
-  const playerIndex = match[0] - 1
+  const playerIndex = extractIntFromString(targetId) - 1
   if (targetId.includes("Armor")) {
     handleItemUpdate(playerIndex, null, 'armor', `character${playerIndex+1}ArmorNotes`)
   }
@@ -62,7 +56,7 @@ function handleCharacterItemNotesChange(event) {
   if (targetId.includes("LeftHand")) {
     handleItemUpdate(playerIndex, null, 'leftHand', `character${playerIndex+1}LeftHandNotes`)
   }
-  if (targetId.includes("BeltHand")) {
+  if (targetId.includes("Belt")) {
     handleItemUpdate(playerIndex, null, 'belt', `character${playerIndex+1}BeltNotes`)
   }
   gameStatus.save()

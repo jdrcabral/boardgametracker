@@ -2,7 +2,6 @@ const STORAGE_KEY = 'CTDSBG'
 const CURRENT_VERSION = 'alpha'
 
 class GameStatus {
-  threatLevel = 0
   id = null
   title = 'Game Campaign'
   scenarios = []

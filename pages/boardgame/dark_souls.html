@@ -56,13 +56,13 @@
                         <label for="souls" class="col-form-label">Souls</label>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-2">
-                        <input class="form-control" id="souls" type="number">
+                        <input class="form-control" id="souls" type="number" onchange="handleSoulsSparkChange(event)">
                     </div>
                     <div class="col-xs-6 col-sm-4 col-md-2">
                         <label for="sparks" class="col-form-label">Sparks</label>
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-2">
-                        <input class="form-control" id="sparks" type="number">
+                        <input class="form-control" id="sparks" type="number" onchange="handleSoulsSparkChange(event)">
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
             <h3>Characters</h3>
             <div class="container">
                 <div class="row">
-                    <div class="col-md-4 col-xs-12">
+                    <div class="col-md-6 col-xs-12 mt-3">
                         <div class="card" style="height: 30rem;overflow-y: auto;">
                             <div class="card-body">
                                 <select class="form-select mb-3" aria-label="Character Select 1" id="characterSelect1" onchange="handleClassChange(event)">
@@ -80,24 +80,24 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" value="" id="emberCharacter1" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="emberCharacter1">
                                               Ember Token
                                             </label>
                                           </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" value="" id="estusCharacter1" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="estusCharacter1">
                                               Estus
                                             </label>
                                           </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" value="" id="heroicActionCharacter1" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="heroicActionCharacter1">
                                               Heroic Action
                                             </label>
                                           </div>
@@ -105,8 +105,8 @@
 
                                     <div class="col">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
+                                            <input class="form-check-input" type="checkbox" value="" id="luckCharacter1" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="luckCharacter1">
                                               Luck
                                             </label>
                                           </div>
@@ -204,7 +204,7 @@
                                         <input type="number" min="1" max="10" class="form-control" id="characterStrength1" disabled readonly>
                                     </div>
                                     <div class="col-sm-3 col-md-5">
-                                        <select class="form-select" id="characterStrengthSelect1">
+                                        <select class="form-select" id="characterStrengthSelect1" onchange="handleCharacterTierChange(event)">
                                             <option value="0">Base</option>
                                             <option value="1">Tier 1</option>
                                             <option value="2">Tier 2</option>
@@ -220,7 +220,7 @@
                                         <input type="number" min="1" max="10" class="form-control" id="characterDexterity1" disabled readonly>
                                     </div>
                                     <div class="col-sm-3 col-md-5">
-                                        <select class="form-select" id="characterDexteritySelect1">
+                                        <select class="form-select" id="characterDexteritySelect1" onchange="handleCharacterTierChange(event)">
                                             <option value="0">Base</option>
                                             <option value="1">Tier 1</option>
                                             <option value="2">Tier 2</option>
@@ -236,7 +236,7 @@
                                         <input type="number" min="1" max="10" class="form-control" id="characterIntelligence1" disabled readonly>
                                     </div>
                                     <div class="col-sm-3 col-md-5">
-                                        <select class="form-select" id="characterIntelligenceSelect1">
+                                        <select class="form-select" id="characterIntelligenceSelect1" onchange="handleCharacterTierChange(event)">
                                             <option value="0">Base</option>
                                             <option value="1">Tier 1</option>
                                             <option value="2">Tier 2</option>
@@ -252,7 +252,586 @@
                                         <input type="number" min="1" max="10" class="form-control" id="characterFaith1" disabled readonly>
                                     </div>
                                     <div class="col-sm-3 col-md-5">
-                                        <select class="form-select" id="characterFaithSelect1">
+                                        <select class="form-select" id="characterFaithSelect1" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 mt-3">
+                        <div class="card" style="height: 30rem;overflow-y: auto;">
+                            <div class="card-body">
+                                <select class="form-select mb-3" aria-label="Character Select 2" id="characterSelect2" onchange="handleClassChange(event)">
+                                    <option>Select Class</option>
+                                </select>
+                                <h5>Tokens</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="emberCharacter2" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="emberCharacter2">
+                                              Ember Token
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="estusCharacter2" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="estusCharacter2">
+                                              Estus
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="heroicActionCharacter2" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="heroicActionCharacter2">
+                                              Heroic Action
+                                            </label>
+                                          </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="luckCharacter2" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="luckCharacter2">
+                                              Luck
+                                            </label>
+                                          </div>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">Equip</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character2LeftHandSelect" class="form-label">Left Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character2LeftHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6 col-md-3">
+                                        <label for="character2LeftHandNotes" class="form-label">Notes</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-9">
+                                        <input class="form-control" id="character2LeftHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character2RightHandSelect" class="form-label">Right Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character2RightHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character2RightHandNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character2RightHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character2ArmorSelect" class="form-label">Armor</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character2ArmorSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Armor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character2ArmorNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character2ArmorNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character2BeltSelect" class="form-label">Belt</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character2BeltSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character2BeltNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character2BeltNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5 class="mt-3">Status</h5>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterStrength2" class="form-label">Strength</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterStrength2" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterStrengthSelect2" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterDexterity2" class="form-label">Dexterity</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterDexterity2" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterDexteritySelect2" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterIntelligence2" class="form-label">Intelligence</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterIntelligence2" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterIntelligenceSelect2" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterFaith2" class="form-label">Faith</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterFaith2" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterFaithSelect2" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 mt-3">
+                        <div class="card" style="height: 30rem;overflow-y: auto;">
+                            <div class="card-body">
+                                <select class="form-select mb-3" aria-label="Character Select 3" id="characterSelect3" onchange="handleClassChange(event)">
+                                    <option>Select Class</option>
+                                </select>
+                                <h5>Tokens</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="emberCharacter3" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="emberCharacter3">
+                                              Ember Token
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="estusCharacter3" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="estusCharacter3">
+                                              Estus
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="heroicActionCharacter3" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="heroicActionCharacter3">
+                                              Heroic Action
+                                            </label>
+                                          </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="luckCharacter3" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="luckCharacter3">
+                                              Luck
+                                            </label>
+                                          </div>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">Equip</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character3LeftHandSelect" class="form-label">Left Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character3LeftHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6 col-md-3">
+                                        <label for="character3LeftHandNotes" class="form-label">Notes</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-9">
+                                        <input class="form-control" id="character3LeftHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character3RightHandSelect" class="form-label">Right Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character3RightHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character3RightHandNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character3RightHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character3ArmorSelect" class="form-label">Armor</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character3ArmorSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Armor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character3ArmorNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character3ArmorNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character3BeltSelect" class="form-label">Belt</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character3BeltSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character3BeltNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character3BeltNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5 class="mt-3">Status</h5>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterStrength3" class="form-label">Strength</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterStrength3" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterStrengthSelect3" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterDexterity3" class="form-label">Dexterity</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterDexterity3" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterDexteritySelect3" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterIntelligence3" class="form-label">Intelligence</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterIntelligence3" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterIntelligenceSelect3" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterFaith3" class="form-label">Faith</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterFaith3" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterFaithSelect3" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12 mt-3">
+                        <div class="card" style="height: 30rem;overflow-y: auto;">
+                            <div class="card-body">
+                                <select class="form-select mb-3" aria-label="Character Select 4" id="characterSelect4" onchange="handleClassChange(event)">
+                                    <option>Select Class</option>
+                                </select>
+                                <h5>Tokens</h5>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="emberCharacter4" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="emberCharacter4">
+                                              Ember Token
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="estusCharacter4" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="estusCharacter4">
+                                              Estus
+                                            </label>
+                                          </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="heroicActionCharacter4" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="heroicActionCharacter4">
+                                              Heroic Action
+                                            </label>
+                                          </div>
+                                    </div>
+
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="luckCharacter4" onchange="handleTokenChange(event)">
+                                            <label class="form-check-label" for="luckCharacter4">
+                                              Luck
+                                            </label>
+                                          </div>
+                                    </div>
+                                </div>
+                                <h5 class="mt-3">Equip</h5>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character4LeftHandSelect" class="form-label">Left Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character4LeftHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-sm-6 col-md-3">
+                                        <label for="character4LeftHandNotes" class="form-label">Notes</label>
+                                    </div>
+                                    <div class="col-sm-6 col-md-9">
+                                        <input class="form-control" id="character4LeftHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character4RightHandSelect" class="form-label">Right Hand</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character4RightHandSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character4RightHandNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character4RightHandNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character4ArmorSelect" class="form-label">Armor</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character4ArmorSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Armor</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character4ArmorNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character4ArmorNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-4">
+                                        <label for="character4BeltSelect" class="form-label">Belt</label>
+                                    </div>
+                                    <div class="col">
+                                        <select class="form-select" id="character4BeltSelect" onchange="handleCharacterItemChange(event)">
+                                            <option value="">Weapon/Shield/Spell</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="row mt-2">
+                                        <div class="col-sm-6 col-md-3">
+                                            <label for="character4BeltNotes" class="form-label">Notes</label>
+                                        </div>
+                                        <div class="col-sm-6 col-md-9">
+                                            <input class="form-control" id="character4BeltNotes" onchange="handleCharacterItemNotesChange(event)">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5 class="mt-3">Status</h5>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterStrength4" class="form-label">Strength</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterStrength4" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterStrengthSelect4" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterDexterity4" class="form-label">Dexterity</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterDexterity4" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterDexteritySelect4" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterIntelligence4" class="form-label">Intelligence</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterIntelligence4" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterIntelligenceSelect4" onchange="handleCharacterTierChange(event)">
+                                            <option value="0">Base</option>
+                                            <option value="1">Tier 1</option>
+                                            <option value="2">Tier 2</option>
+                                            <option value="3">Tier 3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3 col-md-4">
+                                        <label for="characterFaith4" class="form-label">Faith</label>
+                                    </div>
+                                    <div class="col-sm-3 col-md-3">
+                                        <input type="number" min="1" max="10" class="form-control" id="characterFaith4" disabled readonly>
+                                    </div>
+                                    <div class="col-sm-3 col-md-5">
+                                        <select class="form-select" id="characterFaithSelect4" onchange="handleCharacterTierChange(event)">
                                             <option value="0">Base</option>
                                             <option value="1">Tier 1</option>
                                             <option value="2">Tier 2</option>
