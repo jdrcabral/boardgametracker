@@ -17,47 +17,46 @@ function itemMapper (item) {
   }
 }
 
-function handleCharacterItemChange(event) {
+function handleCharacterItemChange (event) {
   const targetId = event.target.id
   const playerIndex = extractIntFromString(targetId) - 1
-  if (targetId.includes("Armor")) {
-    handleItemUpdate(playerIndex, event.target.value, 'armor', `character${playerIndex+1}ArmorNotes`)
+  if (targetId.includes('Armor')) {
+    handleItemUpdate(playerIndex, event.target.value, 'armor', `character${playerIndex + 1}ArmorNotes`)
   }
-  if (targetId.includes("RightHand")) {
-    handleItemUpdate(playerIndex, event.target.value, 'rightHand', `character${playerIndex+1}RightHandNotes`)
+  if (targetId.includes('RightHand')) {
+    handleItemUpdate(playerIndex, event.target.value, 'rightHand', `character${playerIndex + 1}RightHandNotes`)
   }
-  if (targetId.includes("LeftHand")) {
-    handleItemUpdate(playerIndex, event.target.value, 'leftHand', `character${playerIndex+1}LeftHandNotes`)
+  if (targetId.includes('LeftHand')) {
+    handleItemUpdate(playerIndex, event.target.value, 'leftHand', `character${playerIndex + 1}LeftHandNotes`)
   }
-  if (targetId.includes("Belt")) {
-    handleItemUpdate(playerIndex, event.target.value, 'belt', `character${playerIndex+1}BeltNotes`)
+  if (targetId.includes('Belt')) {
+    handleItemUpdate(playerIndex, event.target.value, 'belt', `character${playerIndex + 1}BeltNotes`)
   }
   gameStatus.save()
 }
 
-function handleItemUpdate(playerIndex, value, itemType, notesId) {
+function handleItemUpdate (playerIndex, value, itemType, notesId) {
   if (value) {
     gameStatus.characters[playerIndex].equipment[itemType].item = value
   }
   const itemNotes = document.getElementById(notesId)
   gameStatus.characters[playerIndex].equipment[itemType].notes = itemNotes.value
-
 }
 
-function handleCharacterItemNotesChange(event) {
+function handleCharacterItemNotesChange (event) {
   const targetId = event.target.id
   const playerIndex = extractIntFromString(targetId) - 1
-  if (targetId.includes("Armor")) {
-    handleItemUpdate(playerIndex, null, 'armor', `character${playerIndex+1}ArmorNotes`)
+  if (targetId.includes('Armor')) {
+    handleItemUpdate(playerIndex, null, 'armor', `character${playerIndex + 1}ArmorNotes`)
   }
-  if (targetId.includes("RightHand")) {
-    handleItemUpdate(playerIndex, null, 'rightHand', `character${playerIndex+1}RightHandNotes`)
+  if (targetId.includes('RightHand')) {
+    handleItemUpdate(playerIndex, null, 'rightHand', `character${playerIndex + 1}RightHandNotes`)
   }
-  if (targetId.includes("LeftHand")) {
-    handleItemUpdate(playerIndex, null, 'leftHand', `character${playerIndex+1}LeftHandNotes`)
+  if (targetId.includes('LeftHand')) {
+    handleItemUpdate(playerIndex, null, 'leftHand', `character${playerIndex + 1}LeftHandNotes`)
   }
-  if (targetId.includes("Belt")) {
-    handleItemUpdate(playerIndex, null, 'belt', `character${playerIndex+1}BeltNotes`)
+  if (targetId.includes('Belt')) {
+    handleItemUpdate(playerIndex, null, 'belt', `character${playerIndex + 1}BeltNotes`)
   }
   gameStatus.save()
 }
