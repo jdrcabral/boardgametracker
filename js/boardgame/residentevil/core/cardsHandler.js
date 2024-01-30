@@ -75,7 +75,7 @@ function addItemCardButton () {
   addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true, 'text')
 }
 
-function addItemDeckCardButton() {
+function addItemDeckCardButton () {
   addCard('itemADeck', 'itemASelect', boardGameComponents.items, gameStatus.itemA, false, true, 'text')
 }
 
