@@ -9,6 +9,7 @@ class GameStatus {
   characters = []
   reserve = []
   items = []
+  itemA = []
   narrative = []
   mission = []
   tensionDeck = []
@@ -63,6 +64,7 @@ class GameStatus {
     this.characters = []
     this.reserve = []
     this.items = []
+    this.itemA = []
     this.narrative = []
     this.mission = []
     this.tensionDeck = []
@@ -86,6 +88,7 @@ class GameStatus {
       characters: this.characters,
       reserve: this.reserve,
       items: this.items,
+      itemA: this.itemA,
       narrative: this.narrative,
       mission: this.mission,
       tensionDeck: this.tensionDeck
@@ -102,6 +105,7 @@ class GameStatus {
     this.narrative = []
     this.mission = []
     this.items = []
+    this.itemA = []
     this.tensionDeck = []
     this.threatLevel = 0
   }
@@ -125,6 +129,7 @@ class GameStatus {
     this.narrative = sourceData.narrative.length === 0 ? [] : sourceData.narrative
     this.mission = sourceData.mission.length === 0 ? [] : sourceData.mission
     this.items = sourceData.items.length === 0 ? [] : sourceData.items
+    this.itemA = sourceData.itemA ? sourceData.itemA : []
     this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
   }
 

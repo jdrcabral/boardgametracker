@@ -678,5 +678,177 @@
                 "Richard Aiken"
             ]
         }
+    ],
+    "encounters": [
+        {
+            "name":"Spawn a Corpse...",
+            "symbol": "",
+            "effect": ["Clue", "Clue"]
+        },
+        {
+            "name":"After resolving all...",
+            "symbol": "Circle 2",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name":"After resolving all...",
+            "symbol": "Circle 8",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name":"Spawn a Corpse...",
+            "symbol": "",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name":"Spawn Lisa Trevor...",
+            "symbol": "Circle 5",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name":"After resolving all...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name":"Locate the closest...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name":"Place the active...",
+            "symbol": "Circle 11",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn a Corpse and Place a yellow...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn a Zombie and After resolving all...",
+            "symbol": "Circle 9",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn a Zombie and Draw a tension...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn a Zombie and Search the encounter...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn two and Search the encounter...",
+            "symbol": "",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Ignore the effects...",
+            "symbol": "Circle 12",
+            "effect": ["New Order", "Heal"]
+        },
+        {
+            "name": "After resolving all...",
+            "symbol": "Circle 3",
+            "effect": ["New Order"]
+        },
+        {
+            "name": "Place this card...",
+            "symbol": "Circle 7",
+            "effect": ["New Order"]
+        },
+        {
+            "name": "Place a yellow...",
+            "symbol": "",
+            "effect": ["S.T.A.R.S", "Heal"]
+        },
+        {
+            "name": "Discard this card...",
+            "symbol": "",
+            "effect": ["S.T.A.R.S", "Item"]
+        },
+        {
+            "name": "Spawn a Hunter...",
+            "symbol": "Circle 6",
+            "effect": ["Wound", "Wound"]
+        },
+        {
+            "name": "Spawn a Cerberus...",
+            "symbol": "Circle 4",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Cerberus...",
+            "symbol": "",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Crimson...",
+            "symbol": "Circle 1",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Zombie...",
+            "symbol": "Circle 10",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Zombie...",
+            "symbol": "",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Zombie...",
+            "symbol": "Circular Arrows",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Zombie... (long text)",
+            "symbol": "",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn two Zombies...",
+            "symbol": "",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Chimera...",
+            "symbol": "Circle 18",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name": "Spawn a Webspinner...",
+            "symbol": "Circle 17",
+            "effect": ["Clue", "Wound"]
+        },
+        {
+            "name": "Spawn Crows...",
+            "symbol": "Circle 16",
+            "effect": ["Clue"]
+        },
+        {
+            "name": "Spawn Zombie Forest...",
+            "symbol": "Circle 13",
+            "effect": ["New Orders"]
+        },
+        {
+            "name": "Spawn Enemy Wesker...",
+            "symbol": "Circle 19",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn a Chimera...",
+            "symbol": "Circle 14",
+            "effect": ["Wound"]
+        },
+        {
+            "name": "Spawn two Snakes...",
+            "symbol": "Circle 15",
+            "effect": ["Wound"]
+        }
     ]
 }

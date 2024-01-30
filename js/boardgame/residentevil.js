@@ -27,6 +27,13 @@ let boardGameComponents
 const gameStatus = new GameStatus()
 let lastMapElement = null
 
+const tabElement = document.getElementById('myTab')
+tabElement.addEventListener('shown.bs.tab', (event) => {
+  if (event.target.id === 'map-tab') {
+    scaleSVGImage()
+  }
+})
+
 fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
@@ -42,6 +49,7 @@ function fillSelects () {
     fillSelectOptions(`character${i}ItemSelect`, boardGameComponents.items) // Fill options for item deck cards
   }
   fillSelectOptions('itemSelect', boardGameComponents.items) // Fill options for item deck cards
+  fillSelectOptions('itemASelect', boardGameComponents.items) // Fill options for item deck cards
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
@@ -49,7 +57,6 @@ function fillSelects () {
 
 function builder () {
   buildStartingMap()
-  scaleSVGImage()
   loadCharacters()
   updateReserve()
   loadCards()
@@ -82,6 +89,7 @@ function loadCards () {
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
+  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, inputType = 'text'))
 }
 
 function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
