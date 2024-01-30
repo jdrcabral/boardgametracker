@@ -75,6 +75,10 @@ function addItemCardButton () {
   addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true, 'text')
 }
 
+function addItemDeckCardButton() {
+  addCard('itemADeck', 'itemASelect', boardGameComponents.items, gameStatus.itemA, false, true, 'text')
+}
+
 function addNarrativeCardButton () {
   addCard('narrativeDeck', 'narrativeCardSelect', boardGameComponents.narrative, gameStatus.narrative)
 }
