@@ -91,6 +91,59 @@ function addTensionCardButton () {
   addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true, true)
 }
 
+function addEncounterCardButton() {
+  addEncounterCard('encounterDeck', 'encounterCardSelect', boardGameComponents.encounters, gameStatus.encounter, false, true)
+}
+
+function addEncounterCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
+  const container = document.getElementById(containerId)
+  const select = document.getElementById(selectId)
+  const option = select.querySelector(`option[value="${select.value}"]`)
+  const foundElement = list[parseInt(option.value)]
+  const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
+  const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
+  const cardElement = buildEncounterCard(cardText, includeQuantity, quantity, inputType, foundElement)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  container.appendChild(colDiv)
+  storeLocation.push({
+    ...foundElement,
+    quantity: 1
+  })
+  gameStatus.save()
+}
+
+function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number', extra_content = null) {
+  const cardComponent = new CardComponent()
+  const cartTitle = document.createElement('p')
+  cartTitle.setAttribute('class', 'card-text')
+  cartTitle.textContent = cardText
+  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
+  const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
+  rowCol.appendChild(input)
+  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
+  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
+  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
+  cardComponent.addElementContent(cardRow)
+  if (extra_content) {
+    const symbol = extra_content.symbol ? extra_content.symbol : "Base"
+    const symbolEl = document.createElement('p')
+    symbolEl.textContent = symbol
+    const symbolCol = ComponentCreator.createDivWithClass('col', [symbolEl])
+    const effects = extra_content.effect.map((element) => {
+      const span = document.createElement('span')
+      span.setAttribute('class', 'badge text-bg-primary')
+      span.textContent = element
+      return span
+    })
+    const effectCol = ComponentCreator.createDivWithClass('col', effects)
+    const extraRow = ComponentCreator.createDivWithClass('row', [symbolCol, effectCol])
+    
+    cardComponent.addElementContent(extraRow)
+  }
+  return cardComponent.generate()
+}
+
+
 function handleCardValueChange (event) {
   const cardItem = event.target.closest('.card')
   const cardContainer = cardItem.parentNode
