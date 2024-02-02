@@ -53,6 +53,19 @@ function fillSelects () {
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
+  fillEncounter()
+}
+
+function fillEncounter () {
+  const selectElement = document.getElementById('encounterCardSelect')
+  boardGameComponents.encounters.forEach((element, index) => {
+    const optionElement = document.createElement('option')
+    const name = typeof element === 'string' ? element : element.name
+    optionElement.setAttribute('value', index)
+    const symbol = element.symbol ? element.symbol : 'Base'
+    optionElement.textContent = `${symbol} - [${element.effect.join(',')}] ${element.name}`
+    selectElement.appendChild(optionElement)
+  })
 }
 
 function builder () {
@@ -90,6 +103,14 @@ function loadCards () {
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
   gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, inputType = 'text'))
+  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
+}
+
+function loadEncounterCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
+  const container = document.getElementById(containerId)
+  const cardElement = buildEncounterCard(element.name, includeQuantity, quantity, inputType, element)
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  container.appendChild(colDiv)
 }
 
 function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
@@ -152,6 +173,8 @@ function clearAll () {
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
   ChildRemover.clearAll('itemBox')
+  ChildRemover.clearAll('itemADeck')
+  ChildRemover.clearAll('encounterDeck')
   for (let i = 1; i < 5; i++) {
     const characterSelect = document.getElementById(`characterSelect${i}`)
     characterSelect.value = 'Select Character'

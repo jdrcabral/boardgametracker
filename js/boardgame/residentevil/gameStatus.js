@@ -13,6 +13,7 @@ class GameStatus {
   narrative = []
   mission = []
   tensionDeck = []
+  encounterDeck = []
 
   load () {
     const storageKeys = Object.keys(localStorage)
@@ -68,6 +69,7 @@ class GameStatus {
     this.narrative = []
     this.mission = []
     this.tensionDeck = []
+    this.encounterDeck = []
   }
 
   deleteData () {
@@ -91,7 +93,8 @@ class GameStatus {
       itemA: this.itemA,
       narrative: this.narrative,
       mission: this.mission,
-      tensionDeck: this.tensionDeck
+      tensionDeck: this.tensionDeck,
+      encounterDeck: this.encounterDeck
     })
   }
 
@@ -108,6 +111,7 @@ class GameStatus {
     this.itemA = []
     this.tensionDeck = []
     this.threatLevel = 0
+    this.encounterDeck = []
   }
 
   #loadAttributes (sourceData) {
@@ -131,6 +135,7 @@ class GameStatus {
     this.items = sourceData.items.length === 0 ? [] : sourceData.items
     this.itemA = sourceData.itemA ? sourceData.itemA : []
     this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
+    this.encounterDeck = sourceData.encounterDeck ? sourceData.encounterDeck : []
   }
 
   #buildReserve () {
