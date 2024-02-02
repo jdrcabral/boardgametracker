@@ -56,13 +56,13 @@ function fillSelects () {
   fillEncounter()
 }
 
-function fillEncounter() {
-  const selectElement = document.getElementById("encounterCardSelect")
+function fillEncounter () {
+  const selectElement = document.getElementById('encounterCardSelect')
   boardGameComponents.encounters.forEach((element, index) => {
     const optionElement = document.createElement('option')
     const name = typeof element === 'string' ? element : element.name
     optionElement.setAttribute('value', index)
-    const symbol = element.symbol ? element.symbol : "Base"
+    const symbol = element.symbol ? element.symbol : 'Base'
     optionElement.textContent = `${symbol} - [${element.effect.join(',')}] ${element.name}`
     selectElement.appendChild(optionElement)
   })

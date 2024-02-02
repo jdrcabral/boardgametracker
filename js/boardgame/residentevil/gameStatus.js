@@ -94,7 +94,7 @@ class GameStatus {
       narrative: this.narrative,
       mission: this.mission,
       tensionDeck: this.tensionDeck,
-      encounterDeck: this.encounterDeck,
+      encounterDeck: this.encounterDeck
     })
   }
 

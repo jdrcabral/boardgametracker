@@ -79,7 +79,7 @@ function addItemCardButton () {
   addCard('itemBox', 'itemSelect', boardGameComponents.items, gameStatus.items, false, true, 'text')
 }
 
-function addItemDeckCardButton() {
+function addItemDeckCardButton () {
   addCard('itemADeck', 'itemASelect', boardGameComponents.items, gameStatus.itemA, false, true, 'text')
 }
 
@@ -95,7 +95,7 @@ function addTensionCardButton () {
   addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true, true)
 }
 
-function addEncounterCardButton() {
+function addEncounterCardButton () {
   addEncounterCard('encounterDeck', 'encounterCardSelect', boardGameComponents.encounters, gameStatus.encounterDeck, false, true)
 }
 
@@ -128,7 +128,7 @@ function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 
   const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
   cardComponent.addElementContent(cardRow)
   if (extra_content) {
-    const symbol = extra_content.symbol ? extra_content.symbol : "Base"
+    const symbol = extra_content.symbol ? extra_content.symbol : 'Base'
     const symbolEl = document.createElement('p')
     symbolEl.textContent = symbol
     const symbolCol = ComponentCreator.createDivWithClass('col', [symbolEl])
@@ -150,7 +150,6 @@ function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 
   cardComponent.addElementContent(inputRow)
   return cardComponent.generate()
 }
-
 
 function handleCardValueChange (event) {
   const cardItem = event.target.closest('.card')
