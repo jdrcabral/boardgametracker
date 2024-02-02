@@ -160,6 +160,10 @@ function handleCardValueChange (event) {
     gameStatus.tensionDeck[index].quantity = event.target.value
   } else if (rowContainer.id === 'itemBox') {
     gameStatus.items[index].quantity = event.target.value
+  } else if (rowContainer.id === 'itemADeck') {
+    gameStatus.itemA[index].quantity = event.target.value
+  } else if (rowContainer.id === 'encounterDeck') {
+    gameStatus.encounterDeck[index].quantity === event.target.value
   }
   gameStatus.save()
 }
