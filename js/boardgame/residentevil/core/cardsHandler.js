@@ -64,8 +64,12 @@ function removeCard (event) {
     gameStatus.tensionDeck.splice(index, 1)
   } else if (containerId.includes('mission')) {
     gameStatus.mission.splice(index, 1)
-  } else if (containerId.includes('item')) {
+  } else if (containerId.includes('itemBox')) {
     gameStatus.items.splice(index, 1)
+  } else if (containerId.includes('itemADeck')) {
+    gameStatus.itemA.splice(index, 1)
+  } else if (containerId.includes('encounterDeck')) {
+    gameStatus.encounterDeck.splice(index, 1)
   }
   gameStatus.save()
   removeElement.remove()
@@ -92,7 +96,7 @@ function addTensionCardButton () {
 }
 
 function addEncounterCardButton() {
-  addEncounterCard('encounterDeck', 'encounterCardSelect', boardGameComponents.encounters, gameStatus.encounter, false, true)
+  addEncounterCard('encounterDeck', 'encounterCardSelect', boardGameComponents.encounters, gameStatus.encounterDeck, false, true)
 }
 
 function addEncounterCard (containerId, selectId, list, storeLocation, useBackgroundColor = null, includeQuantity = false, inputType = 'number') {
@@ -118,8 +122,7 @@ function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 
   cartTitle.setAttribute('class', 'card-text')
   cartTitle.textContent = cardText
   const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
-  const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
-  rowCol.appendChild(input)
+
   const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
   const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
   const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
@@ -133,13 +136,18 @@ function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 
       const span = document.createElement('span')
       span.setAttribute('class', 'badge text-bg-primary')
       span.textContent = element
-      return span
+      const spanCol = ComponentCreator.createDivWithClass('col-sm-4 col-md-3 col-lg-2', [span])
+      return spanCol
     })
-    const effectCol = ComponentCreator.createDivWithClass('col', effects)
-    const extraRow = ComponentCreator.createDivWithClass('row', [symbolCol, effectCol])
-    
+    const extraRow = ComponentCreator.createDivWithClass('row', [symbolCol])
+    const effectRow = ComponentCreator.createDivWithClass('row mb-3', effects)
     cardComponent.addElementContent(extraRow)
+    cardComponent.addElementContent(effectRow)
   }
+  const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
+  const inputCol = ComponentCreator.createDivWithClass('col', [input])
+  const inputRow = ComponentCreator.createDivWithClass('row', [inputCol])
+  cardComponent.addElementContent(inputRow)
   return cardComponent.generate()
 }
 
