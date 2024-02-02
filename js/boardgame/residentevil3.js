@@ -14,7 +14,7 @@ const cityDanger = document.getElementById('cityDanger')
 
 let boardGameComponents
 
-fetch('../../public/data/residentevil3.json').then(response => response.json()).then(data => {
+fetch('../../data/residentevil3.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
   cityDanger.addEventListener('change', handleCityDangerChange)

@@ -34,7 +34,7 @@ tabElement.addEventListener('shown.bs.tab', (event) => {
   }
 })
 
-fetch('../../public/data/residentevil.json').then(response => response.json()).then(data => {
+fetch('../../data/residentevil.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
   threatLevel.addEventListener('change', handleThreatLevelChange)

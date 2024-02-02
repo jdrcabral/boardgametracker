@@ -7,7 +7,7 @@ const sparksInput = document.getElementById('sparks')
 const gameStatus = new GameStatus()
 let boardGameComponents
 
-fetch('../../public/data/dark_souls.json').then(response => response.json()).then(data => {
+fetch('../../data/dark_souls.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
   builder()
