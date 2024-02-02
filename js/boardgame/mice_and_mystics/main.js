@@ -5,7 +5,7 @@ const scenariosTable = document.getElementById('scenariosTable')
 const gameStatus = new GameStatus()
 let boardGameComponents
 
-fetch('../../public/data/mice_and_mystics.json').then(response => response.json()).then(data => {
+fetch('../../data/mice_and_mystics.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
   // fillSelects()
