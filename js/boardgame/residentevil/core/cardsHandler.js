@@ -177,7 +177,7 @@ function handleCardValueChange (event) {
   } else if (rowContainer.id === 'itemADeck') {
     gameStatus.itemA[index].quantity = event.target.value
   } else if (rowContainer.id === 'encounterDeck') {
-    gameStatus.encounterDeck[index].quantity === event.target.value
+    gameStatus.encounterDeck[index].quantity = event.target.value
   }
   gameStatus.save()
 }
