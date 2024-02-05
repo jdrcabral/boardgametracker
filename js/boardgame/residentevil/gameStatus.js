@@ -11,9 +11,12 @@ class GameStatus {
   items = []
   itemA = []
   narrative = []
+  addedNarrative = []
   mission = []
   tensionDeck = []
+  removedTensionDeck = []
   encounterDeck = []
+  notes = ''
 
   load () {
     const storageKeys = Object.keys(localStorage)
@@ -67,9 +70,12 @@ class GameStatus {
     this.items = []
     this.itemA = []
     this.narrative = []
+    this.addedNarrative = []
     this.mission = []
     this.tensionDeck = []
     this.encounterDeck = []
+    this.removedTensionDeck = []
+    this.notes = ''
   }
 
   deleteData () {
@@ -92,9 +98,12 @@ class GameStatus {
       items: this.items,
       itemA: this.itemA,
       narrative: this.narrative,
+      addedNarrative: this.addedNarrative,
       mission: this.mission,
       tensionDeck: this.tensionDeck,
-      encounterDeck: this.encounterDeck
+      removedTensionDeck: this.removedTensionDeck,
+      encounterDeck: this.encounterDeck,
+      notes: this.notes,
     })
   }
 
@@ -106,12 +115,15 @@ class GameStatus {
     this.characters = baseCharacters
     this.reserve = this.#buildReserve()
     this.narrative = []
+    this.addedNarrative = []
     this.mission = []
     this.items = []
     this.itemA = []
     this.tensionDeck = []
+    this.removedTensionDeck = []
     this.threatLevel = 0
     this.encounterDeck = []
+    this.notes = ''
   }
 
   #loadAttributes (sourceData) {
@@ -131,11 +143,14 @@ class GameStatus {
     this.characters = sourceData.characters.length === 0 ? baseCharacters : sourceData.characters
     this.reserve = sourceData.reserve.length === 0 ? this.#buildReserve() : sourceData.reserve
     this.narrative = sourceData.narrative.length === 0 ? [] : sourceData.narrative
+    this.addedNarrative = sourceData.addedNarrative ? sourceData.addedNarrative : []
     this.mission = sourceData.mission.length === 0 ? [] : sourceData.mission
     this.items = sourceData.items.length === 0 ? [] : sourceData.items
     this.itemA = sourceData.itemA ? sourceData.itemA : []
     this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
+    this.removedTensionDeck = sourceData.removedTensionDeck ? sourceData.removedTensionDeck : []
     this.encounterDeck = sourceData.encounterDeck ? sourceData.encounterDeck : []
+    this.notes = sourceData.notes ? sourceData.notes : ''
   }
 
   #buildReserve () {

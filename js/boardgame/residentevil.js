@@ -22,6 +22,7 @@ const unlockButton = document.getElementById('unlockButton')
 const threatLevel = document.getElementById('threatLevel')
 const campaignSelect = document.getElementById('campaignSelect')
 const campaignTitle = document.getElementById('campaignTitle')
+const notesInput = document.getElementById('gameNotes')
 
 let boardGameComponents
 const gameStatus = new GameStatus()
@@ -52,7 +53,9 @@ function fillSelects () {
   fillSelectOptions('itemASelect', boardGameComponents.items) // Fill options for item deck cards
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
-  fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for narrative cards
+  fillSelectOptions('addedNarrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
+  fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for tension cards
+  fillSelectOptions('removedTensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for removed cards
   fillEncounter()
 }
 
@@ -74,6 +77,7 @@ function builder () {
   updateReserve()
   loadCards()
   threatLevel.value = gameStatus.threatLevel
+  notesInput.value = gameStatus.notes
 }
 
 function updateReserve () {
@@ -99,9 +103,11 @@ function loadCharacters () {
 
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
+  gameStatus.addedNarrative.forEach(element => loadCard('addedNarrativeDeck', element, null, false))
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
+  gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
   gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, inputType = 'text'))
   gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
 }
@@ -172,6 +178,8 @@ function clearAll () {
   ChildRemover.clearAll('missionDeck')
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
+  ChildRemover.clearAll('removedTensionDeck')
+  ChildRemover.clearAll('addedNarrativeDeck')
   ChildRemover.clearAll('itemBox')
   ChildRemover.clearAll('itemADeck')
   ChildRemover.clearAll('encounterDeck')
@@ -190,8 +198,14 @@ function handleCampaignChange (event) {
   builder()
   updateReserve()
   threatLevel.value = gameStatus.threatLevel
+  notesInput.value = gameStatus.value
 }
 
 function exportGameData () {
   return exportData(`resident_evil_${gameStatus.id}`)
+}
+
+function handleNotesChanges(event) {
+  gameStatus.notes = event.target.value
+  gameStatus.save()
 }

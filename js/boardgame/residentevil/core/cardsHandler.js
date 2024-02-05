@@ -58,10 +58,14 @@ function removeCard (event) {
   const container = removeElement.parentNode
   const containerId = container.id
   const index = Array.prototype.indexOf.call(container.children, removeElement)
-  if (containerId.includes('narrative')) {
+  if (containerId === 'narrativeDeck') {
     gameStatus.narrative.splice(index, 1)
-  } else if (containerId.includes('tension')) {
+  } else if (containerId === 'addedNarrativeDeck') {
+    gameStatus.addedNarrative.splice(index, 1)
+  } else if (containerId === 'tensionDeck') {
     gameStatus.tensionDeck.splice(index, 1)
+  } else if (containerId === 'removedTensionDeck') {
+    gameStatus.removedTensionDeck.splice(index, 1)
   } else if (containerId.includes('mission')) {
     gameStatus.mission.splice(index, 1)
   } else if (containerId.includes('itemBox')) {
@@ -87,12 +91,20 @@ function addNarrativeCardButton () {
   addCard('narrativeDeck', 'narrativeCardSelect', boardGameComponents.narrative, gameStatus.narrative)
 }
 
+function addAddedNarrativeCardButton () {
+  addCard('addedNarrativeDeck', 'addedNarrativeCardSelect', boardGameComponents.narrative, gameStatus.addedNarrative)
+}
+
 function addMissionCardButton () {
   addCard('missionDeck', 'missionCardSelect', boardGameComponents.mission, gameStatus.mission)
 }
 
 function addTensionCardButton () {
   addCard('tensionDeck', 'tensionCardSelect', boardGameComponents.tensionCards, gameStatus.tensionDeck, true, true)
+}
+
+function addRemovedTensionCardButton () {
+  addCard('removedTensionDeck', 'removedTensionCardSelect', boardGameComponents.tensionCards, gameStatus.removedTensionDeck, true, true)
 }
 
 function addEncounterCardButton () {
@@ -158,6 +170,8 @@ function handleCardValueChange (event) {
   const index = Array.prototype.indexOf.call(rowContainer.children, cardContainer)
   if (rowContainer.id === 'tensionDeck') {
     gameStatus.tensionDeck[index].quantity = event.target.value
+  } else if (rowContainer.id === 'removedTensionDeck') {
+    gameStatus.removedTensionDeck[index].quantity = event.target.value
   } else if (rowContainer.id === 'itemBox') {
     gameStatus.items[index].quantity = event.target.value
   } else if (rowContainer.id === 'itemADeck') {
