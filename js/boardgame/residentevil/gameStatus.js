@@ -103,7 +103,7 @@ class GameStatus {
       tensionDeck: this.tensionDeck,
       removedTensionDeck: this.removedTensionDeck,
       encounterDeck: this.encounterDeck,
-      notes: this.notes,
+      notes: this.notes
     })
   }
 
