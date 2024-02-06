@@ -205,7 +205,7 @@ function exportGameData () {
   return exportData(`resident_evil_${gameStatus.id}`)
 }
 
-function handleNotesChanges(event) {
+function handleNotesChanges (event) {
   gameStatus.notes = event.target.value
   gameStatus.save()
 }
