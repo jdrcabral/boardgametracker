@@ -1,7 +1,7 @@
 const STORAGE_KEY = 'CTMAMBG'
 const CURRENT_VERSION = 'alpha'
 
-class GameStatus {
+class GameStatus extends BaseCampaignStatus {
   id = null
   title = 'Game Campaign'
   scenarios = []

@@ -1,7 +1,7 @@
 const STORAGE_KEY = 'CTREBG'
 const CURRENT_VERSION = 'alpha'
 
-class GameStatus {
+class GameStatus extends BaseCampaignStatus {
   threatLevel = 0
   id = null
   title = 'Game Campaign'
