@@ -62,3 +62,12 @@ function deleteCampaign () {
   gameStatus.deleteData()
   window.location.reload()
 }
+
+function scaleSVGImage (svgElement) {
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  const svgWidth = svgElement.getBoundingClientRect().width
+  const svgHeight = svgElement.getBoundingClientRect().height
+  const scaleFactor = Math.min(svgWidth / viewportWidth, viewportHeight / svgHeight)
+  svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
+}

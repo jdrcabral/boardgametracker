@@ -31,7 +31,7 @@ let lastMapElement = null
 const tabElement = document.getElementById('myTab')
 tabElement.addEventListener('shown.bs.tab', (event) => {
   if (event.target.id === 'map-tab') {
-    scaleSVGImage()
+    scaleSVGImage(svgElement)
   }
 })
 
@@ -164,15 +164,6 @@ function openModal (event) {
     modalExtraInfo.textContent = ''
     unlockButton.setAttribute('hidden', true)
   }
-}
-
-function scaleSVGImage () {
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
-  const svgWidth = svgElement.getBoundingClientRect().width
-  const svgHeight = svgElement.getBoundingClientRect().height
-  const scaleFactor = Math.min(svgWidth / viewportWidth, viewportHeight / svgHeight)
-  svgElement.style.transform = `scale(${scaleFactor}, ${scaleFactor})`
 }
 
 function createNewCampaign () {
