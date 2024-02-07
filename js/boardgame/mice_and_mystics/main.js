@@ -8,8 +8,6 @@ let boardGameComponents
 fetch('../../data/mice_and_mystics.json').then(response => response.json()).then(data => {
   boardGameComponents = data
   loadCampaigns()
-  // fillSelects()
-  // buildReserveCharacter('Resident Evil 3')
   builder()
 })
 
