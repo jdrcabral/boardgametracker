@@ -10,9 +10,9 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
   const cardElement = buildCard(cardText, includeQuantity, quantity, inputType)
   if (useBackgroundColor) {
-    cardElement.style.backgroundColor = TENSION_CARD_COLORS[foundElement.value]
+    cardElement.setBackgroundColor(TENSION_CARD_COLORS[foundElement.value])
   }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
   if (typeof foundElement === 'string' && includeQuantity) {
     storeLocation.push({
@@ -31,11 +31,7 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
 }
 
 function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number') {
-  const cardComponent = new CardComponent()
-  const cartTitle = document.createElement('p')
-  cartTitle.setAttribute('class', 'card-text')
-  cartTitle.textContent = cardText
-  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
+  const cardComponent = new CardBuilder(cardText, removeCard)
   if (includeQuantity) {
     let input
     if (inputType === 'text') {
@@ -43,13 +39,9 @@ function buildCard (cardText, includeQuantity = false, quantityValue = 1, inputT
     } else {
       input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
     }
-    rowCol.appendChild(input)
+    cardComponent.addRow(ComponentCreator.createDivWithClass('col', [input]))
   }
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
-  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
-  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
-  cardComponent.addElementContent(cardRow)
-  return cardComponent.generate()
+  return cardComponent
 }
 
 function removeCard (event) {

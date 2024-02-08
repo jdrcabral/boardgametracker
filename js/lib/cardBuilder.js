@@ -1,16 +1,14 @@
-class GameCardBuilder {
-    constructor(title, callback) {
+class CardBuilder {
+    constructor (title, callback) {
         this.cardComponent = new CardComponent()
+        this.cardComponent.card.style
         this.cardTitle = document.createElement('p')
-        this.cartTitle.setAttribute('class', 'card-text')
-        this.cartTitle.textContent = title
+        this.cardTitle.setAttribute('class', 'card-text')
+        this.cardTitle.textContent = title
         this.removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger btn-sm', callback)
-    }
-
-    addTitleAndRemoveButtonAsRow() {
         const titleCol = ComponentCreator.createDivWithClass('col-8', [this.cardTitle])
         const removeCol = ComponentCreator.createDivWithClass('col', [this.removeButton])
-        const row = ComponentCreator.createDivWithClass('row', [titleCol, removeCol])
+        const row = ComponentCreator.createDivWithClass('row mb-2', [titleCol, removeCol])
         this.cardComponent.addElementContent(row)
     }
 
@@ -19,12 +17,18 @@ class GameCardBuilder {
         this.cardComponent.addElementContent(row)
     }
 
+    setBackgroundColor (color) {
+        console.log
+        this.cardComponent.card.style.backgroundColor = color
+    }
+
     build() {
         return this.cardComponent.generate()
     }
 }
 
-
-class QuantityCardBuilder extends GameCardBuilder {
-
+class CardAdder {
+    constructor (container) {
+        this.container = container
+    }
 }

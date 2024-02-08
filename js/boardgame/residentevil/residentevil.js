@@ -126,9 +126,9 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
   const container = document.getElementById(containerId)
   const cardElement = buildCard(element, includeQuantity, quantity, inputType)
   if (backgroundColor) {
-    cardElement.style.backgroundColor = backgroundColor
+    cardElement.setBackgroundColor(backgroundColor)
   }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 
