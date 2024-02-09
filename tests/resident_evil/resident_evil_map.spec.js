@@ -1,8 +1,8 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test('Reveal map', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should reveal map', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByRole('tab', { name: 'Mansion Map' }).click();
   await expect(page.locator('#rect36')).toBeVisible();
   await expect(page.locator('xpath=/html/body/div/div[4]/div[4]/svg/g/g[3]/g[16]/path')).not.toBeVisible();
@@ -17,8 +17,8 @@ test('Reveal map', async ({ page }) => {
   await expect(page.locator('#path98')).toBeVisible();
 });
 
-test('Reverse reveal map', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should hide a revealed map', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByRole('tab', { name: 'Mansion Map' }).click();
   await expect(page.locator('#rect36')).toBeVisible();
   await expect(page.locator('xpath=/html/body/div/div[4]/div[4]/svg/g/g[3]/g[16]/path')).not.toBeVisible();
@@ -41,8 +41,8 @@ test('Reverse reveal map', async ({ page }) => {
   await expect(page.locator('xpath=/html/body/div/div[4]/div[4]/svg/g/g[3]/g[16]/path')).not.toBeVisible();
 });
 
-test('Complete a scenario', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should complete a scenario', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByRole('tab', { name: 'Mansion Map' }).click();
   await page.locator('#tspan175').click();
   await page.getByRole('button', { name: 'Complete ' }).click();
@@ -52,8 +52,8 @@ test('Complete a scenario', async ({ page }) => {
   await expect(page.locator('#rect5')).toHaveAttribute('fill', '#2dcf43');
 });
 
-test('Reverse a complete scenario', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should reverse a complete scenario', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByRole('tab', { name: 'Mansion Map' }).click();
   await page.locator('#tspan175').click();
   await page.getByRole('button', { name: 'Complete ' }).click();

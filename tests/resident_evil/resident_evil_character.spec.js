@@ -1,8 +1,8 @@
 // @ts-check
 const { test, expect } = require('@playwright/test');
 
-test('Character Selector', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should select character', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByLabel('Character Select 1').selectOption('jill_valentine');
   await expect(page.getByLabel('Character Select 1')).toHaveValue('jill_valentine');
   await expect(page.locator('#characterHealth1')).toHaveValue('5');
@@ -21,8 +21,8 @@ test('Character Selector', async ({ page }) => {
   await expect(page.locator('#characterKerosene1')).toHaveValue('4');
 });
 
-test('Add item to character', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should add item to character', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByLabel('Character 1 Item Select').selectOption('green_herb');
   await page.getByRole('button', { name: 'Add Item' }).first().click();
   await expect(page.getByLabel('Characters').getByRole('listitem')).toBeVisible();
@@ -37,8 +37,8 @@ test('Add item to character', async ({ page }) => {
   await expect(page.getByPlaceholder('Ammo/Quantity')).toHaveValue('SA');
 });
 
-test('Add and remove character item', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should add and remove character item', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByLabel('Character 1 Item Select').selectOption('003_key');
   await page.getByRole('button', { name: 'Add Item' }).first().click();
   await page.getByLabel('Character 1 Item Select').selectOption('acid_rounds');
@@ -52,8 +52,8 @@ test('Add and remove character item', async ({ page }) => {
   await expect(page.locator('#character1InventoryList')).not.toContainText('Acid Rounds');
 });
 
-test('Reserve life change cascade to character', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should the reserve life change cascade to character', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByLabel('Character Select 2').selectOption('jill_valentine');
   await page.getByRole('row', { name: 'Jill Valentine' }).getByPlaceholder('null').click();
   await page.getByRole('row', { name: 'Jill Valentine' }).getByPlaceholder('null').fill('3');
@@ -66,8 +66,8 @@ test('Reserve life change cascade to character', async ({ page }) => {
   await expect(page.getByRole('row', { name: 'Jill Valentine' }).getByPlaceholder('null')).toHaveValue('3');
 });
 
-test('Character life change cascade to reserve', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should the character life change cascade to reserve', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByLabel('Character Select 3').selectOption('jill_valentine');
   await page.locator('#characterHealth3').click();
   await page.locator('#characterHealth3').fill('3');
@@ -79,8 +79,8 @@ test('Character life change cascade to reserve', async ({ page }) => {
   await expect(page.getByRole('row', { name: 'Jill Valentine' }).getByPlaceholder('null')).toHaveValue('3');
 });
 
-test('Reserve checkbox', async ({ page }) => {
-  await page.goto('http://localhost:8080/pages/boardgame/residentevil.html');
+test('should change the reserve checkbox', async ({ page }) => {
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html');
   await page.getByRole('row', { name: 'Jill Valentine' }).getByRole('cell').nth(1).click();
   await page.locator('#character_jill_valentine_unlocked').check();
   await page.locator('#character_rebecca_chambers_advanced').check();

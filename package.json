@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "An application to keep track of board game campains.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "http-server -p 3000 ./"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.41.2",
-    "@types/node": "^20.11.17"
-  },
-  "dependencies": {
+    "@types/node": "^20.11.17",
     "http-server": "^14.1.1"
   }
 }
