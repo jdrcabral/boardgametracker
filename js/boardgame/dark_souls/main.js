@@ -115,21 +115,11 @@ function addScenario () {
 
 function addScenarioCard (foundElement) {
   const container = document.getElementById('scenariosContainer')
-
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
-  const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
-  const cardComponent = new CardComponent()
-  const cartTitle = document.createElement('p')
-  cartTitle.setAttribute('class', 'card-text')
-  cartTitle.textContent = cardText
-  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger btn-sm', removeCard)
-  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
-  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
-  cardComponent.addElementContent(cardRow)
+  const cardComponent = new CardBuilder(cardText, removeCard)
   const sectionHeader = document.createElement('h5')
   sectionHeader.textContent = 'Section'
-  cardComponent.addElementContent(sectionHeader)
+  cardComponent.addElement(sectionHeader)
   const listComponent = new ListComponent('ul', 'list-group list-group-flush')
   foundElement.sections.forEach(element => {
     const text = document.createElement('p')
@@ -140,8 +130,8 @@ function addScenarioCard (foundElement) {
     const checkboxCol = ComponentCreator.createDivWithClass('col', [checkbox])
     listComponent.addListItem(sectionId, null, [ComponentCreator.createDivWithClass('row', [textCol, checkboxCol])])
   })
-  cardComponent.addElementContent(listComponent.list)
-  const cardElement = cardComponent.generate()
+  cardComponent.addElement(listComponent.list)
+  const cardElement = cardComponent.build()
   cardElement.style = 'height: 15rem;overflow-y: auto;'
   const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
   container.appendChild(colDiv)

@@ -12,9 +12,13 @@ class CardBuilder {
         this.cardComponent.addElementContent(row)
     }
 
-    addRow(content) {
-        const row = ComponentCreator.createDivWithClass('row', Array.isArray(content) ? content : [content])
+    addRow(content, extraClass='') {
+        const row = ComponentCreator.createDivWithClass(`row ${extraClass}`, Array.isArray(content) ? content : [content])
         this.cardComponent.addElementContent(row)
+    }
+
+    addElement(element) {
+        this.cardComponent.addElementContent(element)
     }
 
     setBackgroundColor (color) {

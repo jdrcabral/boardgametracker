@@ -117,7 +117,7 @@ function addEncounterCard (containerId, selectId, list, storeLocation, useBackgr
   const cardText = typeof foundElement === 'string' ? foundElement : foundElement.name
   const quantity = typeof foundElement === 'string' ? 0 : foundElement.quantity
   const cardElement = buildEncounterCard(cardText, includeQuantity, quantity, inputType, foundElement)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
   storeLocation.push({
     ...foundElement,
@@ -127,16 +127,7 @@ function addEncounterCard (containerId, selectId, list, storeLocation, useBackgr
 }
 
 function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 1, inputType = 'number', extra_content = null) {
-  const cardComponent = new CardComponent()
-  const cartTitle = document.createElement('p')
-  cartTitle.setAttribute('class', 'card-text')
-  cartTitle.textContent = cardText
-  const rowCol = ComponentCreator.createDivWithClass('col-8', [cartTitle])
-
-  const removeButton = ComponentCreator.createIconButton('bi bi-trash', 'btn-danger', removeCard)
-  const rowCol2 = ComponentCreator.createDivWithClass('col', [removeButton])
-  const cardRow = ComponentCreator.createDivWithClass('row', [rowCol, rowCol2])
-  cardComponent.addElementContent(cardRow)
+  const cardBuilder = new CardBuilder(cardText, removeCard)
   if (extra_content) {
     const symbol = extra_content.symbol ? extra_content.symbol : 'Base'
     const symbolEl = document.createElement('p')
@@ -149,16 +140,12 @@ function buildEncounterCard (cardText, includeQuantity = false, quantityValue = 
       const spanCol = ComponentCreator.createDivWithClass('col-sm-4 col-md-3 col-lg-2', [span])
       return spanCol
     })
-    const extraRow = ComponentCreator.createDivWithClass('row', [symbolCol])
-    const effectRow = ComponentCreator.createDivWithClass('row mb-3', effects)
-    cardComponent.addElementContent(extraRow)
-    cardComponent.addElementContent(effectRow)
+    cardBuilder.addRow(symbolCol)
+    cardBuilder.addRow(effects, 'mb-3')
   }
   const input = ComponentCreator.createNumberInput(quantityValue, 0, 100, null, 'Quantity', handleCardValueChange)
-  const inputCol = ComponentCreator.createDivWithClass('col', [input])
-  const inputRow = ComponentCreator.createDivWithClass('row', [inputCol])
-  cardComponent.addElementContent(inputRow)
-  return cardComponent.generate()
+  cardBuilder.addRow(ComponentCreator.createDivWithClass('col', [input]))
+  return cardBuilder
 }
 
 function handleCardValueChange (event) {

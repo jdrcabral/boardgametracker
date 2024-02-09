@@ -115,10 +115,10 @@ function loadCards () {
   gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
 }
 
-function loadEncounterCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
+function loadEncounterCard (containerId, element, includeQuantity = false, quantity = 1, inputType = 'number') {
   const container = document.getElementById(containerId)
   const cardElement = buildEncounterCard(element.name, includeQuantity, quantity, inputType, element)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 
