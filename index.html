@@ -16,13 +16,11 @@
         <script>
         window.dataLayer = window.dataLayer || [];
         const host = window.location.hostname;
-        console.log(host)
         if (host !== 'localhost') {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
     
             gtag('config', 'G-4H0C61C0KZ');
-            console.log('setup analytics')
         }
         </script>
     </head>
