@@ -198,7 +198,7 @@ function handleCampaignChange (event) {
   builder()
   updateReserve()
   threatLevel.value = gameStatus.threatLevel
-  notesInput.value = gameStatus.value
+  notesInput.value = gameStatus.notes
 }
 
 function exportGameData () {
