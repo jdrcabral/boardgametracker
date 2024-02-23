@@ -183,6 +183,10 @@
             "value": "Green"
         },
         {
+            "name": "Gunshots In The Distance",
+            "value": "Green"
+        },
+        {
             "name": "Respite",
             "value": "Green"
         },
@@ -816,7 +820,7 @@
             "effect": ["New Orders"]
         },
         {
-            "name": "Spawn a Chimera...",
+            "name": "Spawn Snakes...",
             "symbol": "Circle 14",
             "effect": ["Wound"]
         },
