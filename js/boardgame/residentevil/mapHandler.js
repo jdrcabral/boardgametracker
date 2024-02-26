@@ -98,7 +98,6 @@ function findScenarioIndexById (name) {
 }
 
 function buildStartingMap () {
-  boardGameComponents.scenarios.forEach(element => { processScenario(element) })
   gameStatus.scenarios.forEach(element => {
     processScenario(element)
   })
