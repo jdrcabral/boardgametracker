@@ -98,36 +98,41 @@ function findScenarioIndexById (name) {
 }
 
 function buildStartingMap () {
+  boardGameComponents.scenarios.forEach(element => { processScenario(element) })
   gameStatus.scenarios.forEach(element => {
-    const nameId = element.name.replaceAll(' ', '_')
-    const svgGroup = svgElement.getElementById(nameId)
-    lastMapElement = svgGroup
-    svgGroup.addEventListener('click', openModal)
-    svgGroup.setAttribute('data-bs-toggle', 'modal')
-    svgGroup.setAttribute('data-bs-target', '#mapModal')
-    if (!element.discovered) {
-      svgGroup.setAttribute('hidden', true)
-    } else {
-      svgGroup.removeAttribute('hidden')
-    }
-    if (element.completed) {
-      const rectElement = svgGroup.getElementsByTagName('rect')
-      rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED)
-    } else {
-      const rectElement = svgGroup.getElementsByTagName('rect')
-      rectElement[0].setAttribute('fill', LEVEL_COLORS.UNCOMPLETED)
-    }
-    if (!element.locked && element.lockedBy) {
-      const rectElement = svgGroup.getElementsByTagName('path')
-      rectElement[0].setAttribute('hidden', true)
-    } else if (element.locked && element.lockedBy) {
-      const fixedName = element.name.replaceAll(' ', '_')
-      const rectElement = svgGroup.getElementsByTagName('path')
-      const elementById = document.getElementById(rectElement[0].id)
-      elementById.removeAttribute('hidden')
-    }
+    processScenario(element)
   })
   initialMapPaths()
+}
+
+function processScenario (element) {
+  const nameId = element.name.replaceAll(' ', '_')
+  const svgGroup = svgElement.getElementById(nameId)
+  lastMapElement = svgGroup
+  svgGroup.addEventListener('click', openModal)
+  svgGroup.setAttribute('data-bs-toggle', 'modal')
+  svgGroup.setAttribute('data-bs-target', '#mapModal')
+  if (!element.discovered) {
+    svgGroup.setAttribute('hidden', true)
+  } else {
+    svgGroup.removeAttribute('hidden')
+  }
+  if (element.completed) {
+    const rectElement = svgGroup.getElementsByTagName('rect')
+    rectElement[0].setAttribute('fill', LEVEL_COLORS.COMPLETED)
+  } else {
+    const rectElement = svgGroup.getElementsByTagName('rect')
+    rectElement[0].setAttribute('fill', LEVEL_COLORS.UNCOMPLETED)
+  }
+  if (!element.locked && element.lockedBy) {
+    const rectElement = svgGroup.getElementsByTagName('path')
+    rectElement[0].setAttribute('hidden', true)
+  } else if (element.locked && element.lockedBy) {
+    const fixedName = element.name.replaceAll(' ', '_')
+    const rectElement = svgGroup.getElementsByTagName('path')
+    const elementById = document.getElementById(rectElement[0].id)
+    elementById.removeAttribute('hidden')
+  }
 }
 
 function initialMapPaths () {
