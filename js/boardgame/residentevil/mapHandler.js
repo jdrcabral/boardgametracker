@@ -99,8 +99,8 @@ function findScenarioIndexById (name) {
 
 function buildStartingMap () {
   gameStatus.scenarios = gameStatus.scenarios.map((element, index) => {
-    return { ...boardGameComponents.scenarios[index], ...element };
-  });
+    return { ...boardGameComponents.scenarios[index], ...element }
+  })
   gameStatus.scenarios.forEach(element => {
     processScenario(element)
   })
