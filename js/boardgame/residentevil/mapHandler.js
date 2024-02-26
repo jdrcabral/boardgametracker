@@ -98,6 +98,7 @@ function findScenarioIndexById (name) {
 }
 
 function buildStartingMap () {
+  console.log('buildStartingMap')
   gameStatus.scenarios.forEach(element => {
     const nameId = element.name.replaceAll(' ', '_')
     const svgGroup = svgElement.getElementById(nameId)
@@ -105,8 +106,11 @@ function buildStartingMap () {
     svgGroup.addEventListener('click', openModal)
     svgGroup.setAttribute('data-bs-toggle', 'modal')
     svgGroup.setAttribute('data-bs-target', '#mapModal')
+    console.log(element)
     if (!element.discovered) {
       svgGroup.setAttribute('hidden', true)
+    } else {
+      svgGroup.removeAttribute('hidden')
     }
     if (element.completed) {
       const rectElement = svgGroup.getElementsByTagName('rect')
@@ -140,6 +144,8 @@ function initialMapPaths () {
       })
       if (!gameStatus.scenarios[firstScenario].discovered || !gameStatus.scenarios[secondScenario].discovered) {
         child.setAttribute('hidden', true)
+      } else {
+        child.removeAttribute('hidden')
       }
     }
   }
