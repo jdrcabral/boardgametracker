@@ -107,6 +107,8 @@ function buildStartingMap () {
     svgGroup.setAttribute('data-bs-target', '#mapModal')
     if (!element.discovered) {
       svgGroup.setAttribute('hidden', true)
+    } else {
+      svgGroup.removeAttribute('hidden')
     }
     if (element.completed) {
       const rectElement = svgGroup.getElementsByTagName('rect')
@@ -140,6 +142,8 @@ function initialMapPaths () {
       })
       if (!gameStatus.scenarios[firstScenario].discovered || !gameStatus.scenarios[secondScenario].discovered) {
         child.setAttribute('hidden', true)
+      } else {
+        child.removeAttribute('hidden')
       }
     }
   }
