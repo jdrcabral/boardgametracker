@@ -66,6 +66,8 @@ function removeCard (event) {
     gameStatus.tensionDeck.splice(index, 1)
   } else if (containerId === 'removedTensionDeck') {
     gameStatus.removedTensionDeck.splice(index, 1)
+  } else if (containerId === 'addedMissionDeck') {
+    gameStatus.addedMission.splice(index, 1)
   } else if (containerId.includes('mission')) {
     gameStatus.mission.splice(index, 1)
   } else if (containerId.includes('itemBox')) {
@@ -97,6 +99,10 @@ function addAddedNarrativeCardButton () {
 
 function addMissionCardButton () {
   addCard('missionDeck', 'missionCardSelect', boardGameComponents.mission, gameStatus.mission)
+}
+
+function addAddedMissionCardButton () {
+  addCard('addedMissionDeck', 'addedMissionCardSelect', boardGameComponents.mission, gameStatus.addedMission)
 }
 
 function addTensionCardButton () {

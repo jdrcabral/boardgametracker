@@ -13,6 +13,7 @@ class GameStatus {
   narrative = []
   addedNarrative = []
   mission = []
+  addedMission = []
   tensionDeck = []
   removedTensionDeck = []
   encounterDeck = []
@@ -72,6 +73,7 @@ class GameStatus {
     this.narrative = []
     this.addedNarrative = []
     this.mission = []
+    this.addedMission = []
     this.tensionDeck = []
     this.encounterDeck = []
     this.removedTensionDeck = []
@@ -100,6 +102,7 @@ class GameStatus {
       narrative: this.narrative,
       addedNarrative: this.addedNarrative,
       mission: this.mission,
+      addedMission: this.addedMission,
       tensionDeck: this.tensionDeck,
       removedTensionDeck: this.removedTensionDeck,
       encounterDeck: this.encounterDeck,
@@ -117,6 +120,7 @@ class GameStatus {
     this.narrative = []
     this.addedNarrative = []
     this.mission = []
+    this.addedMission = []
     this.items = []
     this.itemA = []
     this.tensionDeck = []
@@ -145,6 +149,7 @@ class GameStatus {
     this.narrative = sourceData.narrative.length === 0 ? [] : sourceData.narrative
     this.addedNarrative = sourceData.addedNarrative ? sourceData.addedNarrative : []
     this.mission = sourceData.mission.length === 0 ? [] : sourceData.mission
+    this.addedMission = sourceData.addedMission ? sourceData.addedMission : []
     this.items = sourceData.items.length === 0 ? [] : sourceData.items
     this.itemA = sourceData.itemA ? sourceData.itemA : []
     this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
