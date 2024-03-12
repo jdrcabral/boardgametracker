@@ -52,6 +52,7 @@ function fillSelects () {
   fillSelectOptions('itemSelect', boardGameComponents.items) // Fill options for item deck cards
   fillSelectOptions('itemASelect', boardGameComponents.items) // Fill options for item deck cards
   fillSelectOptions('missionCardSelect', boardGameComponents.mission) // Fill options for missions
+  fillSelectOptions('addedMissionCardSelect', boardGameComponents.mission) // Fill options for added missions
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('addedNarrativeCardSelect', boardGameComponents.narrative) // Fill options for narrative cards
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true) // Fill options for tension cards
@@ -106,6 +107,7 @@ function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
   gameStatus.addedNarrative.forEach(element => loadCard('addedNarrativeDeck', element, null, false))
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
+  gameStatus.addedMission.forEach(element => loadCard('addedMissionDeck', element, null, false))
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
   gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
@@ -190,6 +192,7 @@ function createNewCampaign () {
 
 function clearAll () {
   ChildRemover.clearAll('missionDeck')
+  ChildRemover.clearAll('addedMissionDeck')
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
   ChildRemover.clearAll('removedTensionDeck')
