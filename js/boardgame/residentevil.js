@@ -77,6 +77,7 @@ function builder () {
   updateReserve()
   loadCards()
   threatLevel.value = gameStatus.threatLevel
+  handleThreatLevelColor(gameStatus.threatLevel)
   notesInput.value = gameStatus.notes
 }
 
@@ -131,7 +132,20 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
 
 function handleThreatLevelChange (event) {
   gameStatus.threatLevel = event.target.value
+  handleThreatLevelColor(event.target.value)
   gameStatus.save()
+}
+
+function handleThreatLevelColor (value) {
+  if (value < 7 && value > 0) {
+    threatLevel.style.backgroundColor = TENSION_CARD_COLORS.Green
+  } else if (value < 16 && value > 6) {
+    threatLevel.style.backgroundColor = TENSION_CARD_COLORS.Amber
+  } else if (value > 15) {
+    threatLevel.style.backgroundColor = TENSION_CARD_COLORS.Red
+  } else {
+    threatLevel.style.backgroundColor = null
+  }
 }
 
 function openModal (event) {
@@ -183,6 +197,7 @@ function clearAll () {
   ChildRemover.clearAll('itemBox')
   ChildRemover.clearAll('itemADeck')
   ChildRemover.clearAll('encounterDeck')
+  threatLevel.style.backgroundColor = null
   for (let i = 1; i < 5; i++) {
     const characterSelect = document.getElementById(`characterSelect${i}`)
     characterSelect.value = 'Select Character'
