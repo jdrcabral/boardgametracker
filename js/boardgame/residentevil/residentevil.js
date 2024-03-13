@@ -158,7 +158,7 @@ function openModal (event) {
     return element.name.replaceAll(' ', '_') === lastMapElement.id
   })
   if (gameStatus.scenarios[scenarioIndex].lockedBy) {
-    modalExtraInfo.textContent = 'Locked By: ' + gameStatus.scenarios[scenarioIndex].lockedBy
+    modalExtraInfo.textContent = `Locked By: ${gameStatus.scenarios[scenarioIndex].lockedBy}`
     unlockButton.removeAttribute('hidden')
   } else {
     modalExtraInfo.textContent = ''
