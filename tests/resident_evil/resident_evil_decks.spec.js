@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test')
 
 test('removing card from tension deck does not remove from removed tension deck', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Decks' }).click()
   await page.locator('#tensionCardSelect').selectOption('all_clear')
   await page.getByRole('button', { name: 'Add Tension Card' }).first().click()
@@ -19,7 +19,7 @@ test('removing card from tension deck does not remove from removed tension deck'
 })
 
 test('removing card from removed tension deck does not remove from tension deck', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Decks' }).click()
   await page.locator('#tensionCardSelect').selectOption('all_clear')
   await page.getByRole('button', { name: 'Add Tension Card' }).first().click()
@@ -36,7 +36,7 @@ test('removing card from removed tension deck does not remove from tension deck'
 })
 
 test('removing card from added narrative deck does not remove from narrative deck', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Decks' }).click()
   await page.locator('#narrativeCardSelect').selectOption('animosity')
   await page.getByLabel('Decks').locator('div').filter({ hasText: 'Add the played narratives' }).getByRole('button').click()
@@ -50,7 +50,7 @@ test('removing card from added narrative deck does not remove from narrative dec
 })
 
 test('removing card from narrative deck does not remove from added narrative deck', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Decks' }).click()
   await page.locator('#narrativeCardSelect').selectOption('animosity')
   await page.getByLabel('Decks').locator('div').filter({ hasText: 'Add the played narratives' }).getByRole('button').click()
