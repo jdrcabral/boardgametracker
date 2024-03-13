@@ -1,6 +1,5 @@
 class BaseCampaignStatus {
-  
-  load() {
+  load () {
     const storageKeys = Object.keys(localStorage)
     const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY))
     if (gameKeys.length === 0) {
