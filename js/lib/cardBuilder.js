@@ -22,7 +22,6 @@ class CardBuilder {
     }
 
     setBackgroundColor (color) {
-        console.log
         this.cardComponent.card.style.backgroundColor = color
     }
 

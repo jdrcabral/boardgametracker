@@ -112,7 +112,7 @@ function loadCards () {
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
   gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
   gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
-  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
+  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, true, element.quantity))
 }
 
 function loadEncounterCard (containerId, element, includeQuantity = false, quantity = 1, inputType = 'number') {
