@@ -12,7 +12,7 @@ const gameStatus = new GameStatus()
 
 const cityDanger = document.getElementById('cityDanger')
 
-let boardGameComponents
+let boardGameComponents = null
 
 fetch('../../data/residentevil3.json').then(response => response.json()).then(data => {
   boardGameComponents = data
@@ -47,8 +47,8 @@ function handleCityDangerChange (event) {
 
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
-  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
+  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, 'text'))
+  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
 }
 
 function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {

@@ -5,7 +5,7 @@ const scenarioSelect = document.getElementById('scenarioSelect')
 const soulsInput = document.getElementById('souls')
 const sparksInput = document.getElementById('sparks')
 const gameStatus = new GameStatus()
-let boardGameComponents
+let boardGameComponents = null
 
 fetch('../../data/dark_souls.json').then(response => response.json()).then(data => {
   boardGameComponents = data
@@ -48,7 +48,7 @@ function fillSelectOptions (elementId, list, usePrefix = false) {
       else name = element.name
     }
     optionElement.setAttribute('value', toSnakeCase(name))
-    optionElement.textContent = usePrefix ? `${TENSION_CARD_SYMBOLS[element.value]}(${element.value}) ${name}` : name
+    optionElement.textContent = usePrefix ? `(${element.value}) ${name}` : name
     selectElement.appendChild(optionElement)
   })
 }
