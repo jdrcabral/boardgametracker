@@ -3,6 +3,7 @@ function addCard (containerId, selectId, list, storeLocation, useBackgroundColor
   const select = document.getElementById(selectId)
   const option = select.querySelector(`option[value="${select.value}"]`)
   const foundElement = list.find((element) => {
+    console.log(element, option)
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
   })

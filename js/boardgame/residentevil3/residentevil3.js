@@ -31,6 +31,7 @@ function fillSelects () {
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative)
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true)
   fillSelectOptions('itemSelect', boardGameComponents.items)
+  fillSelectOptions('itemASelect', boardGameComponents.items)
 }
 
 function builder () {
@@ -48,6 +49,7 @@ function handleCityDangerChange (event) {
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, 'text'))
+  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
 }
 
@@ -132,6 +134,7 @@ function clearAll () {
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
   ChildRemover.clearAll('itemBox')
+  ChildRemover.clearAll('itemADeck')
   ChildRemover.clearTableBody('scenariosTable')
   for (let i = 1; i < 5; i++) {
     const characterSelect = document.getElementById(`characterSelect${i}`)
