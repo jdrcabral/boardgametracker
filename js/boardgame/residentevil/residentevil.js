@@ -112,13 +112,13 @@ function loadCards () {
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
   gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
   gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
-  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
+  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, true, element.quantity))
 }
 
-function loadEncounterCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
+function loadEncounterCard (containerId, element, includeQuantity = false, quantity = 1, inputType = 'number') {
   const container = document.getElementById(containerId)
   const cardElement = buildEncounterCard(element.name, includeQuantity, quantity, inputType, element)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 
@@ -126,9 +126,9 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
   const container = document.getElementById(containerId)
   const cardElement = buildCard(element, includeQuantity, quantity, inputType)
   if (backgroundColor) {
-    cardElement.style.backgroundColor = backgroundColor
+    cardElement.setBackgroundColor(backgroundColor)
   }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 

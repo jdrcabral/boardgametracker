@@ -83,6 +83,8 @@ class ComponentCreator {
       children.forEach(element => {
         div.appendChild(element)
       })
+    } else {
+      div.appendChild(children)
     }
     return div
   }
