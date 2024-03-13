@@ -24,7 +24,7 @@ const campaignSelect = document.getElementById('campaignSelect')
 const campaignTitle = document.getElementById('campaignTitle')
 const notesInput = document.getElementById('gameNotes')
 
-let boardGameComponents
+let boardGameComponents = null
 const gameStatus = new GameStatus()
 let lastMapElement = null
 
@@ -108,10 +108,10 @@ function loadCards () {
   gameStatus.addedNarrative.forEach(element => loadCard('addedNarrativeDeck', element, null, false))
   gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
   gameStatus.addedMission.forEach(element => loadCard('addedMissionDeck', element, null, false))
-  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, inputType = 'text'))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
-  gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, inputType = 'number'))
-  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, inputType = 'text'))
+  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, 'text'))
+  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
+  gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
+  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
   gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, null, true, element.quantity))
 }
 

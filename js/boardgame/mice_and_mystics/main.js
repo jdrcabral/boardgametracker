@@ -3,7 +3,7 @@ const partyAchievements = document.getElementById('storyAchievements')
 const partyItems = document.getElementById('partyItem')
 const scenariosTable = document.getElementById('scenariosTable')
 const gameStatus = new GameStatus()
-let boardGameComponents
+let boardGameComponents = null
 
 fetch('../../data/mice_and_mystics.json').then(response => response.json()).then(data => {
   boardGameComponents = data

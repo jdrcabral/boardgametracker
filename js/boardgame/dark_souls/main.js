@@ -5,7 +5,7 @@ const scenarioSelect = document.getElementById('scenarioSelect')
 const soulsInput = document.getElementById('souls')
 const sparksInput = document.getElementById('sparks')
 const gameStatus = new GameStatus()
-let boardGameComponents
+let boardGameComponents = null
 
 fetch('../../data/dark_souls.json').then(response => response.json()).then(data => {
   boardGameComponents = data

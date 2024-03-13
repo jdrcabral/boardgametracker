@@ -3,7 +3,8 @@ class BaseCampaignStatus {
     const storageKeys = Object.keys(localStorage)
     const gameKeys = storageKeys.filter(element => element.startsWith(STORAGE_KEY))
     if (gameKeys.length === 0) {
-      return this.loadAttributes(null)
+      this.loadAttributes(null)
+      return
     }
     if (hasOldSave(gameKeys)) {
       const storedData = JSON.parse(localStorage.getItem(STORAGE_KEY))
