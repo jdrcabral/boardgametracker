@@ -2,7 +2,7 @@
 const { test, expect } = require('@playwright/test')
 
 test('item box item should keep it quantity', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Items' }).click()
   await page.locator('#itemSelect').selectOption('green_herb')
   await page.getByRole('button', { name: 'Add Item' }).first().click()
@@ -18,7 +18,7 @@ test('item box item should keep it quantity', async ({ page }) => {
 })
 
 test('item A item should keep it quantity', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Items' }).click()
   await page.locator('#itemASelect').selectOption('green_herb')
   await page.getByRole('button', { name: 'Add Item' }).nth(1).click()
@@ -34,7 +34,7 @@ test('item A item should keep it quantity', async ({ page }) => {
 })
 
 test('removing item from item box does not remove from deck A', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Items' }).click()
   await page.locator('#itemSelect').selectOption('blue_herb')
   await page.getByRole('button', { name: 'Add Item' }).first().click()
@@ -47,7 +47,7 @@ test('removing item from item box does not remove from deck A', async ({ page })
 })
 
 test('removing item from deck A does not remove from item box', async ({ page }) => {
-  await page.goto('http://localhost:5000/pages/boardgame/residentevil.html')
+  await page.goto('http://localhost:3000/pages/boardgame/residentevil.html')
   await page.getByRole('tab', { name: 'Items' }).click()
   await page.locator('#itemSelect').selectOption('blue_herb')
   await page.getByRole('button', { name: 'Add Item' }).first().click()
