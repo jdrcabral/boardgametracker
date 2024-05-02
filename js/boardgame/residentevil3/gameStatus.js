@@ -12,6 +12,7 @@ class GameStatus extends BaseCampaignStatus {
   narrative = []
   tensionDeck = []
   itemA = []
+  notes = ''
 
   clear () {
     this.id = null
@@ -24,6 +25,7 @@ class GameStatus extends BaseCampaignStatus {
     this.narrative = []
     this.tensionDeck = []
     this.itemA = []
+    this.notes = ''
   }
 
   toJson () {
@@ -37,7 +39,8 @@ class GameStatus extends BaseCampaignStatus {
       items: this.items,
       itemA: this.itemA,
       narrative: this.narrative,
-      tensionDeck: this.tensionDeck
+      tensionDeck: this.tensionDeck,
+      notes: this.notes
     })
   }
 
@@ -54,6 +57,7 @@ class GameStatus extends BaseCampaignStatus {
     this.itemA = []
     this.tensionDeck = []
     this.cityDanger = 0
+    this.notes = ''
   }
 
   loadAttributes (sourceData) {
@@ -77,6 +81,7 @@ class GameStatus extends BaseCampaignStatus {
     this.items = sourceData.items.length === 0 ? [] : sourceData.items
     this.itemA = sourceData.itemA ? sourceData.itemA : []
     this.tensionDeck = sourceData.tensionDeck.length === 0 ? [] : sourceData.tensionDeck
+    this.notes = sourceData.notes ? sourceData.notes : ''
   }
 
   #buildReserve () {

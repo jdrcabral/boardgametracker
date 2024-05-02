@@ -128,7 +128,7 @@ function handleCheckboxChange (event) {
     if (targetId.includes('unlocked')) {
       gameStatus.scenarios[changedScenario].unlocked = event.target.checked
     }
-    if (targetId.includes('advanced')) {
+    if (targetId.includes('completed')) {
       gameStatus.scenarios[changedScenario].completed = event.target.checked
     }
     if (targetId.includes('itemC')) {

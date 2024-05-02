@@ -11,6 +11,7 @@ const TENSION_CARD_SYMBOLS = {
 const gameStatus = new GameStatus()
 
 const cityDanger = document.getElementById('cityDanger')
+const notesInput = document.getElementById('gameNotes')
 
 let boardGameComponents = null
 
@@ -39,6 +40,7 @@ function builder () {
   loadCards()
   buildScenarios()
   cityDanger.value = gameStatus.cityDanger
+  notesInput.value = gameStatus.notes
 }
 
 function handleCityDangerChange (event) {
@@ -59,7 +61,7 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
   if (backgroundColor) {
     cardElement.style.backgroundColor = backgroundColor
   }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 
@@ -151,8 +153,14 @@ function handleCampaignChange (event) {
   builder()
   updateReserve()
   cityDanger.value = gameStatus.cityDanger
+  notesInput.value = gameStatus.notes
 }
 
 function exportGameData () {
   return exportData(`resident_evil3_${gameStatus.id}`)
+}
+
+function handleNotesChanges (event) {
+  gameStatus.notes = event.target.value
+  gameStatus.save()
 }
