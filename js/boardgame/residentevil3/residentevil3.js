@@ -11,6 +11,7 @@ const TENSION_CARD_SYMBOLS = {
 const gameStatus = new GameStatus()
 
 const cityDanger = document.getElementById('cityDanger')
+const notesInput = document.getElementById('gameNotes')
 
 let boardGameComponents = null
 
@@ -31,6 +32,7 @@ function fillSelects () {
   fillSelectOptions('narrativeCardSelect', boardGameComponents.narrative)
   fillSelectOptions('tensionCardSelect', boardGameComponents.tensionCards, true)
   fillSelectOptions('itemSelect', boardGameComponents.items)
+  fillSelectOptions('itemASelect', boardGameComponents.items)
 }
 
 function builder () {
@@ -38,6 +40,7 @@ function builder () {
   loadCards()
   buildScenarios()
   cityDanger.value = gameStatus.cityDanger
+  notesInput.value = gameStatus.notes
 }
 
 function handleCityDangerChange (event) {
@@ -48,6 +51,7 @@ function handleCityDangerChange (event) {
 function loadCards () {
   gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
   gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, 'text'))
+  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
   gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
 }
 
@@ -55,9 +59,9 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
   const container = document.getElementById(containerId)
   const cardElement = buildCard(element, includeQuantity, quantity, inputType)
   if (backgroundColor) {
-    cardElement.style.backgroundColor = backgroundColor
+    cardElement.setBackgroundColor(backgroundColor)
   }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement])
+  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
   container.appendChild(colDiv)
 }
 
@@ -132,6 +136,7 @@ function clearAll () {
   ChildRemover.clearAll('narrativeDeck')
   ChildRemover.clearAll('tensionDeck')
   ChildRemover.clearAll('itemBox')
+  ChildRemover.clearAll('itemADeck')
   ChildRemover.clearTableBody('scenariosTable')
   for (let i = 1; i < 5; i++) {
     const characterSelect = document.getElementById(`characterSelect${i}`)
@@ -148,8 +153,14 @@ function handleCampaignChange (event) {
   builder()
   updateReserve()
   cityDanger.value = gameStatus.cityDanger
+  notesInput.value = gameStatus.notes
 }
 
 function exportGameData () {
   return exportData(`resident_evil3_${gameStatus.id}`)
+}
+
+function handleNotesChanges (event) {
+  gameStatus.notes = event.target.value
+  gameStatus.save()
 }
