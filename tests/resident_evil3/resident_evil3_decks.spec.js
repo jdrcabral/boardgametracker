@@ -15,10 +15,9 @@ test('adding and removing card from tension deck', async ({ page }) => {
 test('adding and removing card from narrative deck', async ({ page }) => {
   await page.goto('http://localhost:3000/pages/boardgame/residentevil3.html')
   await page.getByRole('tab', { name: 'Decks' }).click()
-  await page.getByLabel('Narrative Select').selectOption('explosion');
-  await page.getByRole('button', { name: 'Add' }).nth(1).click();
-  await expect(page.getByRole('paragraph')).toContainText('Explosion');
+  await page.getByLabel('Narrative Select').selectOption('explosion')
+  await page.getByRole('button', { name: 'Add' }).nth(1).click()
+  await expect(page.getByRole('paragraph')).toContainText('Explosion')
   await page.locator('#narrativeDeck').getByRole('button', { name: '' }).click()
   await expect(page.locator('#narrativeDeck')).not.toContainText('Explosion')
 })
-

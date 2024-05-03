@@ -19,4 +19,3 @@ test('should keep the status of scenarios', async ({ page }) => {
   await expect(page.locator('#scenario_downtown_1_itemC')).toBeChecked()
   await expect(page.locator('#scenario_downtown_2_discovered')).toBeChecked()
 })
-
