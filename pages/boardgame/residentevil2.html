@@ -77,6 +77,14 @@
         </div>
       </div>
       <hr />
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="character-tab" data-bs-toggle="tab" data-bs-target="#character-tab-pane" type="button" role="tab" aria-controls="character-tab-pane" aria-selected="true">Characters</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="map-tab" data-bs-toggle="tab" data-bs-target="#map-tab-pane" type="button" role="tab" aria-controls="map-tab-pane" aria-selected="false">Scenarios</button>
+        </li>
+      </ul>
       <h3>Characters</h3>
       <div class="container">
         <div class="row">
@@ -175,21 +183,45 @@
         </div>
       </div>
       <hr />
-      <h3>Reserve</h3>
-      <div class="container">
-        <div class="table-responsive">
-          <table class="table" id="reserveCharacters" style="overflow-x: auto;">
-            <thead>
-              <tr>
-                <th scope="col">Character</th>
-                <th scope="col">Unlocked</th>
-                <th scope="col">Dead</th>
-                <th scope="col">Advanced</th>
-                <th scope="col">Health Tracker</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="character-tab-pane" role="tabpanel" aria-labelledby="character-tab" tabindex="0">
+          <h3>Reserve</h3>
+          <div class="container">
+            <div class="table-responsive">
+              <table class="table" id="reserveCharacters" style="overflow-x: auto;">
+                <thead>
+                  <tr>
+                    <th scope="col">Character</th>
+                    <th scope="col">Unlocked</th>
+                    <th scope="col">Dead</th>
+                    <th scope="col">Advanced</th>
+                    <th scope="col">Health Tracker</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="map-tab-pane" role="tabpanel" aria-labelledby="map-tab" tabindex="0">
+          <h3>Scenarios</h3>
+          <div class="container">
+              <div class="table-responsive">
+                  <table class="table" id="scenariosTable" style="overflow-x: auto;">
+                      <thead>
+                          <tr>
+                              <th scope="col">Location</th>
+                              <th scope="col">Unlocked</th>
+                              <th scope="col">Completed</th>
+                              <th scope="col">Locked By</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
         </div>
       </div>
       <hr />
@@ -209,7 +241,7 @@
     <script src="../../js/lib/cardBuilder.js"></script>
     <script src="../../js/modules/io.js"></script>
     <script src="../../js/utils.js"></script>
-    <script src="../../js/boardgame/residentevil/gameStatus.js"></script>
+    <script src="../../js/boardgame/residentevil2/gameStatus.js"></script>
     <script src="../../js/boardgame/residentevil/core/cardsHandler.js"></script>
     <script src="../../js/dom/componentCreator.js"></script>
     <script src="../../js/boardgame/residentevil2/residentevil2.js"></script>

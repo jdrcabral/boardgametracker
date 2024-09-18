@@ -271,6 +271,24 @@
             "completed": false,
             "locked": true,
             "unlocks": ["3A"]
+        },
+        {
+            "name": "3A",
+            "completed": false,
+            "locked": true,
+            "unlocks": ["4A"]
+        },
+        {
+            "name": "4A",
+            "completed": false,
+            "locked": true,
+            "unlocks": ["5A"]
+        },
+        {
+            "name": "8B",
+            "completed": false,
+            "locked": true,
+            "unlocks": ["9B"]
         }
     ]
 }

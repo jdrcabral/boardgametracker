@@ -1,18 +1,3 @@
-const LEVEL_COLORS = {
-  COMPLETED: '#2dcf43',
-  UNCOMPLETED: '#ffffff'
-}
-const TENSION_CARD_COLORS = {
-  Green: '#a1fa9d',
-  Amber: '#ffe28c',
-  Red: '#fc8888'
-}
-const TENSION_CARD_SYMBOLS = {
-  Green: '🟢',
-  Amber: '🟡',
-  Red: '🔴'
-}
-
 const popupMenu = document.getElementById('popupMenu')
 const unlockButton = document.getElementById('unlockButton')
 const campaignSelect = document.getElementById('campaignSelect')
@@ -38,22 +23,10 @@ function fillSelects () {
   }
 }
 
-function fillEncounter () {
-  const selectElement = document.getElementById('encounterCardSelect')
-  boardGameComponents.encounters.forEach((element, index) => {
-    const optionElement = document.createElement('option')
-    const name = typeof element === 'string' ? element : element.name
-    optionElement.setAttribute('value', index)
-    const symbol = element.symbol ? element.symbol : 'Base'
-    optionElement.textContent = `${symbol} - [${element.effect.join(',')}] ${element.name}`
-    selectElement.appendChild(optionElement)
-  })
-}
-
 function builder () {
   loadCharacters()
   updateReserve()
-  loadCards()
+  buildScenarios()
   notesInput.value = gameStatus.notes
 }
 
@@ -72,35 +45,6 @@ function loadCharacters () {
       loadInventory(element, index)
     }
   })
-}
-
-function loadCards () {
-  gameStatus.narrative.forEach(element => loadCard('narrativeDeck', element, null, false))
-  gameStatus.addedNarrative.forEach(element => loadCard('addedNarrativeDeck', element, null, false))
-  gameStatus.mission.forEach(element => loadCard('missionDeck', element, null, false))
-  gameStatus.addedMission.forEach(element => loadCard('addedMissionDeck', element, null, false))
-  gameStatus.items.forEach(element => loadCard('itemBox', element.name, null, true, element.quantity, 'text'))
-  gameStatus.tensionDeck.forEach(element => loadCard('tensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
-  gameStatus.removedTensionDeck.forEach(element => loadCard('removedTensionDeck', element.name, TENSION_CARD_COLORS[element.value], true, element.quantity, 'number'))
-  gameStatus.itemA.forEach(element => loadCard('itemADeck', element.name, null, true, element.quantity, 'text'))
-  gameStatus.encounterDeck.forEach(element => loadEncounterCard('encounterDeck', element, true, element.quantity))
-}
-
-function loadEncounterCard (containerId, element, includeQuantity = false, quantity = 1, inputType = 'number') {
-  const container = document.getElementById(containerId)
-  const cardElement = buildEncounterCard(element.name, includeQuantity, quantity, inputType, element)
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
-  container.appendChild(colDiv)
-}
-
-function loadCard (containerId, element, backgroundColor = null, includeQuantity = false, quantity = 1, inputType = 'number') {
-  const container = document.getElementById(containerId)
-  const cardElement = buildCard(element, includeQuantity, quantity, inputType)
-  if (backgroundColor) {
-    cardElement.setBackgroundColor(backgroundColor)
-  }
-  const colDiv = ComponentCreator.createDivWithClass('col-xs-12 col-md-3 mb-3', [cardElement.build()])
-  container.appendChild(colDiv)
 }
 
 function createNewCampaign () {
@@ -127,6 +71,22 @@ function clearAll () {
   }
 }
 
+function buildScenarios () {
+  const reserveCharTable = document.getElementById('scenariosTable')
+  const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
+  gameStatus.scenarios.forEach(element => {
+    const elementId = toSnakeCase(element.name)
+    const tableRow = document.createElement('tr')
+    tableRow.setAttribute('id', elementId)
+    tableRow.appendChild(ReserveCharacterTable.characterNameColumn(element.name))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(!element.locked, `scenario_${elementId}_locked`, handleCheckboxChange))
+    tableRow.appendChild(ComponentCreator.createTableDataCheckbox(element.completed, `scenario_${elementId}_completed`, handleCheckboxChange))
+    const lockedBy = element.lockedBy ? element.lockedBy.join(', ') : ''
+    tableRow.appendChild(ReserveCharacterTable.characterNameColumn(lockedBy))
+    tableBody.append(tableRow)
+  })
+}
+
 function handleCampaignChange (event) {
   const gameId = event.target.value
   gameStatus.loadById(gameId)
@@ -138,7 +98,7 @@ function handleCampaignChange (event) {
 }
 
 function exportGameData () {
-  return exportData(`resident_evil_${gameStatus.id}`)
+  return exportData(`resident_evil2_${gameStatus.id}`)
 }
 
 function handleNotesChanges (event) {
