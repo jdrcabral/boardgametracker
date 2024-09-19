@@ -6,7 +6,7 @@ const notesInput = document.getElementById('gameNotes')
 
 let boardGameComponents = null
 const gameStatus = new GameStatus()
-let lastMapElement = null
+const lastMapElement = null
 
 fetch('../../data/residentevil2.json').then(response => response.json()).then(data => {
   boardGameComponents = data
