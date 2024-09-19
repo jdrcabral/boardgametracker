@@ -79,22 +79,6 @@ function loadCharacters () {
   })
 }
 
-function loadInventory (character, index) {
-  character.inventory.forEach(item => {
-    createElement(index + 1, item)
-  })
-}
-
-function buildInventoryItem (characterIndex, item) {
-  createElement(characterIndex, item)
-
-  gameStatus.characters[characterIndex - 1].inventory.push({
-    name: item,
-    value: 0
-  })
-  gameStatus.save()
-}
-
 function buildScenarios () {
   const reserveCharTable = document.getElementById('scenariosTable')
   const tableBody = reserveCharTable.getElementsByTagName('tbody')[0]
