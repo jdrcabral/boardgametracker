@@ -1,21 +1,16 @@
 {
     "characters": [
-        "Jill Valentine",
-        "Chris Redfield",
-        "Rebecca Chambers",
-        "Barry Burton",
-        "Brad Vickers",
-        "Enrico Marini",
-        "Albert Wesker",
-        "Richard Aiken",
-        "Edward Dewey",
-        "Joseph Frost",
-        "Kenneth J. Sullivan",
-        "Forest Speyer",
-        "Albert Wesker (Reserve Only)",
-        "Brad Vickers (Reserve Only)",
-        "Enrico Marini (Reserve Only)",
-        "Richard Aiken (Reserve Only)"
+        "Leon S. Kennedy",
+        "Ada Wong",
+        "Claire Redfield",
+        "Robert Kendo",
+        "Ben Bertolluci",
+        "Sherry Birkin",
+        "Annette Birkin",
+        "William Birkin",
+        "Tofu",
+        "Hunk",
+        "Chief Irons"
     ],
     "items": [
         "003 Key",
@@ -85,180 +80,6 @@
         "Wooden Emblem",
         "Yellow Gemstone"
     ],
-    "tensionCards": [
-        {
-            "name": "All Clear",
-            "value": "Green"
-        },
-        {
-            "name": "Cleared Out",
-            "value": "Green"
-        },
-        {
-            "name": "Gunshots In The Distance",
-            "value": "Green"
-        },
-        {
-            "name": "Respite",
-            "value": "Green"
-        },
-        {
-            "name": "Supply Cache",
-            "value": "Green"
-        },
-        {
-            "name": "Bee Swarm",
-            "value": "Amber"
-        },
-        {
-            "name": "Cornered",
-            "value": "Amber"
-        },
-        {
-            "name": "Diseased Claws",
-            "value": "Amber"
-        },
-        {
-            "name": "Fevered Assault",
-            "value": "Amber"
-        },
-        {
-            "name": "Flickering Lights",
-            "value": "Amber"
-        },
-        {
-            "name": "Foreboding Scene",
-            "value": "Amber"
-        },
-        {
-            "name": "Frayed Nerves",
-            "value": "Amber"
-        },
-        {
-            "name": "From The Depths",
-            "value": "Amber"
-        },
-        {
-            "name": "Gnawing Fear",
-            "value": "Amber"
-        },
-        {
-            "name": "Keep Quiet!",
-            "value": "Amber"
-        },
-        {
-            "name": "Mission Update",
-            "value": "Amber"
-        },
-        {
-            "name": "No Escape",
-            "value": "Amber"
-        },
-        {
-            "name": "Ominous Feeling",
-            "value": "Amber"
-        },
-        {
-            "name": "Reanimate",
-            "value": "Amber"
-        },
-        {
-            "name": "Sabotage",
-            "value": "Amber"
-        },
-        {
-            "name": "Sinister Echoes",
-            "value": "Amber"
-        },
-        {
-            "name": "Sinister Hiss",
-            "value": "Amber"
-        },
-        {
-            "name": "Tragic Echoes",
-            "value": "Amber"
-        },
-        {
-            "name": "Treacherous Footing",
-            "value": "Amber"
-        },
-        {
-            "name": "Unfolding Events",
-            "value": "Amber"
-        },
-        {
-            "name": "Virulent Blood",
-            "value": "Amber"
-        },
-        {
-            "name": "Waterlogged",
-            "value": "Amber"
-        },
-        { 
-            "name": "Claws From The Ceiling",
-            "value": "Red"
-        },
-        { 
-            "name": "Countdown To Explosion",
-            "value": "Red"
-        },
-        { 
-            "name": "Crimson Rage",
-            "value": "Red"
-        },
-        { 
-            "name": "Deathly Rasp",
-            "value": "Red"
-        },
-        { 
-            "name": "Dragged Shackles",
-            "value": "Red"
-        },
-        { 
-            "name": "Hunter's Prey",
-            "value": "Red"
-        },
-        { 
-            "name": "Infestation",
-            "value": "Red"
-        },
-        { 
-            "name": "Keeper's Diary",
-            "value": "Red"
-        },
-        { 
-            "name": "Murder of Crows",
-            "value": "Red"
-        },
-        { 
-            "name": "Out of the Shadows",
-            "value": "Red"
-        },
-        { 
-            "name": "Overrun",
-            "value": "Red"
-        },
-        { 
-            "name": "Shattering Glass",
-            "value": "Red"
-        },
-        { 
-            "name": "Smashed Asunder",
-            "value": "Red"
-        },
-        { 
-            "name": "Three Minutes Until Explosion",
-            "value": "Red"
-        },
-        { 
-            "name": "Vigour Mortis",
-            "value": "Red"
-        },
-        { 
-            "name": "Waterway Open",
-            "value": "Red"
-        }
-    ],
     "scenarios": [
         {
             "name": "1A",
@@ -270,18 +91,21 @@
             "name": "2A",
             "completed": false,
             "locked": true,
+            "lockedBy": ["1A"],
             "unlocks": ["3A"]
         },
         {
             "name": "3A",
             "completed": false,
             "locked": true,
+            "lockedBy": ["2A"],
             "unlocks": ["4A"]
         },
         {
             "name": "4A",
             "completed": false,
             "locked": true,
+            "lockedBy": ["3A"],
             "unlocks": ["5A"]
         },
         {
