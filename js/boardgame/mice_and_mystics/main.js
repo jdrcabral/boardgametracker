@@ -52,7 +52,6 @@ function buildCharacters () {
     }
   })]
   gameStatus.characters.forEach(element => {
-    const column = ComponentCreator.createDivWithClass('col-md-3 col-xs-12 mb-3')
     const card = new CardComponent()
     card.addTextContent(element.name)
     const playerNameInput = ComponentCreator.createTextInput(null, `${toSnakeCase(element.name)}_player`, 'Player Name', handlePlayerNameChange)
@@ -97,7 +96,8 @@ function buildCharacters () {
     card.addElementContent(abilitiesColItems)
 
     const generatedCard = card.generate()
-    column.appendChild(generatedCard)
+    
+    const column = ComponentCreator.createDivWithClass('col-md-3 col-xs-12 mb-3', [generatedCard])
     characterContainer.appendChild(column)
   })
 }
