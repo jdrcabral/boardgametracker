@@ -96,7 +96,7 @@ function buildCharacters () {
     card.addElementContent(abilitiesColItems)
 
     const generatedCard = card.generate()
-    
+
     const column = ComponentCreator.createDivWithClass('col-md-3 col-xs-12 mb-3', [generatedCard])
     characterContainer.appendChild(column)
   })
