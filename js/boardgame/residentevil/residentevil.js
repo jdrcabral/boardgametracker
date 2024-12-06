@@ -27,13 +27,13 @@ const notesInput = document.getElementById('gameNotes')
 let boardGameComponents = null
 const gameStatus = new GameStatus()
 let lastMapElement = null
-let resized = false;
+let resized = false
 
 const tabElement = document.getElementById('myTab')
 tabElement.addEventListener('shown.bs.tab', (event) => {
   if (event.target.id === 'map-tab' && !resized) {
     scaleSVGImage(svgElement)
-    resized = true;
+    resized = true
   }
 })
 
