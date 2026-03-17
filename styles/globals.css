@@ -1,0 +1,35 @@
+
+html, body {
+  height: 100%;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+
+.py-3 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.bg-light {
+  background-color: #f8f9fa;
+}
+
+.alert {
+  position: relative;
+  padding: 1rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
