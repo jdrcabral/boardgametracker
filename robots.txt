@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /node_modules/
 Disallow: /tests/
 Allow: /
+Sitemap: https://jdrcabral.github.io/boardgametracker/sitemap.xml
