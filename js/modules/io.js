@@ -1,14 +1,14 @@
- function clearAllData () {
+function clearAllData () {
   const operation = confirm('Are you sure? The data will be lost')
   if (operation) {
-    trackEvent('clear_all_data');
+    trackEvent('clear_all_data')
     gameStatus.deleteData()
     window.location.reload()
   }
 }
 
 function exportData (fileName) {
-  trackEvent('export_data', { file_name: fileName });
+  trackEvent('export_data', { file_name: fileName })
   const downloadLink = document.getElementById('exportFile')
   const jsonString = gameStatus.toJson()
   // Set the download link href to the data URL
@@ -31,7 +31,7 @@ function importData () {
   fileInput.focus()
   fileInput.addEventListener('change', (event) => {
     const fileToLoad = event.target.files[0]
-    trackEvent('import_data', { file_name: fileToLoad.name });
+    trackEvent('import_data', { file_name: fileToLoad.name })
     const reader = new FileReader()
     reader.onload = (event) => {
       const fileContent = event.target.result

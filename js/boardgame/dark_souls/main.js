@@ -104,7 +104,7 @@ function loadInventory () {
 function addScenario () {
   const select = document.getElementById('scenarioSelect')
   const option = select.querySelector(`option[value="${select.value}"]`)
-  trackEvent('add_scenario', { scenario_name: option.textContent });
+  trackEvent('add_scenario', { scenario_name: option.textContent })
   const foundElement = boardGameComponents.scenarios.find((element) => {
     if (typeof element === 'string') return toSnakeCase(element) === option.value
     return toSnakeCase(element.name) === option.value
@@ -146,10 +146,10 @@ function removeCard (event) {
   const containerId = container.id
   const index = Array.prototype.indexOf.call(container.children, removeElement)
   if (containerId.includes('scenarios')) {
-    trackEvent('remove_scenario', { scenario_name: gameStatus.scenarios[index].name });
+    trackEvent('remove_scenario', { scenario_name: gameStatus.scenarios[index].name })
     gameStatus.scenarios.splice(index, 1)
   } else if (containerId.includes('item')) {
-    trackEvent('remove_item', { item_name: gameStatus.inventory[index].name });
+    trackEvent('remove_item', { item_name: gameStatus.inventory[index].name })
     gameStatus.inventory.splice(index, 1)
   }
   gameStatus.save()
@@ -187,7 +187,7 @@ function handleCheckBoxChange (event) {
 }
 
 function createNewCampaign () {
-  trackEvent('create_new_campaign');
+  trackEvent('create_new_campaign')
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -209,7 +209,7 @@ function clearAll () {
 
 function handleCampaignChange (event) {
   const gameId = event.target.value
-  trackEvent('load_campaign', { campaign_id: gameId });
+  trackEvent('load_campaign', { campaign_id: gameId })
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
   clearAll()
@@ -298,7 +298,7 @@ function handleClassChange (event) {
   const targetId = event.target.id
   const playerIndex = parseInt(targetId[targetId.length - 1]) - 1
 
-  trackEvent('character_class_change', { character_class: characterClass.class, character_index: playerIndex });
+  trackEvent('character_class_change', { character_class: characterClass.class, character_index: playerIndex })
 
   const strengthTierSelect = document.getElementById(`characterStrengthSelect${playerIndex + 1}`)
   const strengthInput = document.getElementById(`characterStrength${playerIndex + 1}`)
@@ -328,22 +328,22 @@ function handleCharacterTierChange (event) {
     return toSnakeCase(element.class) === gameStatus.characters[playerIndex].name
   })
   if (targetId.includes('Strength')) {
-    trackEvent('character_tier_change', { attribute: 'Strength', value: event.target.value, character_index: playerIndex });
+    trackEvent('character_tier_change', { attribute: 'Strength', value: event.target.value, character_index: playerIndex })
     gameStatus.characters[playerIndex].attributes.strength = event.target.value
     const input = document.getElementById(`characterStrength${playerIndex + 1}`)
     input.value = charClass.Strength[event.target.value]
   } else if (targetId.includes('Dexterity')) {
-    trackEvent('character_tier_change', { attribute: 'Dexterity', value: event.target.value, character_index: playerIndex });
+    trackEvent('character_tier_change', { attribute: 'Dexterity', value: event.target.value, character_index: playerIndex })
     gameStatus.characters[playerIndex].attributes.dexterity = event.target.value
     const input = document.getElementById(`characterDexterity${playerIndex + 1}`)
     input.value = charClass.Dexterity[event.target.value]
   } else if (targetId.includes('Faith')) {
-    trackEvent('character_tier_change', { attribute: 'Faith', value: event.target.value, character_index: playerIndex });
+    trackEvent('character_tier_change', { attribute: 'Faith', value: event.target.value, character_index: playerIndex })
     gameStatus.characters[playerIndex].attributes.faith = event.target.value
     const input = document.getElementById(`characterFaith${playerIndex + 1}`)
     input.value = charClass.Faith[event.target.value]
   } else if (targetId.includes('Intelligence')) {
-    trackEvent('character_tier_change', { attribute: 'Intelligence', value: event.target.value, character_index: playerIndex });
+    trackEvent('character_tier_change', { attribute: 'Intelligence', value: event.target.value, character_index: playerIndex })
     gameStatus.characters[playerIndex].attributes.intelligence = event.target.value
     const input = document.getElementById(`characterIntelligence${playerIndex + 1}`)
     input.value = charClass.Intelligence[event.target.value]
@@ -355,7 +355,7 @@ function addItem () {
   const foundItem = ItemsHandler.retrieveAllItems().find(element => {
     return toSnakeCase(element.name) === itemSelect.value
   })
-  trackEvent('add_item', { item_name: foundItem.name });
+  trackEvent('add_item', { item_name: foundItem.name })
   addItemCard(foundItem)
   gameStatus.inventory.push({
     name: foundItem.name,
@@ -395,7 +395,7 @@ function handleInventoryEventChange (event) {
   const removeElement = cardElement.parentNode
   const container = removeElement.parentNode
   const index = Array.prototype.indexOf.call(container.children, removeElement)
-  trackEvent('inventory_note_change', { item_name: gameStatus.inventory[index].name });
+  trackEvent('inventory_note_change', { item_name: gameStatus.inventory[index].name })
   gameStatus.inventory[index].notes = event.target.value
   gameStatus.save()
 }
@@ -407,18 +407,18 @@ function handleCheckboxCampaignSectionChange (event) {
   const index = Array.prototype.indexOf.call(container.children, removeElement)
   const ulElement = event.target.closest('ul')
   const sectionIndex = Array.prototype.indexOf.call(ulElement.children, event.target.parentNode.parentNode.parentNode)
-  trackEvent('scenario_section_change', { scenario_name: gameStatus.scenarios[index].name, section_name: gameStatus.scenarios[index].sections[sectionIndex].name, completed: event.target.checked });
+  trackEvent('scenario_section_change', { scenario_name: gameStatus.scenarios[index].name, section_name: gameStatus.scenarios[index].sections[sectionIndex].name, completed: event.target.checked })
   gameStatus.scenarios[index].sections[sectionIndex].completed = event.target.checked
   gameStatus.save()
 }
 
 function handleSoulsSparkChange (event) {
   if (event.target.id === 'souls') {
-    trackEvent('souls_change', { value: event.target.value });
+    trackEvent('souls_change', { value: event.target.value })
     gameStatus.souls = event.target.value
   }
   if (event.target.id === 'sparks') {
-    trackEvent('sparks_change', { value: event.target.value });
+    trackEvent('sparks_change', { value: event.target.value })
     gameStatus.sparks = event.target.value
   }
   gameStatus.save()
@@ -429,19 +429,19 @@ function handleTokenChange (event) {
   const playerIndex = extractIntFromString(targetId)
 
   if (targetId.includes('ember')) {
-    trackEvent('token_change', { token_name: 'ember', value: event.target.checked, character_index: playerIndex - 1 });
+    trackEvent('token_change', { token_name: 'ember', value: event.target.checked, character_index: playerIndex - 1 })
     gameStatus.characters[playerIndex - 1].emberToken = event.target.checked
   }
   if (targetId.includes('estus')) {
-    trackEvent('token_change', { token_name: 'estus', value: event.target.checked, character_index: playerIndex - 1 });
+    trackEvent('token_change', { token_name: 'estus', value: event.target.checked, character_index: playerIndex - 1 })
     gameStatus.characters[playerIndex - 1].estusReady = event.target.checked
   }
   if (targetId.includes('heroicAction')) {
-    trackEvent('token_change', { token_name: 'heroicAction', value: event.target.checked, character_index: playerIndex - 1 });
+    trackEvent('token_change', { token_name: 'heroicAction', value: event.target.checked, character_index: playerIndex - 1 })
     gameStatus.characters[playerIndex - 1].heroicAction = event.target.checked
   }
   if (targetId.includes('luck')) {
-    trackEvent('token_change', { token_name: 'luck', value: event.target.checked, character_index: playerIndex - 1 });
+    trackEvent('token_change', { token_name: 'luck', value: event.target.checked, character_index: playerIndex - 1 })
     gameStatus.characters[playerIndex - 1].luckReady = event.target.checked
   }
   gameStatus.save()
