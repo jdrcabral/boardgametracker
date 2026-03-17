@@ -122,6 +122,7 @@ function buildScenarios () {
 }
 
 function createNewCampaign () {
+  trackEvent('create_new_campaign')
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -143,6 +144,7 @@ function clearAll () {
 
 function handleCampaignChange (event) {
   const gameId = event.target.value
+  trackEvent('load_campaign', { campaign_id: gameId })
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
   clearAll()
@@ -158,6 +160,7 @@ function handlePlayerNameChange (event) {
   const charIndex = gameStatus.characters.findIndex((element) => {
     return `${toSnakeCase(element.name)}_player` === targetId
   })
+  trackEvent('player_name_change', { character: gameStatus.characters[charIndex].name, player_name: event.target.value })
   gameStatus.characters[charIndex].player = event.target.value
   gameStatus.save()
 }
@@ -168,16 +171,19 @@ function handleCheckBoxChange (event) {
     const changedIndex = gameStatus.partyItems.findIndex(element => {
       return toSnakeCase(element.name) === targetId.replace('_party_item', '')
     })
+    trackEvent('party_item_change', { item_name: gameStatus.partyItems[changedIndex].name, value: event.target.value })
     gameStatus.partyItems[changedIndex].value = event.target.value
   } else if (targetId.includes('party_achievement')) {
     const changedIndex = gameStatus.storyAchievements.findIndex(element => {
       return toSnakeCase(element.name) === targetId.replace('_party_achievement', '')
     })
+    trackEvent('party_achievement_change', { achievement_name: gameStatus.storyAchievements[changedIndex].name, value: event.target.value })
     gameStatus.storyAchievements[changedIndex].value = event.target.value
   } else {
     const changedIndex = gameStatus.scenarios.findIndex(element => {
       return `${toSnakeCase(element.title)}_completed` === targetId
     })
+    trackEvent('scenario_change', { scenario_name: gameStatus.scenarios[changedIndex].title, completed: event.target.value })
     gameStatus.scenarios[changedIndex].completed = event.target.value
   }
   gameStatus.save()
@@ -190,12 +196,14 @@ function addItemAbilities (character, destination) {
     const select = document.getElementById(`select_inventory_${toSnakeCase(character)}`)
     const selectedValue = select.value
     const option = select.querySelector(`option[value="${selectedValue}"]`)
+    trackEvent('add_item', { character, item: option.textContent })
     gameStatus.characters[characterIndex].inventory.push(option.textContent)
     createElement(container, option.textContent)
   } else {
     const select = document.getElementById(`select_abilities_${toSnakeCase(character)}`)
     const selectedValue = select.value
     const option = select.querySelector(`option[value="${selectedValue}"]`)
+    trackEvent('add_ability', { character, ability: option.textContent })
     gameStatus.characters[characterIndex].abilities.push(option.textContent)
     createElement(container, option.textContent)
   }
@@ -224,11 +232,13 @@ function removeCharacterInventoryItem (event) {
     const characterIndex = gameStatus.characters.findIndex(element => {
       return element.name === listContainer.id.replace('InventoryList', '')
     })
+    trackEvent('remove_item', { character: gameStatus.characters[characterIndex].name, item: gameStatus.characters[characterIndex].inventory[index] })
     gameStatus.characters[characterIndex].inventory.splice(index, 1)
   } else {
     const characterIndex = gameStatus.characters.findIndex(element => {
       return element.name === listContainer.id.replace('AbilitiesList', '')
     })
+    trackEvent('remove_ability', { character: gameStatus.characters[characterIndex].name, ability: gameStatus.characters[characterIndex].abilities[index] })
     gameStatus.characters[characterIndex].abilities.splice(index, 1)
   }
   gameStatus.save()

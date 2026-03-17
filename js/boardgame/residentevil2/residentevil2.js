@@ -48,6 +48,7 @@ function loadCharacters () {
 }
 
 function createNewCampaign () {
+  trackEvent('create_new_campaign')
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -89,6 +90,7 @@ function buildScenarios () {
 
 function handleCampaignChange (event) {
   const gameId = event.target.value
+  trackEvent('load_campaign', { campaign_id: gameId })
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
   clearAll()
@@ -102,6 +104,7 @@ function exportGameData () {
 }
 
 function handleNotesChanges (event) {
+  trackEvent('notes_change')
   gameStatus.notes = event.target.value
   gameStatus.save()
 }
