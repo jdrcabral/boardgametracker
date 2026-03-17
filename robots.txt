@@ -1,2 +1,4 @@
 User-agent: *
-Allow: /sitemap.xml
+Disallow: /node_modules/
+Disallow: /tests/
+Allow: /

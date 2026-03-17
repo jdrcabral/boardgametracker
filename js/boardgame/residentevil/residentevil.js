@@ -135,6 +135,7 @@ function loadCard (containerId, element, backgroundColor = null, includeQuantity
 }
 
 function handleThreatLevelChange (event) {
+  trackEvent('threat_level_change', { value: event.target.value });
   gameStatus.threatLevel = event.target.value
   handleThreatLevelColor(event.target.value)
   gameStatus.save()
@@ -154,6 +155,7 @@ function handleThreatLevelColor (value) {
 
 function openModal (event) {
   const targetElement = event.target.closest('g')
+  trackEvent('open_map_modal', { scenario_name: targetElement.id });
   modalTitle.textContent = targetElement.id.replaceAll('_', ' ')
   lastMapElement = targetElement
   const scenarioIndex = gameStatus.scenarios.findIndex(element => {
@@ -169,6 +171,7 @@ function openModal (event) {
 }
 
 function createNewCampaign () {
+  trackEvent('create_new_campaign');
   gameStatus.reset()
   const optionElement = document.createElement('option')
   optionElement.setAttribute('value', gameStatus.id)
@@ -202,7 +205,8 @@ function clearAll () {
 }
 
 function handleCampaignChange (event) {
-  const gameId = event.target.value
+  const gameId = event.target.value;
+  trackEvent('load_campaign', { campaign_id: gameId });
   gameStatus.loadById(gameId)
   campaignTitle.value = gameStatus.title
   clearAll()
@@ -217,6 +221,7 @@ function exportGameData () {
 }
 
 function handleNotesChanges (event) {
+  trackEvent('notes_change');
   gameStatus.notes = event.target.value
   gameStatus.save()
 }
